@@ -1,0 +1,65 @@
+import java.text.SimpleDateFormat
+
+apply plugin: 'com.android.application'
+
+def releaseTime() {
+    def df = new SimpleDateFormat('yyyyMMddHHmm')
+    df.setTimeZone(TimeZone.getDefault())
+    return df.format(new Date())
+}
+
+android {
+    compileSdkVersion 22
+    buildToolsVersion "22.0.1"
+
+    defaultConfig {
+        applicationId "com.ymsfd.practices"
+        minSdkVersion 15
+        targetSdkVersion 22
+        versionCode 1
+        versionName "1.0"
+    }
+
+    signingConfigs {
+        release {
+            storeFile file(KEYSTORE_FILE)
+            storePassword KEYSTORE_PASSWORD
+            keyAlias ymsfddev_ALIAS
+            keyPassword ymsfddev_PASSWORD
+        }
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.release
+//            applicationVariants.all { variant ->
+//                variant.outputs.each { output ->
+//                    def outputFile = output.outputFile
+//                    if (outputFile != null && outputFile.name.endsWith('.apk')) {
+//                        def fileName = "${defaultConfig.applicationId}_v${defaultConfig.versionName}_${releaseTime()}_${variant.productFlavors[0].name}.apk"
+//                        output.outputFile = new File(outputFile.parent, fileName)
+//                    }
+//                }
+//            }
+        }
+    }
+
+    productFlavors {
+        wandoujia {}
+        baidu {}
+        xiaomi {}
+        tencent {}
+        taobao {}
+    }
+
+    productFlavors.all { flavor ->
+        flavor.manifestPlaceholders = [CHANNEL_VALUE: name]
+    }
+}
+
+dependencies {
+    compile fileTree(dir: 'libs', include: ['*.jar'])
+    compile 'com.android.support:appcompat-v7:22.1.1'
+}

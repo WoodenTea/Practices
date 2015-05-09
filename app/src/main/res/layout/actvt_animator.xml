@@ -1,0 +1,62 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".MainActivity">
+
+    <Button
+        android:id="@+id/bezier"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Bezier"/>
+
+    <Button
+        android:id="@+id/scaleX"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="ScaleX" />
+
+    <Button
+        android:id="@+id/scale"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Scale" />
+
+    <Button
+        android:id="@+id/translateX"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="TranslateX" />
+
+    <Button
+        android:id="@+id/alpha"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="alpha" />
+
+    <Button
+        android:id="@+id/propertyValHolder"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="PropertyValueHolder" />
+
+    <Button
+        android:id="@+id/propertyAnimator"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="ViewPropertyAnimator" />
+
+    <Button
+        android:id="@+id/set"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Set" />
+
+    <Button
+        android:id="@+id/animator"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="ValueAnimator" />
+
+</LinearLayout>

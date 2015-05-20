@@ -55,6 +55,22 @@
                 <category android:name="com.ymsfd.android.practices.SAMPLE" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".activity.ViewGroupActivity"
+            android:label="ViewGroup">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="com.ymsfd.android.practices.SAMPLE" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".activity.JSActivity"
+            android:label="JavaScript">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="com.ymsfd.android.practices.SAMPLE" />
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>

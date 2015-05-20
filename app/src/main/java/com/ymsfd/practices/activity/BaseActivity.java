@@ -17,15 +17,15 @@ public class BaseActivity extends Activity {
         return true;
     }
 
-    protected void D(String msg) {
+    final protected void D(String msg) {
         Log.d(TAG, msg);
     }
 
-    protected void E(String msg) {
+    final protected void E(String msg) {
         Log.e(TAG, msg);
     }
 
-    protected void I(String msg) {
+    final protected void I(String msg) {
         Log.i(TAG, msg);
     }
 }

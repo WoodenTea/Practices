@@ -25,7 +25,7 @@ public class MainActivity extends Activity implements AdapterView.OnItemClickLis
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.actvt_main);
 
         Intent intent = getIntent();
         String path = intent.getStringExtra("com.ymsfd.android.practices.Path");
@@ -66,7 +66,7 @@ public class MainActivity extends Activity implements AdapterView.OnItemClickLis
     }
 
     private List<Map<String, Object>> getActivities(String prefix) {
-        List<Map<String, Object>> mapActivity = new ArrayList<Map<String, Object>>();
+        List<Map<String, Object>> mapActivity = new ArrayList<>();
 
         Intent mainIntent = new Intent(Intent.ACTION_MAIN, null);
         mainIntent.addCategory("com.ymsfd.android.practices.SAMPLE");
@@ -88,7 +88,7 @@ public class MainActivity extends Activity implements AdapterView.OnItemClickLis
 
         int len = list.size();
 
-        Map<String, Boolean> entries = new HashMap<String, Boolean>();
+        Map<String, Boolean> entries = new HashMap<>();
 
         for (int i = 0; i < len; i++) {
             ResolveInfo info = list.get(i);
@@ -133,7 +133,7 @@ public class MainActivity extends Activity implements AdapterView.OnItemClickLis
     }
 
     protected void addItem(List<Map<String, Object>> data, String name, Intent intent) {
-        Map<String, Object> tmp = new HashMap<String, Object>();
+        Map<String, Object> tmp = new HashMap<>();
         tmp.put("title", name);
         tmp.put("intent", intent);
         data.add(tmp);

@@ -3,6 +3,14 @@
     package="com.ymsfd.practices"
     xmlns:android="http://schemas.android.com/apk/res/android">
 
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.FLASHLIGHT" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+
     <application
         android:name=".support.util.GlobalContext"
         android:allowBackup="true"
@@ -66,6 +74,30 @@
         <activity
             android:name=".activity.JSActivity"
             android:label="JavaScript">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="com.ymsfd.android.practices.SAMPLE" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".activity.SceneActivity"
+            android:label="Scene">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="com.ymsfd.android.practices.SAMPLE" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".activity.CaptureActivity"
+            android:label="QR CODE">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="com.ymsfd.android.practices.SAMPLE" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".activity.DesignActivity"
+            android:label="Design">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="com.ymsfd.android.practices.SAMPLE" />

@@ -30,7 +30,7 @@ public class FragmentViewPagerActivity extends FragmentActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.actvt_fragment);
 
-        list = new ArrayList<Fragment>();
+        list = new ArrayList<>();
         list.add(new AFragment());
         list.add(new BFragment());
         list.add(new CFragment());

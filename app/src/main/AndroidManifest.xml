@@ -103,6 +103,14 @@
                 <category android:name="com.ymsfd.android.practices.SAMPLE" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".activity.FancyItemActivity"
+            android:label="FancyItem">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="com.ymsfd.android.practices.SAMPLE" />
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>

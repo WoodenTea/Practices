@@ -41,8 +41,8 @@ public class AnimatorActivity extends BaseActivity implements View.OnClickListen
         bezierValueAnimator.setDuration(2000);
         bezierValueAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
             @Override
-            public void onAnimationUpdate(ValueAnimator animation) {
-                PointF pointF = (PointF) animation.getAnimatedValue();
+            public void onAnimationUpdate(ValueAnimator valueAnimator) {
+                PointF pointF = (PointF) valueAnimator.getAnimatedValue();
                 bezier.setX(pointF.x);
                 bezier.setY(pointF.y);
             }
@@ -134,8 +134,8 @@ public class AnimatorActivity extends BaseActivity implements View.OnClickListen
         mValueAnimator = ValueAnimator.ofInt(1, 100);
         mValueAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
             @Override
-            public void onAnimationUpdate(ValueAnimator va) {
-                float factor = va.getAnimatedFraction();
+            public void onAnimationUpdate(ValueAnimator valueAnimator) {
+                float factor = valueAnimator.getAnimatedFraction();
                 ViewGroup.MarginLayoutParams marginLayoutParams = (ViewGroup.MarginLayoutParams) buttonValueAnimator
                         .getLayoutParams();
                 marginLayoutParams.leftMargin = (int) (factor * 100);

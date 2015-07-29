@@ -1,9 +1,7 @@
 package com.ymsfd.practices.activity;
 
-import android.content.pm.ApplicationInfo;
-import android.content.pm.PackageManager;
 import android.os.Bundle;
-import android.widget.Toast;
+import android.view.View;
 
 import com.ymsfd.practices.R;
 
@@ -22,15 +20,13 @@ public class TestActivity extends BaseActivity {
         }
 
         setContentView(R.layout.actvt_test);
-        try {
-            ApplicationInfo appInfo = this.getPackageManager()
-                    .getApplicationInfo(getPackageName(),
-                            PackageManager.GET_META_DATA);
-            String value = appInfo.metaData.getString("YMSFD");
-            Toast.makeText(this, value, Toast.LENGTH_SHORT).show();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+
+        findViewById(R.id.button).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                D("Width: " + view.getWidth() + " Height: " + view.getHeight());
+            }
+        });
 
         return true;
     }

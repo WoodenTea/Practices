@@ -3,4 +3,8 @@
 
     <string name="hello">您好!</string>
     <string name="settings">设置</string>
+    <string name="title_activity_spannable">SpannableActivity</string>
+
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
 </resources>

@@ -47,10 +47,10 @@ public final class ViewfinderView extends View {
 
 		// GradientDrawable、lineDrawable
 		mRect = new Rect();
-		int left = getResources().getColor(R.color.lightgreen);
+		int left = getResources().getColor(R.color.light_green);
 		int center = getResources().getColor(R.color.green);
-		int right = getResources().getColor(R.color.lightgreen);
-		lineDrawable = getResources().getDrawable(R.mipmap.scan_qcode_line);
+		int right = getResources().getColor(R.color.light_green);
+		lineDrawable = getResources().getDrawable(R.drawable.scan_qcode_line);
 		mDrawable = new GradientDrawable(
 				GradientDrawable.Orientation.LEFT_RIGHT, new int[] { left,
 						left, center, right, right });

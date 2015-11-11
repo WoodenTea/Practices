@@ -80,74 +80,73 @@ public class CircleIndicatorView extends View {
         super.onDraw(canvas);
 
         final int count = NUMBER;
-        if (count == 0) {
-            return;
-        }
 
-        int longSize;
-        int longPaddingBefore;
-        int longPaddingAfter;
-        int shortPaddingBefore;
+        int length;
+        int width;
+        int lengthPaddingBefore;
+        int lengthPaddingAfter;
+        int widthPaddingBefore;
+
         if (mOrientation == LinearLayout.HORIZONTAL) {
-            longSize = getWidth();
-            longPaddingBefore = getPaddingLeft();
-            longPaddingAfter = getPaddingRight();
-            shortPaddingBefore = getPaddingTop();
+            length = getWidth();
+            width = getHeight();
+            lengthPaddingBefore = getPaddingLeft();
+            lengthPaddingAfter = getPaddingRight();
+            widthPaddingBefore = getPaddingTop();
+            canvas.drawLine((float) length / 2, 0, (float) length / 2.0f, (float) width, floatPaint);
         } else {
-            longSize = getHeight();
-            longPaddingBefore = getPaddingTop();
-            longPaddingAfter = getPaddingBottom();
-            shortPaddingBefore = getPaddingLeft();
+            length = getHeight();
+            width = getWidth();
+            lengthPaddingBefore = getPaddingTop();
+            lengthPaddingAfter = getPaddingBottom();
+            widthPaddingBefore = getPaddingLeft();
+            canvas.drawLine(0, (float) length / 2, (float) width, (float) length / 2.0f, floatPaint);
         }
 
-        final float threeRadius = mRadius * 3;
-        final float shortOffset = shortPaddingBefore + mRadius;
-        float longOffset = longPaddingBefore + mRadius;
+        float lengthOffset = lengthPaddingBefore + mRadius;
+        float widthOffset = widthPaddingBefore + mRadius;
+        float threeRadius = 3 * mRadius;
+
         if (mCentered) {
-            longOffset += ((longSize - longPaddingBefore - longPaddingAfter) / 2.0f) - ((count * threeRadius) / 2.0f);
+            lengthOffset += ((length - lengthPaddingAfter - lengthPaddingAfter) / 2.0f) - ((count * threeRadius) / 2.0f) + mRadius / 2.0f;
         }
 
-        float dX;
-        float dY;
+        float dx;
+        float dy;
 
-        float pageFillRadius = mRadius;
+        float roundRadius = mRadius;
         if (strokePaint.getStrokeWidth() > 0) {
-            pageFillRadius -= strokePaint.getStrokeWidth() / 2.0f;
+            roundRadius -= strokePaint.getStrokeWidth() / 2.0f;
         }
 
-        //Draw stroked circles
-        for (int iLoop = 0; iLoop < count; iLoop++) {
-            float drawLong = longOffset + (iLoop * threeRadius);
+        for (int index = 0; index < count; index++) {
+            float drawLength = lengthOffset + index * threeRadius;
             if (mOrientation == LinearLayout.HORIZONTAL) {
-                dX = drawLong;
-                dY = shortOffset;
+                dx = drawLength;
+                dy = widthOffset;
             } else {
-                dX = shortOffset;
-                dY = drawLong;
-            }
-            // Only paint fill if not completely transparent
-            if (roundPaint.getAlpha() > 0) {
-                canvas.drawCircle(dX, dY, pageFillRadius, roundPaint);
+                dx = widthOffset;
+                dy = drawLength;
             }
 
-            // Only paint stroke if a stroke width was non-zero
-            if (pageFillRadius != mRadius) {
-                canvas.drawCircle(dX, dY, mRadius, strokePaint);
+            if (roundPaint.getAlpha() > 0) {
+                canvas.drawCircle(dx, dy, roundRadius, roundPaint);
+            }
+
+            if (roundRadius != mRadius) {
+                canvas.drawCircle(dx, dy, mRadius, strokePaint);
             }
         }
-
-        //Draw the filled circle according to the current scroll
-        float cx = 0 * threeRadius;
 
         if (mOrientation == LinearLayout.HORIZONTAL) {
-            dX = longOffset + cx;
-            dY = shortOffset;
+            dx = lengthOffset;
+            dy = widthOffset;
         } else {
-            dX = shortOffset;
-            dY = longOffset + cx;
+            dx = widthOffset;
+            dy = lengthOffset;
         }
-        canvas.drawCircle(dX, dY, mRadius, floatPaint);
 
+        canvas.drawCircle(dx, dy, roundRadius, floatPaint);
     }
 
     @Override

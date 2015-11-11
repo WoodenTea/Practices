@@ -23,7 +23,7 @@ public class SpannableActivity extends BaseActivity {
             return false;
         }
 
-        setContentView(R.layout.activity_spannable);
+        setContentView(R.layout.actvt_spannable);
         TextView tv = (TextView) findViewById(R.id.tv);
         String level = "等级: M1  ";
         String jewel = "emoji 55";

@@ -4,14 +4,14 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <com.ymsfd.practices.view.CircleIndicatorView
+    <com.ymsfd.practices.widget.CircleIndicatorView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@android:color/holo_blue_dark"
         android:padding="10dp"
         android:visibility="visible" />
 
-    <com.ymsfd.practices.view.CircleIndicatorView
+    <com.ymsfd.practices.widget.CircleIndicatorView
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:background="@android:color/holo_green_dark"

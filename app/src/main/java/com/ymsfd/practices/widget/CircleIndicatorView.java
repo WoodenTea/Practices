@@ -1,4 +1,4 @@
-package com.ymsfd.practices.view;
+package com.ymsfd.practices.widget;
 
 import android.content.Context;
 import android.content.res.Resources;

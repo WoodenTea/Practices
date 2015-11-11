@@ -4,7 +4,7 @@
               android:layout_height="match_parent"
               android:orientation="vertical">
 
-    <com.ymsfd.practices.view.BestViewGroup
+    <com.ymsfd.practices.widget.BestViewGroup
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
@@ -29,6 +29,6 @@
             android:layout_height="wrap_content"
             android:background="@android:color/holo_purple"
             android:text="测试2" />
-    </com.ymsfd.practices.view.BestViewGroup>
+    </com.ymsfd.practices.widget.BestViewGroup>
 
 </LinearLayout>

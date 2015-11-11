@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.ymsfd.practices.view;
+package com.ymsfd.practices.widget;
 
 import android.content.Context;
 import android.database.DataSetObservable;

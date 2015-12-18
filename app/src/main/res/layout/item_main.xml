@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--
+<?xml version="1.0" encoding="utf-8"?><!--
   ~ Copyright (C) 2015 Paul Burke
   ~
   ~ Licensed under the Apache License, Version 2.0 (the "License");
@@ -14,8 +13,8 @@
   ~ See the License for the specific language governing permissions and
   ~ limitations under the License.
   -->
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/item"
+<FrameLayout android:id="@+id/item"
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="?listPreferredItemHeight">
 
@@ -32,6 +31,5 @@
         android:layout_width="?listPreferredItemHeight"
         android:layout_height="match_parent"
         android:layout_gravity="center_vertical|right"
-        android:scaleType="center"
-        android:src="@drawable/ic_reorder_grey" />
+        android:scaleType="center" />
 </FrameLayout>

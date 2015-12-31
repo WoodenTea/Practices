@@ -31,7 +31,8 @@ public class SceneActivity extends BaseActivity {
                 (ViewGroup) findViewById(R.id.rootContainer);
 
         TransitionInflater transitionInflater = TransitionInflater.from(this);
-        mTransitionManager = transitionInflater.inflateTransitionManager(R.transition.transition, rootContainer);
+        mTransitionManager = transitionInflater.inflateTransitionManager(R.transition.transition,
+                rootContainer);
 
         scene1 = Scene.getSceneForLayout(rootContainer,
                 R.layout.scene_layout_1, this);

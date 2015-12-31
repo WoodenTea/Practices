@@ -7,7 +7,6 @@ import android.support.v4.graphics.drawable.RoundedBitmapDrawableFactory;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.resource.bitmap.BitmapTransformation;
 import com.bumptech.glide.request.target.BitmapImageViewTarget;
 import com.ymsfd.practices.R;
 
@@ -25,11 +24,15 @@ public class GlideActivity extends BaseActivity {
 
         setContentView(R.layout.actvt_glide);
         ImageView imageView = (ImageView) findViewById(R.id.imageView);
-        //Glide.with(this).load("http://5.26923.com/download/pic/000/263/ff5bc9a1c0386778a0ba1a783fd0fa2c.jpg").into(imageView);
-        Glide.with(this).load("http://5.26923.com/download/pic/000/263/ff5bc9a1c0386778a0ba1a783fd0fa2c.jpg").asBitmap().centerCrop().into(new BitmapImageViewTarget(imageView) {
+        //Glide.with(this).load("http://5.26923
+        // .com/download/pic/000/263/ff5bc9a1c0386778a0ba1a783fd0fa2c.jpg").into(imageView);
+        Glide.with(this).load("http://5.26923" +
+                ".com/download/pic/000/263/ff5bc9a1c0386778a0ba1a783fd0fa2c.jpg").asBitmap()
+                .centerCrop().into(new BitmapImageViewTarget(imageView) {
             @Override
             protected void setResource(Bitmap resource) {
-                RoundedBitmapDrawable drawable = RoundedBitmapDrawableFactory.create(getResources(), resource);
+                RoundedBitmapDrawable drawable = RoundedBitmapDrawableFactory.create(getResources
+                        (), resource);
                 drawable.setCornerRadius(20.0f);
                 drawable.setCircular(true);
                 drawable.setAntiAlias(true);

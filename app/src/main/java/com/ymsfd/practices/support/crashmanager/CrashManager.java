@@ -29,13 +29,6 @@ public class CrashManager {
         scheduledExecutorService.schedule(new ClearLogTask(), 5, TimeUnit.SECONDS);
     }
 
-    private static class ClearLogTask implements Runnable {
-        @Override
-        public void run() {
-            onlyLeftTenLogFilesInStorage();
-        }
-    }
-
     private static void onlyLeftTenLogFilesInStorage() {
         String[] files = searchForStackTraces();
         if (files == null) {
@@ -77,5 +70,12 @@ public class CrashManager {
             }
         });
         return files;
+    }
+
+    private static class ClearLogTask implements Runnable {
+        @Override
+        public void run() {
+            onlyLeftTenLogFilesInStorage();
+        }
     }
 }

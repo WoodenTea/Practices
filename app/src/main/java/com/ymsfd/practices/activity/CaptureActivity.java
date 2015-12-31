@@ -51,6 +51,7 @@ public class CaptureActivity extends BaseActivity implements
     private InactivityTimer inactivityTimer;
     private BeepManager beepManager;
     private AmbientLightManager ambientLightManager;
+
     @Override
     protected boolean _onCreate(Bundle savedInstanceState) {
         if (!super._onCreate(savedInstanceState)) {
@@ -153,56 +154,8 @@ public class CaptureActivity extends BaseActivity implements
         return super.onKeyDown(keyCode, event);
     }
 
-    private void decodeOrStoreSavedBitmap(Bitmap bitmap, Result result) {
-        if (handler == null) {
-            savedResultToShow = result;
-        } else {
-            if (result != null) {
-                savedResultToShow = result;
-            }
-            if (savedResultToShow != null) {
-                Message message = Message.obtain(handler,
-                        R.id.decode_succeeded, savedResultToShow);
-                handler.sendMessage(message);
-            }
-            savedResultToShow = null;
-        }
-    }
-
-    @Override
-    public void surfaceCreated(SurfaceHolder holder) {
-        if (!hasSurface) {
-            hasSurface = true;
-            initCamera(holder);
-        }
-    }
-
-    @Override
-    public void surfaceDestroyed(SurfaceHolder holder) {
-        hasSurface = false;
-    }
-
-    @Override
-    public void surfaceChanged(SurfaceHolder holder, int format, int width,
-                               int height) {
-
-    }
-
-    /** 结果处理 */
-    public void handleDecode(Result rawResult, Bitmap barcode, float scaleFactor) {
-        inactivityTimer.onActivity();
-        beepManager.playBeepSoundAndVibrate();
-
-        String msg = rawResult.getText();
-        if (msg == null || "".equals(msg)) {
-            msg = "无法识别";
-        }
-
-//        Intent intent = new Intent(CaptureActivity.this, ShowActivity.class);
-//        Bundle bundle = new Bundle();
-//        bundle.putString("msg", msg);
-//        intent.putExtras(bundle);
-//        startActivity(intent);
+    private void resetStatusView() {
+        viewfinderView.setVisibility(View.VISIBLE);
     }
 
     private void initCamera(SurfaceHolder surfaceHolder) {
@@ -226,6 +179,22 @@ public class CaptureActivity extends BaseActivity implements
         }
     }
 
+    private void decodeOrStoreSavedBitmap(Bitmap bitmap, Result result) {
+        if (handler == null) {
+            savedResultToShow = result;
+        } else {
+            if (result != null) {
+                savedResultToShow = result;
+            }
+            if (savedResultToShow != null) {
+                Message message = Message.obtain(handler,
+                        R.id.decode_succeeded, savedResultToShow);
+                handler.sendMessage(message);
+            }
+            savedResultToShow = null;
+        }
+    }
+
     private void displayFrameworkBugMessageAndExit() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("警告");
@@ -235,6 +204,44 @@ public class CaptureActivity extends BaseActivity implements
         builder.show();
     }
 
+    @Override
+    public void surfaceCreated(SurfaceHolder holder) {
+        if (!hasSurface) {
+            hasSurface = true;
+            initCamera(holder);
+        }
+    }
+
+    @Override
+    public void surfaceChanged(SurfaceHolder holder, int format, int width,
+                               int height) {
+
+    }
+
+    @Override
+    public void surfaceDestroyed(SurfaceHolder holder) {
+        hasSurface = false;
+    }
+
+    /**
+     * 结果处理
+     */
+    public void handleDecode(Result rawResult, Bitmap barcode, float scaleFactor) {
+        inactivityTimer.onActivity();
+        beepManager.playBeepSoundAndVibrate();
+
+        String msg = rawResult.getText();
+        if (msg == null || "".equals(msg)) {
+            msg = "无法识别";
+        }
+
+//        Intent intent = new Intent(CaptureActivity.this, ShowActivity.class);
+//        Bundle bundle = new Bundle();
+//        bundle.putString("msg", msg);
+//        intent.putExtras(bundle);
+//        startActivity(intent);
+    }
+
     public void restartPreviewAfterDelay(long delayMS) {
         if (handler != null) {
             handler.sendEmptyMessageDelayed(R.id.restart_preview, delayMS);
@@ -242,13 +249,10 @@ public class CaptureActivity extends BaseActivity implements
         resetStatusView();
     }
 
-    private void resetStatusView() {
-        viewfinderView.setVisibility(View.VISIBLE);
-    }
-
     public void drawViewfinder() {
         viewfinderView.drawViewfinder();
     }
+
     public ViewfinderView getViewfinderView() {
         return viewfinderView;
     }

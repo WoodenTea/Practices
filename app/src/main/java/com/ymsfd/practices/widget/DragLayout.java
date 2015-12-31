@@ -34,12 +34,6 @@ public class DragLayout extends LinearLayout {
     }
 
     @Override
-    protected void onFinishInflate() {
-        super.onFinishInflate();
-        dragView = getChildAt(0);
-    }
-
-    @Override
     public boolean onInterceptTouchEvent(MotionEvent ev) {
         final int action = MotionEventCompat.getActionMasked(ev);
         if (action == MotionEvent.ACTION_UP || action == MotionEvent.ACTION_CANCEL) {
@@ -51,17 +45,29 @@ public class DragLayout extends LinearLayout {
         return bRet;
     }
 
+    private void D(String msg) {
+        Log.d(TAG, msg);
+    }
+
     @Override
     public boolean onTouchEvent(MotionEvent event) {
         dragHelper.processTouchEvent(event);
         return true;
     }
 
-    private void D(String msg) {
-        Log.d(TAG, msg);
+    @Override
+    protected void onFinishInflate() {
+        super.onFinishInflate();
+        dragView = getChildAt(0);
     }
 
     class DragHelperCallback extends ViewDragHelper.Callback {
+        @Override
+        public void onViewPositionChanged(View changedView, int left, int top, int dx, int dy) {
+            super.onViewPositionChanged(changedView, left, top, dx, dy);
+            D("Left: " + left + " Top: " + top + " dx: " + dx + " dy: " + dy);
+        }
+
         @Override
         public void onEdgeTouched(int edgeFlags, int pointerId) {
             super.onEdgeTouched(edgeFlags, pointerId);
@@ -75,19 +81,18 @@ public class DragLayout extends LinearLayout {
         }
 
         @Override
-        public void onViewPositionChanged(View changedView, int left, int top, int dx, int dy) {
-            super.onViewPositionChanged(changedView, left, top, dx, dy);
-            D("Left: " + left + " Top: " + top + " dx: " + dx + " dy: " + dy);
+        public int getViewHorizontalDragRange(View child) {
+            return getMeasuredWidth() - child.getMeasuredWidth();
+        }
+
+        @Override
+        public int getViewVerticalDragRange(View child) {
+            return getMeasuredHeight() - child.getMeasuredHeight();
         }
 
         @Override
         public boolean tryCaptureView(View child, int pointerId) {
             return true;
-        }
-
-        @Override
-        public int getViewHorizontalDragRange(View child) {
-            return getMeasuredWidth() - child.getMeasuredWidth();
         }
 
         @Override
@@ -99,11 +104,6 @@ public class DragLayout extends LinearLayout {
             int newLeft = Math.min(Math.max(left, boundLeft), boundRight);
             D("New Left: " + newLeft);
             return newLeft;
-        }
-
-        @Override
-        public int getViewVerticalDragRange(View child) {
-            return getMeasuredHeight() - child.getMeasuredHeight();
         }
 
         @Override

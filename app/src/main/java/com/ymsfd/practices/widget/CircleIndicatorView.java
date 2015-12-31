@@ -20,6 +20,7 @@ import com.ymsfd.practices.R;
  * Time: 13:46
  */
 public class CircleIndicatorView extends View {
+    final static int NUMBER = 4;
     private Paint roundPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
     private Paint strokePaint = new Paint(Paint.ANTI_ALIAS_FLAG);
     private Paint floatPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
@@ -28,7 +29,6 @@ public class CircleIndicatorView extends View {
     private int mOrientation;
     private float mRadius;
     private int mTouchSlop;
-    final static int NUMBER = 4;
 
     public CircleIndicatorView(Context context) {
         this(context, null);
@@ -50,21 +50,29 @@ public class CircleIndicatorView extends View {
         final int defaultStrokeColor = res.getColor(R.color.default_circle_indicator_stroke_color);
         final int defaultFloatColor = res.getColor(R.color.default_circle_indicator_float_color);
         final float defaultRadius = res.getDimension(R.dimen.default_circle_indicator_radius);
-        final float defaultStrokeWidth = res.getDimension(R.dimen.default_circle_indicator_stroke_width);
+        final float defaultStrokeWidth = res.getDimension(R.dimen
+                .default_circle_indicator_stroke_width);
         final boolean defaultSnap = res.getBoolean(R.bool.default_circle_indicator_snap);
-        final int defaultOrientation = res.getInteger(R.integer.default_circle_indicator_orientation);
+        final int defaultOrientation = res.getInteger(R.integer
+                .default_circle_indicator_orientation);
 
-        TypedArray array = context.obtainStyledAttributes(attrs, R.styleable.CircleIndicatorView, defStyleAttr, 0);
+        TypedArray array = context.obtainStyledAttributes(attrs, R.styleable.CircleIndicatorView,
+                defStyleAttr, 0);
         mCentered = array.getBoolean(R.styleable.CircleIndicatorView_centered, defaultCentered);
-        mOrientation = array.getInteger(R.styleable.CircleIndicatorView_android_orientation, defaultOrientation);
+        mOrientation = array.getInteger(R.styleable.CircleIndicatorView_orientation,
+                defaultOrientation);
         mSnap = array.getBoolean(R.styleable.CircleIndicatorView_snap, defaultSnap);
 
-        roundPaint.setColor(array.getColor(R.styleable.CircleIndicatorView_roundColor, defaultRoundColor));
+        roundPaint.setColor(array.getColor(R.styleable.CircleIndicatorView_roundColor,
+                defaultRoundColor));
         roundPaint.setStyle(Paint.Style.FILL);
-        strokePaint.setColor(array.getColor(R.styleable.CircleIndicatorView_strokeColor, defaultStrokeColor));
+        strokePaint.setColor(array.getColor(R.styleable.CircleIndicatorView_strokeColor,
+                defaultStrokeColor));
         strokePaint.setStyle(Paint.Style.STROKE);
-        strokePaint.setStrokeWidth(array.getDimension(R.styleable.CircleIndicatorView_strokeWidth, defaultStrokeWidth));
-        floatPaint.setColor(array.getColor(R.styleable.CircleIndicatorView_floatColor, defaultFloatColor));
+        strokePaint.setStrokeWidth(array.getDimension(R.styleable
+                .CircleIndicatorView_strokeWidth, defaultStrokeWidth));
+        floatPaint.setColor(array.getColor(R.styleable.CircleIndicatorView_floatColor,
+                defaultFloatColor));
         floatPaint.setStyle(Paint.Style.FILL);
 
         mRadius = array.getDimension(R.styleable.CircleIndicatorView_radius, defaultRadius);
@@ -93,14 +101,16 @@ public class CircleIndicatorView extends View {
             lengthPaddingBefore = getPaddingLeft();
             lengthPaddingAfter = getPaddingRight();
             widthPaddingBefore = getPaddingTop();
-            canvas.drawLine((float) length / 2, 0, (float) length / 2.0f, (float) width, floatPaint);
+            canvas.drawLine((float) length / 2, 0, (float) length / 2.0f, (float) width,
+                    floatPaint);
         } else {
             length = getHeight();
             width = getWidth();
             lengthPaddingBefore = getPaddingTop();
             lengthPaddingAfter = getPaddingBottom();
             widthPaddingBefore = getPaddingLeft();
-            canvas.drawLine(0, (float) length / 2, (float) width, (float) length / 2.0f, floatPaint);
+            canvas.drawLine(0, (float) length / 2, (float) width, (float) length / 2.0f,
+                    floatPaint);
         }
 
         float lengthOffset = lengthPaddingBefore + mRadius;
@@ -108,7 +118,8 @@ public class CircleIndicatorView extends View {
         float threeRadius = 3 * mRadius;
 
         if (mCentered) {
-            lengthOffset += ((length - lengthPaddingAfter - lengthPaddingAfter) / 2.0f) - ((count * threeRadius) / 2.0f) + mRadius / 2.0f;
+            lengthOffset += ((length - lengthPaddingAfter - lengthPaddingAfter) / 2.0f) - ((count
+                    * threeRadius) / 2.0f) + mRadius / 2.0f;
         }
 
         float dx;
@@ -165,7 +176,8 @@ public class CircleIndicatorView extends View {
         if (specMode == MeasureSpec.EXACTLY) {
             result = specSize;
         } else {
-            result = (int) (getPaddingLeft() + getPaddingRight() + NUMBER * mRadius + (NUMBER - 1) * mRadius);
+            result = (int) (getPaddingLeft() + getPaddingRight() + NUMBER * mRadius + (NUMBER -
+                    1) * mRadius);
             if (specMode == MeasureSpec.AT_MOST) {
                 result = Math.min(result, specSize);
             }

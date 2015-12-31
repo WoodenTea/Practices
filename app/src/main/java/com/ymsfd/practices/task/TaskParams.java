@@ -8,21 +8,17 @@ public class TaskParams {
 
     private HashMap<String, Object> params = null;
 
-    public TaskParams() {
-        params = new HashMap<String, Object>();
-    }
-
     public TaskParams(String key, Object value) {
         this();
         put(key, value);
     }
 
-    public void put(String key, Object value) {
-        params.put(key, value);
+    public TaskParams() {
+        params = new HashMap<String, Object>();
     }
 
-    public Object get(String key) {
-        return params.get(key);
+    public void put(String key, Object value) {
+        params.put(key, value);
     }
 
     public boolean getBoolean(String key) throws PracticesException {
@@ -38,6 +34,10 @@ public class TaskParams {
         }
 
         throw new PracticesException(key + " is not a Boolean.");
+    }
+
+    public Object get(String key) {
+        return params.get(key);
     }
 
     public double getDouble(String key) throws PracticesException {

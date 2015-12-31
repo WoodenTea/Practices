@@ -19,10 +19,8 @@
 
     <item android:title="Version">
         <menu>
-            <item
-                android:title="Android" />
-            <item
-                android:title="iOS" />
+            <item android:title="Android" />
+            <item android:title="iOS" />
         </menu>
     </item>
 

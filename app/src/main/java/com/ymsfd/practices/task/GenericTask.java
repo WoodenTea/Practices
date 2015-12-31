@@ -11,14 +11,12 @@ public abstract class GenericTask extends
     private TaskListener mListener = null;
     private boolean isCancelable = true;
 
-    abstract protected TaskResult _doInBackground(TaskParams... params);
+    public TaskListener getListener() {
+        return mListener;
+    }
 
     public void setListener(TaskListener taskListener) {
         mListener = taskListener;
-    }
-
-    public TaskListener getListener() {
-        return mListener;
     }
 
     public void doPublishProgress(Object... values) {
@@ -26,22 +24,11 @@ public abstract class GenericTask extends
     }
 
     @Override
-    protected void onCancelled() {
-        super.onCancelled();
-
-        if (mListener != null) {
-            mListener.onCancelled(this);
-        }
+    protected TaskResult doInBackground(TaskParams... params) {
+        return _doInBackground(params);
     }
 
-    @Override
-    protected void onPostExecute(TaskResult result) {
-        super.onPostExecute(result);
-
-        if (mListener != null) {
-            mListener.onPostExecute(this, result);
-        }
-    }
+    abstract protected TaskResult _doInBackground(TaskParams... params);
 
     @Override
     protected void onPreExecute() {
@@ -51,6 +38,15 @@ public abstract class GenericTask extends
             mListener.onPreExecute(this);
         }
 
+    }
+
+    @Override
+    protected void onPostExecute(TaskResult result) {
+        super.onPostExecute(result);
+
+        if (mListener != null) {
+            mListener.onPostExecute(this, result);
+        }
     }
 
     @Override
@@ -66,8 +62,12 @@ public abstract class GenericTask extends
     }
 
     @Override
-    protected TaskResult doInBackground(TaskParams... params) {
-        return  _doInBackground(params);
+    protected void onCancelled() {
+        super.onCancelled();
+
+        if (mListener != null) {
+            mListener.onCancelled(this);
+        }
     }
 
     public void update(Observable o, Object arg) {

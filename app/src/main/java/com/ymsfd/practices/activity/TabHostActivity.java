@@ -24,8 +24,10 @@ public class TabHostActivity extends FragmentActivity {
 
     private Class fragmentArray[] = {HomeFragment.class, CateFragment.class, ShareFragment.class,
             CarFragment.class, UserFragment.class};
-    private int tabName[] = {R.string.home, R.string.category, R.string.share, R.string.car, R.string.user};
-    private int tabView[] = {R.layout.tab_home, R.layout.tab_category, R.layout.tab_share, R.layout.tab_car, R.layout.tab_user};
+    private int tabName[] = {R.string.home, R.string.category, R.string.share, R.string.car, R
+            .string.user};
+    private int tabView[] = {R.layout.tab_home, R.layout.tab_category, R.layout.tab_share, R
+            .layout.tab_car, R.layout.tab_user};
     private LayoutInflater inflater;
 
     @Override
@@ -39,7 +41,8 @@ public class TabHostActivity extends FragmentActivity {
 
         int count = fragmentArray.length;
         for (int index = 0; index < count; index++) {
-            TabHost.TabSpec tabSpec = tabHost.newTabSpec(getString(tabName[index])).setIndicator(getTabView(tabView[index], tabHost));
+            TabHost.TabSpec tabSpec = tabHost.newTabSpec(getString(tabName[index])).setIndicator
+                    (getTabView(tabView[index], tabHost));
             tabHost.addTab(tabSpec, fragmentArray[index], null);
         }
     }

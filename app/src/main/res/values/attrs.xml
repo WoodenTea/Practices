@@ -3,7 +3,7 @@
     <declare-styleable name="CircleIndicatorView">
         <attr name="roundColor" format="color" />
         <attr name="floatColor" format="color" />
-        <attr name="android:orientation" />
+        <attr name="orientation" format="integer" />
         <attr name="strokeColor" format="color" />
         <attr name="strokeWidth" format="dimension" />
         <attr name="radius" format="dimension" />
@@ -11,8 +11,4 @@
         <attr name="centered" format="boolean" />
     </declare-styleable>
 
-    <declare-styleable name="FlowLayout">
-        <attr name="horizontalSpacing" format="dimension" />
-        <attr name="verticalSpacing" format="dimension" />
-    </declare-styleable>
 </resources>

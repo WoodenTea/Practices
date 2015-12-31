@@ -10,6 +10,18 @@ public class FileManager {
     private static final String LOG = "log";
     private static volatile boolean cantRead = false;
 
+    public static String getLogDir() {
+        if (!isExternalStorageMounted()) {
+            return "";
+        } else {
+            String path = getSdCardPath() + File.separator + LOG;
+            if (!new File(path).exists()) {
+                new File(path).mkdirs();
+            }
+            return path;
+        }
+    }
+
     public static boolean isExternalStorageMounted() {
         boolean canRead = Environment.getExternalStorageDirectory().canRead();
         boolean onlyRead = Environment.getExternalStorageState().equals(
@@ -35,17 +47,5 @@ public class FileManager {
         }
 
         return "";
-    }
-
-    public static String getLogDir() {
-        if (!isExternalStorageMounted()) {
-            return "";
-        } else {
-            String path = getSdCardPath() + File.separator + LOG;
-            if (!new File(path).exists()) {
-                new File(path).mkdirs();
-            }
-            return path;
-        }
     }
 }

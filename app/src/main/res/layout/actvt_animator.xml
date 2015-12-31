@@ -9,7 +9,7 @@
         android:id="@+id/bezier"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Bezier"/>
+        android:text="Bezier" />
 
     <Button
         android:id="@+id/scaleX"

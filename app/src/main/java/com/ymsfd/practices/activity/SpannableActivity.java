@@ -31,15 +31,15 @@ public class SpannableActivity extends BaseActivity {
         SpannableString spannableLevel = new SpannableString(level);
         spannableLevel.setSpan(new ClickableSpan() {
             @Override
+            public void onClick(View widget) {
+                D("1");
+            }            @Override
             public void updateDrawState(TextPaint textPaint) {
                 super.updateDrawState(textPaint);
                 textPaint.setUnderlineText(false);      //设置下划线
             }
 
-            @Override
-            public void onClick(View widget) {
-                D("1");
-            }
+
         }, 0, level.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
         tv.setHighlightColor(Color.TRANSPARENT);
         tv.append(spannableLevel);

@@ -20,9 +20,10 @@ import com.ymsfd.practices.zxing.common.PlatformSupportManager;
 
 public final class AsyncTaskExecManager extends PlatformSupportManager<AsyncTaskExecInterface> {
 
-  public AsyncTaskExecManager() {
-    super(AsyncTaskExecInterface.class, new DefaultAsyncTaskExecInterface());
-    addImplementationClass(11, "com.google.zxing.client.android.common.executor.HoneycombAsyncTaskExecInterface");
-  }
+    public AsyncTaskExecManager() {
+        super(AsyncTaskExecInterface.class, new DefaultAsyncTaskExecInterface());
+        addImplementationClass(11, "com.google.zxing.client.android.common.executor" +
+                ".HoneycombAsyncTaskExecInterface");
+    }
 
 }

@@ -42,16 +42,6 @@ public class SimpleItemTouchHelperCallback extends ItemTouchHelper.Callback {
     }
 
     @Override
-    public boolean isLongPressDragEnabled() {
-        return true;
-    }
-
-    @Override
-    public boolean isItemViewSwipeEnabled() {
-        return true;
-    }
-
-    @Override
     public int getMovementFlags(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder) {
         // Enable drag and swipe in both directions
         final int dragFlags = ItemTouchHelper.UP | ItemTouchHelper.DOWN;
@@ -60,7 +50,8 @@ public class SimpleItemTouchHelperCallback extends ItemTouchHelper.Callback {
     }
 
     @Override
-    public boolean onMove(RecyclerView recyclerView, RecyclerView.ViewHolder source, RecyclerView.ViewHolder target) {
+    public boolean onMove(RecyclerView recyclerView, RecyclerView.ViewHolder source, RecyclerView
+            .ViewHolder target) {
         if (source.getItemViewType() != target.getItemViewType()) {
             return false;
         }
@@ -71,21 +62,19 @@ public class SimpleItemTouchHelperCallback extends ItemTouchHelper.Callback {
     }
 
     @Override
-    public void onSwiped(RecyclerView.ViewHolder viewHolder, int i) {
-        // Notify the adapter of the dismissal
-        mAdapter.onItemDismiss(viewHolder.getAdapterPosition());
+    public boolean isLongPressDragEnabled() {
+        return true;
     }
 
     @Override
-    public void onChildDraw(Canvas c, RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, float dX, float dY, int actionState, boolean isCurrentlyActive) {
-        super.onChildDraw(c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive);
+    public boolean isItemViewSwipeEnabled() {
+        return true;
+    }
 
-        // Fade out the view as it is swiped out of the parent's bounds
-        if (actionState == ItemTouchHelper.ACTION_STATE_SWIPE) {
-            View itemView = viewHolder.itemView;
-            final float alpha = ALPHA_FULL - Math.abs(dX) / (float) itemView.getWidth();
-            itemView.setAlpha(alpha);
-        }
+    @Override
+    public void onSwiped(RecyclerView.ViewHolder viewHolder, int i) {
+        // Notify the adapter of the dismissal
+        mAdapter.onItemDismiss(viewHolder.getAdapterPosition());
     }
 
     @Override
@@ -108,5 +97,18 @@ public class SimpleItemTouchHelperCallback extends ItemTouchHelper.Callback {
         // Tell the view holder it's time to restore the idle state
         ItemTouchHelperViewHolder itemViewHolder = (ItemTouchHelperViewHolder) viewHolder;
         itemViewHolder.onItemClear();
+    }
+
+    @Override
+    public void onChildDraw(Canvas c, RecyclerView recyclerView, RecyclerView.ViewHolder
+            viewHolder, float dX, float dY, int actionState, boolean isCurrentlyActive) {
+        super.onChildDraw(c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive);
+
+        // Fade out the view as it is swiped out of the parent's bounds
+        if (actionState == ItemTouchHelper.ACTION_STATE_SWIPE) {
+            View itemView = viewHolder.itemView;
+            final float alpha = ALPHA_FULL - Math.abs(dX) / (float) itemView.getWidth();
+            itemView.setAlpha(alpha);
+        }
     }
 }

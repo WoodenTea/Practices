@@ -1,7 +1,5 @@
 package com.ymsfd.practices.support.util;
 
-import android.util.TypedValue;
-
 /**
  * Created by ymsfdDev.
  * User: ymsfd
@@ -10,10 +8,14 @@ import android.util.TypedValue;
  */
 public class DensityUtil {
     public static float px2dp(int value) {
-        return TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, value, GlobalContext.getInstance().getApplicationContext().getResources().getDisplayMetrics());
+        final float density = GlobalContext.getInstance().getResources().getDisplayMetrics()
+                .density;
+        return value / density + .5f;
     }
 
-    public static float px2sp(int value) {
-        return TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, value, GlobalContext.getInstance().getApplicationContext().getResources().getDisplayMetrics());
+    public static float dp2px(int value) {
+        final float density = GlobalContext.getInstance().getResources().getDisplayMetrics()
+                .density;
+        return value * density + .5f;
     }
 }

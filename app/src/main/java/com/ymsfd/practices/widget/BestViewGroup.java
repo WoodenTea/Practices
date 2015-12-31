@@ -105,8 +105,40 @@ public class BestViewGroup extends ViewGroup {
                 resolveSize(height, heightMeasureSpec));
     }
 
+    private void D(String msg) {
+        Log.d("BestGroup", msg);
+    }
+
     @Override
-    protected void measureChildWithMargins(View child, int parentWidthMeasureSpec, int widthUsed, int parentHeightMeasureSpec, int heightUsed) {
+    protected void onLayout(boolean changed, int l, int t, int r, int b) {
+        D("Photo Width: " + mProfilePhoto.getMeasuredWidth() + " Height: " + mProfilePhoto
+                .getMeasuredHeight());
+        D("Title Width: " + mTitle.getMeasuredWidth() + " Height: " + mTitle.getMeasuredHeight());
+        D("Sub Width: " + mSubtitle.getMeasuredWidth() + " Height: " + mSubtitle
+                .getMeasuredHeight());
+        D("Menu Width: " + mMenu.getMeasuredWidth() + " Height: " + mMenu.getMeasuredHeight());
+
+        int width = 0;
+        mProfilePhoto.layout(width, 0, mProfilePhoto.getMeasuredWidth(), mProfilePhoto
+                .getMeasuredHeight());
+        width += mProfilePhoto.getMeasuredWidth();
+
+        mTitle.layout(width, 0, width + mTitle.getMeasuredWidth(), mTitle.getMeasuredHeight());
+        mSubtitle.layout(width, mTitle.getMeasuredHeight(), width + mSubtitle.getMeasuredWidth(),
+                mSubtitle.getMeasuredHeight() + mTitle.getMeasuredHeight());
+
+        width += mTitle.getMeasuredWidth();
+        mMenu.layout(width, 0, width + mMenu.getMeasuredWidth(), mMenu.getMeasuredHeight());
+    }
+
+    @Override
+    public LayoutParams generateLayoutParams(AttributeSet attrs) {
+        return new BestViewGroup.LayoutParams(getContext(), attrs);
+    }
+
+    @Override
+    protected void measureChildWithMargins(View child, int parentWidthMeasureSpec, int widthUsed,
+                                           int parentHeightMeasureSpec, int heightUsed) {
         BestViewGroup.LayoutParams lp = (BestViewGroup.LayoutParams) child.getLayoutParams();
 
         int childWidthMeasureSpec = getChildMeasureSpec(
@@ -122,36 +154,9 @@ public class BestViewGroup extends ViewGroup {
         child.measure(childWidthMeasureSpec, childHeightMeasureSpec);
     }
 
-    @Override
-    protected void onLayout(boolean changed, int l, int t, int r, int b) {
-        D("Photo Width: " + mProfilePhoto.getMeasuredWidth() + " Height: " + mProfilePhoto.getMeasuredHeight());
-        D("Title Width: " + mTitle.getMeasuredWidth() + " Height: " + mTitle.getMeasuredHeight());
-        D("Sub Width: " + mSubtitle.getMeasuredWidth() + " Height: " + mSubtitle.getMeasuredHeight());
-        D("Menu Width: " + mMenu.getMeasuredWidth() + " Height: " + mMenu.getMeasuredHeight());
-
-        int width = 0;
-        mProfilePhoto.layout(width, 0, mProfilePhoto.getMeasuredWidth(), mProfilePhoto.getMeasuredHeight());
-        width += mProfilePhoto.getMeasuredWidth();
-
-        mTitle.layout(width, 0, width + mTitle.getMeasuredWidth(), mTitle.getMeasuredHeight());
-        mSubtitle.layout(width, mTitle.getMeasuredHeight(), width + mSubtitle.getMeasuredWidth(), mSubtitle.getMeasuredHeight() + mTitle.getMeasuredHeight());
-
-        width += mTitle.getMeasuredWidth();
-        mMenu.layout(width, 0, width + mMenu.getMeasuredWidth(), mMenu.getMeasuredHeight());
-    }
-
     public static class LayoutParams extends ViewGroup.MarginLayoutParams {
         public LayoutParams(Context c, AttributeSet attrs) {
             super(c, attrs);
         }
-    }
-
-    @Override
-    public LayoutParams generateLayoutParams(AttributeSet attrs) {
-        return new BestViewGroup.LayoutParams(getContext(), attrs);
-    }
-
-    private void D(String msg) {
-        Log.d("BestGroup", msg);
     }
 }

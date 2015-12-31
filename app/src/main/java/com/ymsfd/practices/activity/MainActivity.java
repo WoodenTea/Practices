@@ -36,16 +36,9 @@ public class MainActivity extends Activity implements AdapterView.OnItemClickLis
         getActivities(path);
 
         ListView listView = (ListView) findViewById(R.id.activities);
-        listView.setAdapter(new SimpleAdapter(this, getActivities(path), android.R.layout.simple_list_item_1, new String[]{"title"}, new int[]{android.R.id.text1}));
+        listView.setAdapter(new SimpleAdapter(this, getActivities(path), android.R.layout
+                .simple_list_item_1, new String[]{"title"}, new int[]{android.R.id.text1}));
         listView.setOnItemClickListener(this);
-    }
-
-    @Override
-    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        Map<String, Object> map = (Map<String, Object>) parent.getItemAtPosition(position);
-
-        Intent intent = (Intent) map.get("intent");
-        startActivity(intent);
     }
 
     @Override
@@ -109,7 +102,8 @@ public class MainActivity extends Activity implements AdapterView.OnItemClickLis
                             info.activityInfo.name));
                 } else {
                     if (entries.get(nextLabel) == null) {
-                        addItem(mapActivity, nextLabel, browseIntent(prefix.equals("") ? nextLabel : prefix + "/" + nextLabel));
+                        addItem(mapActivity, nextLabel, browseIntent(prefix.equals("") ?
+                                nextLabel : prefix + "/" + nextLabel));
                         entries.put(nextLabel, true);
                     }
                 }
@@ -117,6 +111,13 @@ public class MainActivity extends Activity implements AdapterView.OnItemClickLis
         }
 
         return mapActivity;
+    }
+
+    protected void addItem(List<Map<String, Object>> data, String name, Intent intent) {
+        Map<String, Object> tmp = new HashMap<>();
+        tmp.put("title", name);
+        tmp.put("intent", intent);
+        data.add(tmp);
     }
 
     protected Intent activityIntent(String pkg, String componentName) {
@@ -132,10 +133,11 @@ public class MainActivity extends Activity implements AdapterView.OnItemClickLis
         return result;
     }
 
-    protected void addItem(List<Map<String, Object>> data, String name, Intent intent) {
-        Map<String, Object> tmp = new HashMap<>();
-        tmp.put("title", name);
-        tmp.put("intent", intent);
-        data.add(tmp);
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        Map<String, Object> map = (Map<String, Object>) parent.getItemAtPosition(position);
+
+        Intent intent = (Intent) map.get("intent");
+        startActivity(intent);
     }
 }

@@ -37,7 +37,8 @@ public class AnimatorActivity extends BaseActivity implements View.OnClickListen
         bezier.setOnClickListener(this);
 
         bezierValueAnimator = ValueAnimator.ofObject(new BezierEvaluator(),
-                new PointF(0, 0), new PointF(displayMetrics.widthPixels, displayMetrics.heightPixels));
+                new PointF(0, 0), new PointF(displayMetrics.widthPixels, displayMetrics
+                        .heightPixels));
         bezierValueAnimator.setDuration(2000);
         bezierValueAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
             @Override
@@ -113,11 +114,6 @@ public class AnimatorActivity extends BaseActivity implements View.OnClickListen
             }
 
             @Override
-            public void onAnimationRepeat(Animator arg0) {
-                D("onAnimationRepeat");
-            }
-
-            @Override
             public void onAnimationEnd(Animator arg0) {
                 D("onAnimationEnd");
             }
@@ -125,6 +121,11 @@ public class AnimatorActivity extends BaseActivity implements View.OnClickListen
             @Override
             public void onAnimationCancel(Animator arg0) {
                 D("onAnimationCancel");
+            }
+
+            @Override
+            public void onAnimationRepeat(Animator arg0) {
+                D("onAnimationRepeat");
             }
         });
 
@@ -136,8 +137,9 @@ public class AnimatorActivity extends BaseActivity implements View.OnClickListen
             @Override
             public void onAnimationUpdate(ValueAnimator valueAnimator) {
                 float factor = valueAnimator.getAnimatedFraction();
-                ViewGroup.MarginLayoutParams marginLayoutParams = (ViewGroup.MarginLayoutParams) buttonValueAnimator
-                        .getLayoutParams();
+                ViewGroup.MarginLayoutParams marginLayoutParams = (ViewGroup.MarginLayoutParams)
+                        buttonValueAnimator
+                                .getLayoutParams();
                 marginLayoutParams.leftMargin = (int) (factor * 100);
                 buttonValueAnimator.setLayoutParams(marginLayoutParams);
             }
@@ -208,11 +210,13 @@ public class AnimatorActivity extends BaseActivity implements View.OnClickListen
 
             point.x = oneMinusT * oneMinusT * oneMinusT * (startValue.x) + 3
                     * oneMinusT * oneMinusT * fraction * (point1.x) + 3 * oneMinusT
-                    * fraction * fraction * (point2.x) + fraction * fraction * fraction * (endValue.x);
+                    * fraction * fraction * (point2.x) + fraction * fraction * fraction *
+                    (endValue.x);
 
             point.y = oneMinusT * oneMinusT * oneMinusT * (startValue.y) + 3
                     * oneMinusT * oneMinusT * fraction * (point1.y) + 3 * oneMinusT
-                    * fraction * fraction * (point2.y) + fraction * fraction * fraction * (endValue.y);
+                    * fraction * fraction * (point2.y) + fraction * fraction * fraction *
+                    (endValue.y);
             return point;
         }
     }

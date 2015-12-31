@@ -33,7 +33,8 @@ import com.ymsfd.practices.helper.SimpleItemTouchHelperCallback;
 /**
  * @author Paul Burke (ipaulpro)
  */
-public class FancyItemActivity extends BaseActivity implements RecyclerListAdapter.OnStartDragListener {
+public class FancyItemActivity extends BaseActivity implements RecyclerListAdapter
+        .OnStartDragListener {
 
     private ItemTouchHelper mItemTouchHelper;
 
@@ -49,24 +50,28 @@ public class FancyItemActivity extends BaseActivity implements RecyclerListAdapt
         RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
         recyclerView.setHasFixedSize(true);
         recyclerView.setAdapter(adapter);
-        recyclerView.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
+        recyclerView.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration
+                .VERTICAL));
         LinearLayoutManager layout = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layout);
-        recyclerView.addOnItemTouchListener(new RecyclerItemClickListener(this, new RecyclerItemClickListener.OnItemClickListener() {
-            @Override
-            public void onItemClick(View view, int position) {
-                Snackbar.make(findViewById(R.id.recycler_view), "Position: " + position, Snackbar.LENGTH_LONG)
-                        .setAction("Action", new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-                                Toast.makeText(
-                                        FancyItemActivity.this,
-                                        "Toast comes out",
-                                        Toast.LENGTH_SHORT).show();
-                            }
-                        }).show();
-            }
-        }));
+        recyclerView.addOnItemTouchListener(new RecyclerItemClickListener(this, new
+                RecyclerItemClickListener.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(View view, int position) {
+                        Snackbar.make(findViewById(R.id.recycler_view), "Position: " + position,
+                                Snackbar
+                                        .LENGTH_LONG)
+                                .setAction("Action", new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View v) {
+                                        Toast.makeText(
+                                                FancyItemActivity.this,
+                                                "Toast comes out",
+                                                Toast.LENGTH_SHORT).show();
+                                    }
+                                }).show();
+                    }
+                }));
 
         ItemTouchHelper.Callback callback = new SimpleItemTouchHelperCallback(adapter);
         mItemTouchHelper = new ItemTouchHelper(callback);

@@ -20,7 +20,8 @@ public class BaseSupportFragment extends Fragment {
 
     @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle
+            savedInstanceState) {
         View view = inflater.inflate(R.layout.frg_base, container, false);
         tv_name = (TextView) view.findViewById(R.id.tv_name);
         tv_name.setText(getClass().getSimpleName());

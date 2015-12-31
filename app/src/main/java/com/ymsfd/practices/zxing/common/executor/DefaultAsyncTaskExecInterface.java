@@ -23,10 +23,10 @@ import android.os.AsyncTask;
  * is desired. Good thing too since there is no API to request otherwise.
  */
 public final class DefaultAsyncTaskExecInterface implements
-		AsyncTaskExecInterface {
+        AsyncTaskExecInterface {
 
-	@Override
-	public <T> void execute(AsyncTask<T, ?, ?> task, T... args) {
-		task.execute(args);
-	}
+    @Override
+    public <T> void execute(AsyncTask<T, ?, ?> task, T... args) {
+        task.execute(args);
+    }
 }

@@ -32,6 +32,19 @@ public class ScrollLayout extends LinearLayout {
         mGestureDetector = new GestureDetector(context, new CustomGestureListener());
     }
 
+    @Override
+    public boolean onTouchEvent(MotionEvent event) {
+        switch (event.getAction()) {
+            case MotionEvent.ACTION_UP:
+                smoothScrollTo(0, 0);
+                break;
+            default:
+                return mGestureDetector.onTouchEvent(event);
+        }
+
+        return super.onTouchEvent(event);
+    }
+
     // 调用此方法滚动到目标位置
     private void smoothScrollTo(int fx, int fy) {
         int dx = fx - mScroller.getFinalX();
@@ -56,19 +69,6 @@ public class ScrollLayout extends LinearLayout {
             // 必须调用该方法，否则不一定能看到滚动效果
             postInvalidate();
         }
-    }
-
-    @Override
-    public boolean onTouchEvent(MotionEvent event) {
-        switch (event.getAction()) {
-            case MotionEvent.ACTION_UP:
-                smoothScrollTo(0, 0);
-                break;
-            default:
-                return mGestureDetector.onTouchEvent(event);
-        }
-
-        return super.onTouchEvent(event);
     }
 
     class CustomGestureListener implements GestureDetector.OnGestureListener {

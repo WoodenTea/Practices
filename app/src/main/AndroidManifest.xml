@@ -13,6 +13,7 @@
     <application
         android:name=".support.util.GlobalContext"
         android:allowBackup="true"
+        android:fullBackupContent="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:theme="@style/AppTheme">
@@ -110,8 +111,7 @@
         </activity>
         <activity
             android:name=".activity.SpannableActivity"
-            android:label="@string/title_activity_spannable"
-            android:parentActivityName=".activity.BaseActivity">
+            android:label="Spannable">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="com.ymsfd.android.practices.SAMPLE" />
@@ -119,8 +119,7 @@
         </activity>
         <activity
             android:name=".activity.ScrollLayoutActivity"
-            android:label="ScrollLayout"
-            android:parentActivityName=".activity.BaseActivity">
+            android:label="ScrollLayout">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="com.ymsfd.android.practices.SAMPLE" />
@@ -128,8 +127,7 @@
         </activity>
         <activity
             android:name=".activity.FlowLayoutActivity"
-            android:label="FlowLayout"
-            android:parentActivityName=".activity.BaseActivity">
+            android:label="FlowLayout">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="com.ymsfd.android.practices.SAMPLE" />
@@ -137,8 +135,7 @@
         </activity>
         <activity
             android:name=".activity.DragLayoutActivity"
-            android:label="DragLayout"
-            android:parentActivityName=".activity.BaseActivity">
+            android:label="DragLayout">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="com.ymsfd.android.practices.SAMPLE" />
@@ -146,8 +143,7 @@
         </activity>
         <activity
             android:name=".activity.SlidingActivity"
-            android:label="SlidingLayout"
-            android:parentActivityName=".activity.BaseActivity">
+            android:label="SlidingLayout">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="com.ymsfd.android.practices.SAMPLE" />
@@ -155,8 +151,7 @@
         </activity>
         <activity
             android:name=".activity.GlideActivity"
-            android:label="Glide"
-            android:parentActivityName=".activity.BaseActivity">
+            android:label="Glide">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="com.ymsfd.android.practices.SAMPLE" />
@@ -164,8 +159,26 @@
         </activity>
         <activity
             android:name=".activity.TabHostActivity"
-            android:label="TabHost"
-            android:parentActivityName=".activity.BaseActivity">
+            android:label="TabHost">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="com.ymsfd.android.practices.SAMPLE" />
+            </intent-filter>
+        </activity>
+
+        <activity
+            android:name=".activity.PorterDuffActivity"
+            android:label="PorterDuff">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="com.ymsfd.android.practices.SAMPLE" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".activity.RetrofitActivity"
+            android:label="Retrofit">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

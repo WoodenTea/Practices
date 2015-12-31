@@ -4,6 +4,9 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.util.Log;
 
+import java.io.PrintWriter;
+import java.io.StringWriter;
+
 public class BaseActivity extends Activity {
     private final String TAG = getClass().getSimpleName();
 
@@ -19,6 +22,14 @@ public class BaseActivity extends Activity {
 
     final protected void D(String msg) {
         Log.d(TAG, msg);
+    }
+
+    final protected void E(Throwable throwable) {
+        StringWriter stringWriter = new StringWriter();
+        PrintWriter printWriter = new PrintWriter(stringWriter);
+        throwable.printStackTrace(printWriter);
+
+        E(stringWriter.toString());
     }
 
     final protected void E(String msg) {

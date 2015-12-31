@@ -12,13 +12,13 @@ public class GlobalContext extends Application {
 
     private static GlobalContext instance;
 
+    public static GlobalContext getInstance() {
+        return instance;
+    }
+
     @Override
     public void onCreate() {
         super.onCreate();
         instance = this;
-    }
-
-    public static GlobalContext getInstance() {
-        return instance;
     }
 }

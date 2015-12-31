@@ -40,11 +40,11 @@ final class AutoFocusManager implements Camera.AutoFocusCallback {
         FOCUS_MODES_CALLING_AF.add(Camera.Parameters.FOCUS_MODE_MACRO);
     }
 
-    private boolean active;
     private final boolean useAutoFocus;
     private final Camera camera;
-    private AutoFocusTask outstandingTask;
     private final AsyncTaskExecInterface taskExec;
+    private boolean active;
+    private AutoFocusTask outstandingTask;
 
     AutoFocusManager(Context context, Camera camera) {
         this.camera = camera;
@@ -58,14 +58,6 @@ final class AutoFocusManager implements Camera.AutoFocusCallback {
         start();
     }
 
-    @Override
-    public synchronized void onAutoFocus(boolean success, Camera theCamera) {
-        if (active) {
-            outstandingTask = new AutoFocusTask();
-            taskExec.execute(outstandingTask);
-        }
-    }
-
     synchronized void start() {
         if (useAutoFocus) {
             active = true;
@@ -76,6 +68,14 @@ final class AutoFocusManager implements Camera.AutoFocusCallback {
                 // continue?
                 Log.w(TAG, "Unexpected exception while focusing", re);
             }
+        }
+    }
+
+    @Override
+    public synchronized void onAutoFocus(boolean success, Camera theCamera) {
+        if (active) {
+            outstandingTask = new AutoFocusTask();
+            taskExec.execute(outstandingTask);
         }
     }
 

@@ -48,17 +48,6 @@ public final class BeepManager {
         }
     }
 
-    public void playBeepSoundAndVibrate() {
-        if (playBeep && mediaPlayer != null) {
-            mediaPlayer.start();
-        }
-        if (vibrate) {
-            Vibrator vibrator = (Vibrator) activity
-                    .getSystemService(Context.VIBRATOR_SERVICE);
-            vibrator.vibrate(VIBRATE_DURATION);
-        }
-    }
-
     private static boolean shouldBeep(SharedPreferences prefs, Context activity) {
         /* 配置修改 */
         boolean shouldPlayBeep = true;// 声音
@@ -101,5 +90,16 @@ public final class BeepManager {
             mediaPlayer = null;
         }
         return mediaPlayer;
+    }
+
+    public void playBeepSoundAndVibrate() {
+        if (playBeep && mediaPlayer != null) {
+            mediaPlayer.start();
+        }
+        if (vibrate) {
+            Vibrator vibrator = (Vibrator) activity
+                    .getSystemService(Context.VIBRATOR_SERVICE);
+            vibrator.vibrate(VIBRATE_DURATION);
+        }
     }
 }

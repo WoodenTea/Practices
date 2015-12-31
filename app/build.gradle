@@ -35,14 +35,17 @@ android {
         }
 
         debug {
-
+            storeFile file(KEYSTORE_FILE)
+            storePassword KEYSTORE_PASSWORD
+            keyAlias ymsfddev_ALIAS
+            keyPassword ymsfddev_PASSWORD
         }
     }
 
     buildTypes {
         debug {
             buildConfigField "String", "API_URL", '"http://api.dev.com/"'
-            resValue "string", "app_name", "Nib_Debug"
+            resValue "string", "app_name", "Refill"
             applicationIdSuffix ".debug"
             versionNameSuffix "-debug"
             signingConfig signingConfigs.debug

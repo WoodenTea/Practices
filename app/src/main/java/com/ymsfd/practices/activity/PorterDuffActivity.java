@@ -32,8 +32,8 @@ public class PorterDuffActivity extends BaseActivity {
         Paint paint;
         PorterDuffXfermode xfermode;
 
-        bitmapBorder = decodeBitmap(R.drawable.circle);
-        bitmapMask = decodeBitmap(R.drawable.black_circle);
+        bitmapBorder = decodeBitmap(R.drawable.border_circle);
+        bitmapMask = decodeBitmap(R.drawable.mask_circle);
         xfermode = new PorterDuffXfermode(PorterDuff.Mode.SRC_IN);
         paint = new Paint(Paint.ANTI_ALIAS_FLAG);
 

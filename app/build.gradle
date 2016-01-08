@@ -30,15 +30,15 @@ android {
         release {
             storeFile file(KEYSTORE_FILE)
             storePassword KEYSTORE_PASSWORD
-            keyAlias ymsfddev_ALIAS
-            keyPassword ymsfddev_PASSWORD
+            keyAlias WOODENTEA_ALIAS
+            keyPassword WOODENTEA_PASSWORD
         }
 
         debug {
             storeFile file(KEYSTORE_FILE)
             storePassword KEYSTORE_PASSWORD
-            keyAlias ymsfddev_ALIAS
-            keyPassword ymsfddev_PASSWORD
+            keyAlias WOODENTEA_ALIAS
+            keyPassword WOODENTEA_PASSWORD
         }
     }
 
@@ -62,11 +62,12 @@ android {
 
         applicationVariants.all { variant ->
             variant.outputs.each { output ->
+                File outputFile = output.outputFile
                 if (variant.buildType.name.equals("release") && outputFile != null
                         && outputFile.name.endsWith('.apk')) {
-                    def outputFile = output.outputFile
-                    def fileName = "${defaultConfig.applicationId}_v${defaultConfig.versionName}_" +
-                            "${releaseTime()}_${variant.productFlavors[0].name}.apk"
+                    String fileName = "${defaultConfig.applicationId}_v" +
+                            "${defaultConfig.versionName}_${releaseTime()}_" +
+                            "${variant.productFlavors.get(0).name}.apk"
                     output.outputFile = new File(outputFile.parent, fileName)
                 }
             }
@@ -77,15 +78,6 @@ android {
         Official {
             manifestPlaceholders = [CHANNEL_VALUE: "Official"]
         }
-        xiaomi {
-            manifestPlaceholders = [CHANNEL_VALUE: "xiaomi"]
-        }
-        _360 {
-            manifestPlaceholders = [CHANNEL_VALUE: "_360"]
-        }
-        baidu {
-            manifestPlaceholders = [CHANNEL_VALUE: "baidu"]
-        }
         wandoujia {
             manifestPlaceholders = [CHANNEL_VALUE: "wandoujia"]
         }
@@ -94,7 +86,6 @@ android {
 
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
-    compile 'com.android.support:appcompat-v7:23.1.1'
     compile 'com.android.support:design:23.1.1'
     compile 'com.android.support:recyclerview-v7:23.1.1'
     compile 'com.github.bumptech.glide:glide:3.6.1'

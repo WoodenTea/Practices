@@ -1,13 +1,13 @@
 package com.ymsfd.practices.activity;
 
-import android.app.Activity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 
 import java.io.PrintWriter;
 import java.io.StringWriter;
 
-public class BaseActivity extends Activity {
+public class BaseActivity extends AppCompatActivity {
     private final String TAG = getClass().getSimpleName();
 
     @Override

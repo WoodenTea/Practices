@@ -1,10 +1,12 @@
 package com.ymsfd.practices.activity;
 
-import android.app.Activity;
 import android.content.Intent;
+import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -19,7 +21,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class MainActivity extends Activity implements AdapterView.OnItemClickListener {
+public class MainActivity extends AppCompatActivity implements AdapterView.OnItemClickListener {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,8 +34,6 @@ public class MainActivity extends Activity implements AdapterView.OnItemClickLis
         if (path == null) {
             path = "";
         }
-
-        getActivities(path);
 
         ListView listView = (ListView) findViewById(R.id.activities);
         listView.setAdapter(new SimpleAdapter(this, getActivities(path), android.R.layout
@@ -64,6 +64,13 @@ public class MainActivity extends Activity implements AdapterView.OnItemClickLis
         Intent mainIntent = new Intent(Intent.ACTION_MAIN, null);
         mainIntent.addCategory("com.ymsfd.android.practices.SAMPLE");
         PackageManager pm = getPackageManager();
+        try {
+            PackageInfo info = pm.getPackageInfo(getPackageName(), 0);
+            Log.d(getClass().getSimpleName(), info.packageName);
+        } catch (Exception e) {
+
+        }
+
         List<ResolveInfo> list = pm.queryIntentActivities(mainIntent, 0);
 
         if (null == list)

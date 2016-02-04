@@ -3,6 +3,7 @@ package com.ymsfd.practices.activity;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTabHost;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,7 +28,7 @@ public class TabHostActivity extends FragmentActivity {
     private int tabName[] = {R.string.home, R.string.category, R.string.share, R.string.car, R
             .string.user};
     private int tabView[] = {R.layout.tab_home, R.layout.tab_category, R.layout.tab_share, R
-            .layout.tab_car, R.layout.tab_user};
+            .layout.tab_cart, R.layout.tab_user};
     private LayoutInflater inflater;
 
     @Override
@@ -45,6 +46,7 @@ public class TabHostActivity extends FragmentActivity {
                     (getTabView(tabView[index], tabHost));
             tabHost.addTab(tabSpec, fragmentArray[index], null);
         }
+        tabHost.getTabWidget().setDividerDrawable(android.R.color.transparent);
     }
 
     private View getTabView(int layoutID, ViewGroup parent) {

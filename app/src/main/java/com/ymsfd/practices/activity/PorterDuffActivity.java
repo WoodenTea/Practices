@@ -4,14 +4,19 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
+import android.graphics.CornerPathEffect;
 import android.graphics.Paint;
+import android.graphics.Path;
 import android.graphics.PorterDuff;
 import android.graphics.PorterDuffXfermode;
 import android.graphics.Rect;
+import android.graphics.RectF;
+import android.graphics.SweepGradient;
 import android.os.Bundle;
 import android.widget.ImageView;
 
 import com.ymsfd.practices.R;
+import com.ymsfd.practices.support.util.DensityUtil;
 
 /**
  * Created by WoodenTea.
@@ -90,7 +95,54 @@ public class PorterDuffActivity extends BaseActivity {
         canvas.restore();
         image.setImageBitmap(bitmap);
 
+        image = (ImageView) findViewById(R.id.image4);
+        int size = (int) DensityUtil.dp2px(200);
+        bitmap = Bitmap.createBitmap(size, size, Bitmap.Config.ARGB_8888);
+        canvas = new Canvas(bitmap);
+
+        paint = new Paint(Paint.ANTI_ALIAS_FLAG);
+        paint.setColor(0xFF4C5A67);
+        drawRoundRect(0, 0, size, size, 30, paint, canvas);
+
+        paint = new Paint(Paint.ANTI_ALIAS_FLAG);
+        paint.setDither(true);
+        paint.setStyle(Paint.Style.STROKE);
+        paint.setStrokeJoin(Paint.Join.ROUND);
+        paint.setStrokeCap(Paint.Cap.ROUND);
+        paint.setPathEffect(new CornerPathEffect(10));
+
+        RectF rectF = new RectF();
+        int centerX = size / 2;
+        int radius = (int) DensityUtil.dp2px(90);
+        rectF.left = centerX - radius;
+        rectF.top = centerX - radius;
+        rectF.right = centerX + radius;
+        rectF.bottom = centerX + radius;
+        int[] colors = {0xFF9A9BF8, 0xFF9AA2F7, 0xFF65CCD1, 0xFF63D0CD, 0xFF68CBD0, 0xFF999AF6,
+                0xFF9A9BF8};
+        float[] positions = {0, 1f / 6, 2f / 6, 3f / 6, 4f / 6, 5f / 6, 1};
+        SweepGradient sweepGradient = new SweepGradient(centerX, centerX, colors, positions);
+        paint.setStrokeWidth((int) DensityUtil.dp2px(10));
+        paint.setShader(sweepGradient);
+        canvas.drawArc(rectF, -240, 300, false, paint);
+        image.setImageBitmap(bitmap);
+
         return true;
+    }
+
+    private void drawRoundRect(float left, float top, float right, float bottom, float radius,
+                               Paint paint, Canvas canvas) {
+        Path path = new Path();
+        path.moveTo(left, top);
+        path.lineTo(right - radius, top);
+        path.quadTo(right, top, right, top + radius);
+        path.lineTo(right, bottom - radius);
+        path.quadTo(right, bottom, right - radius, bottom);
+        path.lineTo(left + radius, bottom);
+        path.quadTo(left, bottom, left, bottom - radius);
+        path.lineTo(left, top + radius);
+        path.quadTo(left, top, left + radius, top);
+        canvas.drawPath(path, paint);
     }
 
     private Bitmap decodeBitmap(int id) {

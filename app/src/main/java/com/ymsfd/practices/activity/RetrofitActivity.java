@@ -5,23 +5,27 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.jakewharton.rxbinding.widget.RxTextView;
-import com.squareup.okhttp.OkHttpClient;
-import com.squareup.okhttp.logging.HttpLoggingInterceptor;
+import com.trello.rxlifecycle.ActivityEvent;
+import com.trello.rxlifecycle.RxLifecycle;
 import com.ymsfd.practices.R;
 
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
-import retrofit.GsonConverterFactory;
-import retrofit.Retrofit;
-import retrofit.RxJavaCallAdapterFactory;
-import retrofit.http.GET;
-import retrofit.http.Query;
+import okhttp3.OkHttpClient;
+import okhttp3.logging.HttpLoggingInterceptor;
+import retrofit2.GsonConverterFactory;
+import retrofit2.Retrofit;
+import retrofit2.RxJavaCallAdapterFactory;
+import retrofit2.http.GET;
+import retrofit2.http.Query;
 import rx.Observable;
 import rx.Subscriber;
 import rx.android.schedulers.AndroidSchedulers;
+import rx.functions.Action0;
 import rx.functions.Func1;
 import rx.schedulers.Schedulers;
+import rx.subjects.BehaviorSubject;
 
 /**
  * Created by WoodenTea.
@@ -44,8 +48,7 @@ public class RetrofitActivity extends BaseActivity {
 
         HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
         interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
-        final OkHttpClient client = new OkHttpClient();
-        client.interceptors().add(interceptor);
+        OkHttpClient client = new OkHttpClient.Builder().addInterceptor(interceptor).build();
         Retrofit retrofit = new Retrofit.Builder().baseUrl("https://suggest.taobao.com")
                 .addConverterFactory(GsonConverterFactory.create())
                 .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
@@ -53,7 +56,7 @@ public class RetrofitActivity extends BaseActivity {
                 .build();
 
         final SearchService searchService = retrofit.create(SearchService.class);
-
+        BehaviorSubject<ActivityEvent> lifecycle = BehaviorSubject.create();
         RxTextView.textChanges(et_keyword)
                 .subscribeOn(AndroidSchedulers.mainThread())
                 .debounce(600, TimeUnit.MILLISECONDS, AndroidSchedulers.mainThread())
@@ -103,6 +106,14 @@ public class RetrofitActivity extends BaseActivity {
                     }
                 })
                 .observeOn(AndroidSchedulers.mainThread())
+                .doOnUnsubscribe(new Action0() {
+                    @Override
+                    public void call() {
+                        D("Unsubscribing");
+                    }
+                })
+                .compose(RxLifecycle.<String>bindUntilActivityEvent(lifecycle, ActivityEvent
+                        .DESTROY))
                 .subscribe(new Subscriber<String>() {
                     @Override
                     public void onCompleted() {
@@ -122,6 +133,18 @@ public class RetrofitActivity extends BaseActivity {
         ;
 
         return true;
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        D("Destroy");
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        D("Stop");
     }
 
     interface SearchService {

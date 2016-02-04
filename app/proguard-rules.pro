@@ -50,17 +50,16 @@
 #---------- Gson ----------#
 
 # ---------- Retrofit ---------- #
--keep class com.squareup.okhttp.** { *; }
--keep class retrofit.** { *; }
--keep interface com.squareup.okhttp.** { *; }
+-keep class okhttp3.** { *; }
+-keep class retrofit2.** { *; }
+-keep interface okhttp3.** { *; }
 
--dontwarn com.squareup.okhttp.**
+-dontwarn okhttp3.**
 -dontwarn okio.**
--dontwarn retrofit.**
--dontwarn rx.**
+-dontwarn retrofit2.**
 
 -keepclasseswithmembers class * {
-    @retrofit.http.* <methods>;
+    @retrofit2.http.* <methods>;
 }
 
 # If in your rest service interface you use methods with Callback argument.

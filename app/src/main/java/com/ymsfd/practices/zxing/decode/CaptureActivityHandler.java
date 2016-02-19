@@ -26,7 +26,7 @@ import com.google.zxing.BarcodeFormat;
 import com.google.zxing.DecodeHintType;
 import com.google.zxing.Result;
 import com.ymsfd.practices.R;
-import com.ymsfd.practices.activity.CaptureActivity;
+import com.ymsfd.practices.ui.activity.CaptureActivity;
 import com.ymsfd.practices.zxing.camera.CameraManager;
 import com.ymsfd.practices.zxing.view.ViewfinderResultPointCallback;
 

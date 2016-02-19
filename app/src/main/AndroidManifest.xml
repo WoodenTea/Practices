@@ -11,7 +11,7 @@
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
 
     <application
-        android:name=".support.util.GlobalContext"
+        android:name=".infrastructure.util.GlobalContext"
         android:allowBackup="true"
         android:fullBackupContent="true"
         android:icon="@mipmap/ic_launcher"
@@ -22,7 +22,7 @@
             android:value="${CHANNEL_VALUE}" />
 
         <activity
-            android:name=".activity.MainActivity"
+            android:name=".ui.activity.MainActivity"
             android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -30,7 +30,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".activity.AnimatorActivity"
+            android:name=".ui.activity.AnimatorActivity"
             android:label="Animator">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -38,7 +38,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".activity.CustomViewActivity"
+            android:name=".ui.activity.CustomViewActivity"
             android:label="CustomView">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -46,7 +46,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".activity.FragmentViewPagerActivity"
+            android:name=".ui.activity.FragmentViewPagerActivity"
             android:label="Fragment">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -54,7 +54,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".activity.TestActivity"
+            android:name=".ui.activity.TestActivity"
             android:label="Test">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -62,7 +62,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".activity.ViewGroupActivity"
+            android:name=".ui.activity.ViewGroupActivity"
             android:label="ViewGroup">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -70,7 +70,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".activity.JSActivity"
+            android:name=".ui.activity.JSActivity"
             android:label="JavaScript">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -78,7 +78,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".activity.SceneActivity"
+            android:name=".ui.activity.SceneActivity"
             android:label="Scene">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -86,7 +86,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".activity.CaptureActivity"
+            android:name=".ui.activity.CaptureActivity"
             android:label="QR CODE">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -94,7 +94,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".activity.DesignActivity"
+            android:name=".ui.activity.DesignActivity"
             android:label="Design">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -102,7 +102,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".activity.FancyItemActivity"
+            android:name=".ui.activity.FancyItemActivity"
             android:label="FancyItem">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -110,7 +110,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".activity.SpannableActivity"
+            android:name=".ui.activity.SpannableActivity"
             android:label="Spannable">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -118,7 +118,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".activity.ScrollLayoutActivity"
+            android:name=".ui.activity.ScrollLayoutActivity"
             android:label="ScrollLayout">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -126,7 +126,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".activity.FlowLayoutActivity"
+            android:name=".ui.activity.FlowLayoutActivity"
             android:label="FlowLayout">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -134,7 +134,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".activity.DragLayoutActivity"
+            android:name=".ui.activity.DragLayoutActivity"
             android:label="DragLayout">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -142,7 +142,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".activity.SlidingActivity"
+            android:name=".ui.activity.SlidingActivity"
             android:label="SlidingLayout">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -150,7 +150,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".activity.GlideActivity"
+            android:name=".ui.activity.GlideActivity"
             android:label="Glide">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -158,7 +158,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".activity.TabHostActivity"
+            android:name=".ui.activity.TabHostActivity"
             android:label="TabHost">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -168,7 +168,7 @@
         </activity>
 
         <activity
-            android:name=".activity.PorterDuffActivity"
+            android:name=".ui.activity.PorterDuffActivity"
             android:label="PorterDuff">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -177,7 +177,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".activity.RetrofitActivity"
+            android:name=".ui.activity.RetrofitActivity"
             android:label="Retrofit">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -186,7 +186,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".activity.RecyclerViewActivity"
+            android:name=".ui.activity.RecyclerViewActivity"
             android:label="RecyclerView">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -195,7 +195,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".activity.MapActivity"
+            android:name=".ui.activity.MapActivity"
             android:label="Map">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

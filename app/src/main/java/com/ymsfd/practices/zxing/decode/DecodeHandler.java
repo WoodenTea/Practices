@@ -26,7 +26,7 @@ import com.google.zxing.ReaderException;
 import com.google.zxing.Result;
 import com.google.zxing.common.HybridBinarizer;
 import com.ymsfd.practices.R;
-import com.ymsfd.practices.activity.CaptureActivity;
+import com.ymsfd.practices.ui.activity.CaptureActivity;
 
 import android.os.Bundle;
 import android.os.Handler;

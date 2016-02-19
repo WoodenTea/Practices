@@ -19,7 +19,7 @@ package com.ymsfd.practices.zxing.decode;
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.DecodeHintType;
 import com.google.zxing.ResultPointCallback;
-import com.ymsfd.practices.activity.CaptureActivity;
+import com.ymsfd.practices.ui.activity.CaptureActivity;
 
 import android.os.Handler;
 import android.os.Looper;

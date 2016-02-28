@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.TextView;
 
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.DecodeHintType;
@@ -24,6 +25,8 @@ import com.ymsfd.practices.zxing.decode.CaptureActivityHandler;
 import com.ymsfd.practices.zxing.decode.FinishListener;
 import com.ymsfd.practices.zxing.decode.InactivityTimer;
 import com.ymsfd.practices.zxing.view.ViewfinderView;
+
+import org.w3c.dom.Text;
 
 import java.io.IOException;
 import java.util.Collection;
@@ -51,6 +54,7 @@ public class CaptureActivity extends BaseActivity implements
     private InactivityTimer inactivityTimer;
     private BeepManager beepManager;
     private AmbientLightManager ambientLightManager;
+    private TextView textView;
 
     @Override
     protected boolean _onCreate(Bundle savedInstanceState) {
@@ -61,6 +65,7 @@ public class CaptureActivity extends BaseActivity implements
         window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
         setContentView(R.layout.actvt_capture);
 
+        textView = (TextView) findViewById(R.id.text);
         btn_back = (Button) findViewById(R.id.btn_back);
         btn_back.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -172,9 +177,7 @@ public class CaptureActivity extends BaseActivity implements
                         decodeHints, characterSet, cameraManager);
             }
             decodeOrStoreSavedBitmap(null, null);
-        } catch (IOException ioe) {
-            displayFrameworkBugMessageAndExit();
-        } catch (RuntimeException e) {
+        } catch (IOException | RuntimeException ioe) {
             displayFrameworkBugMessageAndExit();
         }
     }
@@ -235,11 +238,7 @@ public class CaptureActivity extends BaseActivity implements
             msg = "无法识别";
         }
 
-//        Intent intent = new Intent(CaptureActivity.this, ShowActivity.class);
-//        Bundle bundle = new Bundle();
-//        bundle.putString("msg", msg);
-//        intent.putExtras(bundle);
-//        startActivity(intent);
+        textView.setText(msg);
     }
 
     public void restartPreviewAfterDelay(long delayMS) {

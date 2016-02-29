@@ -1,9 +1,7 @@
 package com.ymsfd.practices.ui.activity;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
-import android.support.v4.app.ActivityOptionsCompat;
 import android.view.View;
 
 import com.ymsfd.practices.R;
@@ -14,7 +12,7 @@ import com.ymsfd.practices.R;
  * Date: 5/25/15
  * Time: 10:27
  */
-public class SceneActivity extends BaseActivity {
+public class SceneActivity2 extends BaseActivity {
 
     @Override
     protected boolean _onCreate(Bundle savedInstanceState) {
@@ -22,18 +20,20 @@ public class SceneActivity extends BaseActivity {
             return false;
         }
 
-        setContentView(R.layout.actvt_scene);
+        setContentView(R.layout.actvt_scene2);
         findViewById(R.id.cartoon).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(SceneActivity.this, SceneActivity2.class);
-                ActivityOptionsCompat options = ActivityOptionsCompat
-                        .makeSceneTransitionAnimation(SceneActivity.this, view, "robot");
-                ActivityCompat.startActivity(SceneActivity.this, intent, options.toBundle());
+                ActivityCompat.finishAfterTransition(SceneActivity2.this);
             }
         });
 
         return true;
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        ActivityCompat.finishAfterTransition(this);
+    }
 }

@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<transitionManager xmlns:android="http://schemas.android.com/apk/res/android">
-    <transition
-        android:fromScene="@layout/scene_layout_1"
-        android:toScene="@layout/scene_layout_2"
-        android:transition="@transition/slow_auto_transition" />
-
-</transitionManager>

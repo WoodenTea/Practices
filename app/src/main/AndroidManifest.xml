@@ -86,6 +86,9 @@
             </intent-filter>
         </activity>
         <activity
+            android:name=".ui.activity.SceneActivity2"
+            android:label="Scene2" />
+        <activity
             android:name=".ui.activity.CaptureActivity"
             android:label="QR CODE">
             <intent-filter>

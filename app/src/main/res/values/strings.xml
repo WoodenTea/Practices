@@ -7,4 +7,5 @@
     <string name="car">购物</string>
     <string name="user">个人</string>
     <string name="input_keyword">请输入关键字</string>
+    <string name="text">%d</string>
 </resources>

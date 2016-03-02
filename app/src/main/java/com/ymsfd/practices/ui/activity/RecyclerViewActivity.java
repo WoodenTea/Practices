@@ -2,19 +2,26 @@ package com.ymsfd.practices.ui.activity;
 
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
+import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.StaggeredGridLayoutManager;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.animation.AccelerateInterpolator;
 import android.view.animation.DecelerateInterpolator;
 import android.widget.FrameLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.ymsfd.practices.R;
+import com.ymsfd.practices.ui.adapter.GeneralRecyclerAdapter;
+import com.ymsfd.practices.ui.adapter.HeaderRecyclerAdapter;
+import com.ymsfd.practices.ui.adapter.RecyclerViewHolder;
+import com.ymsfd.practices.ui.adapter.StaggeredSpanAdapter;
 import com.ymsfd.practices.ui.adapter.fancy.helper.DividerGridItemDecoration;
 import com.ymsfd.practices.ui.adapter.fancy.helper.RecyclerItemClickListener;
-import com.ymsfd.practices.ui.adapter.GeneralRecyclerAdapter;
-import com.ymsfd.practices.ui.adapter.RecyclerViewHolder;
+import com.ymsfd.practices.ui.adapter.util.HidingScrollListener;
 
 import java.util.ArrayList;
 
@@ -33,43 +40,57 @@ public class RecyclerViewActivity extends BaseActivity {
         }
 
         setContentView(R.layout.actvt_recycler_view);
+        GridLayoutManager gridLayoutManager = new GridLayoutManager(this, 2);
         RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
-        recyclerView.setLayoutManager(new GridLayoutManager(this, 3));
+        recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.addItemDecoration(new DividerGridItemDecoration(this));
         ArrayList<String> strings = new ArrayList<>();
-        for (int index = 0; index < 35; index++) {
+        for (int index = 0; index < 10; index++) {
             strings.add("" + index);
         }
         GeneralRecyclerAdapter<String> adapter = new GeneralRecyclerAdapter<String>(this) {
             @Override
-            protected int getItemLayoutId(int viewType) {
-                return R.layout.item_common;
+            protected void bindHolder(RecyclerViewHolder holder, int position, String item) {
+                holder.setText(R.id.news_title, item);
             }
 
             @Override
-            protected void bindHolder(RecyclerViewHolder holder, int position, String item) {
-                holder.setText(R.id.text, item);
+            protected int getItemLayoutId() {
+                return R.layout.item_card_view;
             }
         };
         adapter.addAll(strings);
-        recyclerView.setAdapter(adapter);
+        HeaderRecyclerAdapter a = new HeaderRecyclerAdapter(adapter);
+
+        recyclerView.setLayoutManager(new StaggeredGridLayoutManager(3,
+                StaggeredGridLayoutManager.VERTICAL));
+        a = new StaggeredSpanAdapter(adapter);
+        recyclerView.setAdapter(a);
+        for (int i = 0; i < 5; i++) {
+            View view = LayoutInflater.from(this).inflate(R.layout.item_main, recyclerView, false);
+            TextView tv = (TextView) view.findViewById(R.id.text);
+            tv.setText(String.format(getString(R.string.text), i));
+            a.addHeaderView(view);
+        }
+        View view = LayoutInflater.from(this).inflate(R.layout.item_main, recyclerView, false);
+        TextView tv = (TextView) view.findViewById(R.id.text);
+        tv.setText(getString(R.string.app_name));
+        a.addFooterView(view);
+
         recyclerView.addOnItemTouchListener(new RecyclerItemClickListener(this, new
                 RecyclerItemClickListener.OnItemClickListener() {
 
                     @Override
                     public void onItemClick(View view, int position) {
                         Snackbar.make(findViewById(R.id.recycler_view), "Position: " + position,
-                                Snackbar
-                                        .LENGTH_LONG)
-                                .setAction("Action", new View.OnClickListener() {
-                                    @Override
-                                    public void onClick(View v) {
-                                        Toast.makeText(
-                                                RecyclerViewActivity.this,
-                                                "Toast comes out",
-                                                Toast.LENGTH_SHORT).show();
-                                    }
-                                }).show();
+                                Snackbar.LENGTH_LONG).setAction("Action", new View
+                                .OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                Toast.makeText(RecyclerViewActivity.this, "Toast comes out",
+                                        Toast.LENGTH_SHORT).show();
+                            }
+                        }).show();
                     }
                 }));
         recyclerView.addOnScrollListener(new HidingScrollListener() {
@@ -83,6 +104,7 @@ public class RecyclerViewActivity extends BaseActivity {
                 showView();
             }
         });
+
         floatingButton = findViewById(R.id.fabButton);
         return true;
     }
@@ -99,31 +121,4 @@ public class RecyclerViewActivity extends BaseActivity {
                 .start();
     }
 
-    public abstract class HidingScrollListener extends RecyclerView.OnScrollListener {
-        private static final int HIDE_THRESHOLD = 20;
-        private int scrolledDistance = 0;
-        private boolean controlsVisible = true;
-
-        @Override
-        public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
-            D("dy: " + dy);
-            if (scrolledDistance > HIDE_THRESHOLD && controlsVisible) {
-                onHide();
-                controlsVisible = false;
-                scrolledDistance = 0;
-            } else if (scrolledDistance < -HIDE_THRESHOLD && !controlsVisible) {
-                onShow();
-                controlsVisible = true;
-                scrolledDistance = 0;
-            }
-
-            if ((controlsVisible && dy > 0) || (!controlsVisible && dy < 0)) {
-                scrolledDistance += dy;
-            }
-        }
-
-        public abstract void onHide();
-
-        public abstract void onShow();
-    }
 }

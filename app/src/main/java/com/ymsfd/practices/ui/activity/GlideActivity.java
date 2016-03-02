@@ -9,6 +9,7 @@ import android.widget.ImageView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.target.BitmapImageViewTarget;
+import com.bumptech.glide.request.target.GlideDrawableImageViewTarget;
 import com.ymsfd.practices.R;
 
 /**
@@ -42,8 +43,9 @@ public class GlideActivity extends BaseActivity {
         });
 
         imageView = (ImageView) findViewById(R.id.imageView2);
-        Glide.with(this).load("http://pic.joke01.com/uppic/13-05/30/30215236.gif").asGif()
-                .diskCacheStrategy(DiskCacheStrategy.SOURCE).into(imageView);
+        GlideDrawableImageViewTarget target = new GlideDrawableImageViewTarget(imageView);
+        Glide.with(this).load("http://pic.joke01.com/uppic/13-05/30/30215236.gif").placeholder(R
+                .drawable.cartoon).error(R.drawable.border_circle).into(target);
 
         return true;
     }

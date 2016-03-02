@@ -59,17 +59,14 @@ public class FancyItemActivity extends BaseActivity implements RecyclerListAdapt
                     @Override
                     public void onItemClick(View view, int position) {
                         Snackbar.make(findViewById(R.id.recycler_view), "Position: " + position,
-                                Snackbar
-                                        .LENGTH_LONG)
-                                .setAction("Action", new View.OnClickListener() {
-                                    @Override
-                                    public void onClick(View v) {
-                                        Toast.makeText(
-                                                FancyItemActivity.this,
-                                                "Toast comes out",
-                                                Toast.LENGTH_SHORT).show();
-                                    }
-                                }).show();
+                                Snackbar.LENGTH_LONG).setAction("Action", new View
+                                .OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                Toast.makeText(FancyItemActivity.this, "Toast comes out", Toast
+                                        .LENGTH_SHORT).show();
+                            }
+                        }).show();
                     }
                 }));
 

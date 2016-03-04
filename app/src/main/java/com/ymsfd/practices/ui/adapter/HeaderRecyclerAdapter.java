@@ -29,46 +29,48 @@ public class HeaderRecyclerAdapter extends RecyclerView.Adapter<RecyclerViewHold
 
     @Override
     public RecyclerViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        if (viewType < TYPE_HEADER + headerCount()) {
+        if (viewType < TYPE_HEADER + countHeaderNumber()) {
             return new RecyclerViewHolder(headerViews.get(viewType - TYPE_HEADER));
-        } else if (viewType < TYPE_FOOTER + footerCount()) {
+        } else if (viewType < TYPE_FOOTER + countFooterNumber()) {
             return new RecyclerViewHolder(footerView);
         } else if (viewType >= TYPE_ITEM) {
             return adapter.onCreateViewHolder(parent, viewType);
         }
 
-        throw new RuntimeException("The method onCreateViewHOlder() get the wrong viewType, " +
+        throw new RuntimeException("The method onCreateViewHolder() get the wrong viewType, " +
                 "you should pass the correct viewType");
     }
 
     @Override
     public void onBindViewHolder(RecyclerViewHolder holder, int position) {
-        if (position >= headerCount() && position < headerCount() + adapter.getItemCount()) {
-            adapter.onBindViewHolder(holder, position - headerCount());
+        int headerNumber = countHeaderNumber();
+        if (position >= headerNumber && position < headerNumber + adapter.getItemCount()) {
+            adapter.onBindViewHolder(holder, position - headerNumber);
         }
     }
 
     @Override
     public int getItemViewType(int position) {
-        if (position < headerCount()) {
+        int headerNumber = countHeaderNumber();
+        if (position < headerNumber) {
             return TYPE_HEADER + position;
-        } else if (position < headerCount() + adapter.getItemCount()) {
-            return TYPE_ITEM + adapter.getItemViewType(position - headerCount());
+        } else if (position < headerNumber + adapter.getItemCount()) {
+            return TYPE_ITEM + adapter.getItemViewType(position - headerNumber);
         }
 
-        return TYPE_FOOTER + position - headerCount() - adapter.getItemCount();
+        return TYPE_FOOTER + position - headerNumber - adapter.getItemCount();
     }
 
     @Override
     public int getItemCount() {
-        return headerCount() + adapter.getItemCount() + footerCount();
+        return countHeaderNumber() + adapter.getItemCount() + countFooterNumber();
     }
 
-    private int headerCount() {
+    private int countHeaderNumber() {
         return headerViews.size();
     }
 
-    private int footerCount() {
+    private int countFooterNumber() {
         return hasFooter() ? 1 : 0;
     }
 
@@ -77,11 +79,11 @@ public class HeaderRecyclerAdapter extends RecyclerView.Adapter<RecyclerViewHold
     }
 
     public boolean hasHeader() {
-        return headerCount() > 0;
+        return countHeaderNumber() > 0;
     }
 
     public boolean positionIsHeader(int position) {
-        return headerCount() > position;
+        return countHeaderNumber() > position;
     }
 
     public void addHeaderView(View view) {

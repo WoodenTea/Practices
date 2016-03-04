@@ -5,7 +5,6 @@ import android.support.design.widget.Snackbar;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.animation.AccelerateInterpolator;
@@ -15,12 +14,17 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.ymsfd.practices.R;
+import com.ymsfd.practices.infrastructure.task.GenericTask;
+import com.ymsfd.practices.infrastructure.task.TaskAdapter;
+import com.ymsfd.practices.infrastructure.task.TaskParams;
+import com.ymsfd.practices.infrastructure.task.TaskResult;
 import com.ymsfd.practices.ui.adapter.GeneralRecyclerAdapter;
 import com.ymsfd.practices.ui.adapter.HeaderRecyclerAdapter;
 import com.ymsfd.practices.ui.adapter.RecyclerViewHolder;
-import com.ymsfd.practices.ui.adapter.StaggeredSpanAdapter;
 import com.ymsfd.practices.ui.adapter.fancy.helper.DividerGridItemDecoration;
 import com.ymsfd.practices.ui.adapter.fancy.helper.RecyclerItemClickListener;
+import com.ymsfd.practices.ui.adapter.util.BottomScrollListener;
+import com.ymsfd.practices.ui.adapter.util.GridSpan;
 import com.ymsfd.practices.ui.adapter.util.HidingScrollListener;
 
 import java.util.ArrayList;
@@ -61,10 +65,8 @@ public class RecyclerViewActivity extends BaseActivity {
         };
         adapter.addAll(strings);
         HeaderRecyclerAdapter a = new HeaderRecyclerAdapter(adapter);
-
-        recyclerView.setLayoutManager(new StaggeredGridLayoutManager(3,
-                StaggeredGridLayoutManager.VERTICAL));
-        a = new StaggeredSpanAdapter(adapter);
+        gridLayoutManager.setSpanSizeLookup(new GridSpan(a, gridLayoutManager.getSpanCount()));
+        recyclerView.setLayoutManager(gridLayoutManager);
         recyclerView.setAdapter(a);
         for (int i = 0; i < 5; i++) {
             View view = LayoutInflater.from(this).inflate(R.layout.item_main, recyclerView, false);
@@ -104,7 +106,37 @@ public class RecyclerViewActivity extends BaseActivity {
                 showView();
             }
         });
+        final BottomScrollListener listener = new BottomScrollListener();
+        listener.addLoadMoreListener(new BottomScrollListener.LoadMoreListener() {
+            @Override
+            public void onLoadMore(final BottomScrollListener l) {
+                D("To bottom->" + listener.isLoadMore());
+                GenericTask task = new GenericTask() {
+                    @Override
+                    protected TaskResult _doInBackground(TaskParams... params) {
+                        try {
+                            Thread.sleep(10000);
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                        return null;
+                    }
+                };
+                task.setListener(new TaskAdapter() {
+                    @Override
+                    public String getName() {
+                        return null;
+                    }
 
+                    @Override
+                    public void onPostExecute(GenericTask task, TaskResult result) {
+                        l.endLoadMore();
+                    }
+                });
+                task.execute();
+            }
+        });
+        recyclerView.addOnScrollListener(listener);
         floatingButton = findViewById(R.id.fabButton);
         return true;
     }

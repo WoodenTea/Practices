@@ -63,11 +63,13 @@ public class RecyclerViewActivity extends BaseActivity {
                 return R.layout.item_card_view;
             }
         };
+        recyclerView.setAdapter(adapter);
         adapter.addAll(strings);
         HeaderRecyclerAdapter a = new HeaderRecyclerAdapter(adapter);
         gridLayoutManager.setSpanSizeLookup(new GridSpan(a, gridLayoutManager.getSpanCount()));
         recyclerView.setLayoutManager(gridLayoutManager);
-        recyclerView.setAdapter(a);
+//        recyclerView.setAdapter(a);
+
         for (int i = 0; i < 5; i++) {
             View view = LayoutInflater.from(this).inflate(R.layout.item_main, recyclerView, false);
             TextView tv = (TextView) view.findViewById(R.id.text);

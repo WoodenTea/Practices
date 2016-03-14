@@ -13,9 +13,9 @@
         android:id="@+id/fabButton"
         android:layout_width="56dp"
         android:layout_height="56dp"
-        android:layout_gravity="bottom|right"
-        android:layout_marginBottom="16dp"
-        android:layout_marginRight="16dp"
+        android:layout_gravity="bottom|end"
+        android:layout_marginBottom="@dimen/official_margin"
+        android:layout_marginEnd="@dimen/official_margin"
         android:background="@drawable/fab_bcg"
         android:contentDescription="@null"
         android:src="@drawable/favorite" />

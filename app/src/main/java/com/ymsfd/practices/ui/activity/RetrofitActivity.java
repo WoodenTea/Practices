@@ -109,7 +109,7 @@ public class RetrofitActivity extends BaseActivity {
                 .doOnUnsubscribe(new Action0() {
                     @Override
                     public void call() {
-                        D("Unsubscribing");
+                        D("Unsubscribe");
                     }
                 })
                 .compose(RxLifecycle.<String>bindUntilActivityEvent(lifecycle, ActivityEvent

@@ -18,8 +18,7 @@ import com.ymsfd.practices.infrastructure.task.GenericTask;
 import com.ymsfd.practices.infrastructure.task.TaskAdapter;
 import com.ymsfd.practices.infrastructure.task.TaskParams;
 import com.ymsfd.practices.infrastructure.task.TaskResult;
-import com.ymsfd.practices.ui.adapter.GeneralRecyclerAdapter;
-import com.ymsfd.practices.ui.adapter.HeaderRecyclerAdapter;
+import com.ymsfd.practices.ui.adapter.ComplexRecyclerAdapter;
 import com.ymsfd.practices.ui.adapter.RecyclerViewHolder;
 import com.ymsfd.practices.ui.adapter.fancy.helper.DividerGridItemDecoration;
 import com.ymsfd.practices.ui.adapter.fancy.helper.RecyclerItemClickListener;
@@ -52,34 +51,34 @@ public class RecyclerViewActivity extends BaseActivity {
         for (int index = 0; index < 10; index++) {
             strings.add("" + index);
         }
-        GeneralRecyclerAdapter<String> adapter = new GeneralRecyclerAdapter<String>(this) {
-            @Override
-            protected void bindHolder(RecyclerViewHolder holder, int position, String item) {
-                holder.setText(R.id.news_title, item);
-            }
 
+        ComplexRecyclerAdapter<String> adapter = new ComplexRecyclerAdapter<String>() {
             @Override
             protected int getItemLayoutId() {
                 return R.layout.item_card_view;
             }
+
+            @Override
+            protected void bindHolder(RecyclerViewHolder holder, int position, String item) {
+                holder.setText(R.id.news_title, item);
+            }
         };
-        recyclerView.setAdapter(adapter);
         adapter.addAll(strings);
-        HeaderRecyclerAdapter a = new HeaderRecyclerAdapter(adapter);
-        gridLayoutManager.setSpanSizeLookup(new GridSpan(a, gridLayoutManager.getSpanCount()));
+        recyclerView.setAdapter(adapter);
+        gridLayoutManager.setSpanSizeLookup(new GridSpan(adapter, gridLayoutManager.getSpanCount
+                ()));
         recyclerView.setLayoutManager(gridLayoutManager);
-//        recyclerView.setAdapter(a);
 
         for (int i = 0; i < 5; i++) {
             View view = LayoutInflater.from(this).inflate(R.layout.item_main, recyclerView, false);
             TextView tv = (TextView) view.findViewById(R.id.text);
             tv.setText(String.format(getString(R.string.text), i));
-            a.addHeaderView(view);
+            adapter.addHeaderView(view);
         }
         View view = LayoutInflater.from(this).inflate(R.layout.item_main, recyclerView, false);
         TextView tv = (TextView) view.findViewById(R.id.text);
         tv.setText(getString(R.string.app_name));
-        a.addFooterView(view);
+        adapter.addFooterView(view);
 
         recyclerView.addOnItemTouchListener(new RecyclerItemClickListener(this, new
                 RecyclerItemClickListener.OnItemClickListener() {

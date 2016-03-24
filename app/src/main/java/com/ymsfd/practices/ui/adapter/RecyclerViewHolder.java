@@ -7,6 +7,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.RatingBar;
 import android.widget.TextView;
 
 /**
@@ -14,12 +15,40 @@ import android.widget.TextView;
  * Date: 2016/2/19
  * Time: 11:57
  */
-public class RecyclerViewHolder extends RecyclerView.ViewHolder {
+public class RecyclerViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
     private SparseArray<View> mViews;
+    private SparseArray<View.OnClickListener> listeners;
+    private OnItemClickListener listener;
+
+    public RecyclerViewHolder(View itemView, OnItemClickListener listener) {
+        this(itemView);
+        this.listener = listener;
+    }
 
     public RecyclerViewHolder(View itemView) {
         super(itemView);
+        itemView.setOnClickListener(this);
         mViews = new SparseArray<>();
+        listeners = new SparseArray<>();
+    }
+
+    @Override
+    public void onClick(View view) {
+        if (listener != null) {
+            listener.onItemClick(view, getAdapterPosition());
+        }
+    }
+
+    public void setOnItemClickListener(OnItemClickListener listener) {
+        this.listener = listener;
+    }
+
+    public TextView findTextViewById(int viewId) {
+        return (TextView) findView(viewId);
+    }
+
+    public View findView(int viewId) {
+        return findViewById(viewId);
     }
 
     private <T extends View> T findViewById(int viewId) {
@@ -32,14 +61,6 @@ public class RecyclerViewHolder extends RecyclerView.ViewHolder {
         return (T) view;
     }
 
-    public View findView(int viewId) {
-        return findViewById(viewId);
-    }
-
-    public TextView findTextViewById(int viewId) {
-        return (TextView) findView(viewId);
-    }
-
     public Button findButtonById(int viewId) {
         return (Button) findView(viewId);
     }
@@ -48,7 +69,7 @@ public class RecyclerViewHolder extends RecyclerView.ViewHolder {
         return (ImageView) findView(viewId);
     }
 
-    public ImageButton findImageButtonId(int viewId) {
+    public ImageButton findImageButtonById(int viewId) {
         return (ImageButton) findView(viewId);
     }
 
@@ -59,18 +80,38 @@ public class RecyclerViewHolder extends RecyclerView.ViewHolder {
     public RecyclerViewHolder setText(int viewId, String value) {
         TextView view = findViewById(viewId);
         view.setText(value);
+
         return this;
+    }
+
+    public RecyclerViewHolder setRating(int viewId, float rating) {
+        RatingBar ratingBar = findRatingBarById(viewId);
+        ratingBar.setRating(rating);
+
+        return this;
+    }
+
+    public RatingBar findRatingBarById(int viewId) {
+        return (RatingBar) findViewById(viewId);
+    }
+
+    public void setSubviewClickListener(int viewId, View.OnClickListener listener) {
+        findViewById(viewId).setOnClickListener(listener);
+        listeners.put(viewId, listener);
+    }
+
+    public View.OnClickListener getSubviewClickListener(int viewID) {
+        return listeners.get(viewID);
     }
 
     public RecyclerViewHolder setBackground(int viewId, int resId) {
         View view = findViewById(viewId);
         view.setBackgroundResource(resId);
+
         return this;
     }
 
-    public RecyclerViewHolder setViewClickListener(int viewId, View.OnClickListener listener) {
-        View view = findViewById(viewId);
-        view.setOnClickListener(listener);
-        return this;
+    interface OnItemClickListener {
+        void onItemClick(View view, int position);
     }
 }

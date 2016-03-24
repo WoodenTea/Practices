@@ -2,6 +2,7 @@ package com.ymsfd.practices.ui.adapter.util;
 
 import android.support.v7.widget.GridLayoutManager;
 
+import com.ymsfd.practices.ui.adapter.ComplexRecyclerAdapter;
 import com.ymsfd.practices.ui.adapter.HeaderRecyclerAdapter;
 
 /**
@@ -10,10 +11,10 @@ import com.ymsfd.practices.ui.adapter.HeaderRecyclerAdapter;
  * Time: 17:19
  */
 public class GridSpan extends GridLayoutManager.SpanSizeLookup {
-    private HeaderRecyclerAdapter adapter;
+    private ComplexRecyclerAdapter adapter;
     private int spanSize = 1;
 
-    public GridSpan(HeaderRecyclerAdapter adapter, int spanSize) {
+    public GridSpan(ComplexRecyclerAdapter adapter, int spanSize) {
         this.adapter = adapter;
         this.spanSize = spanSize;
     }

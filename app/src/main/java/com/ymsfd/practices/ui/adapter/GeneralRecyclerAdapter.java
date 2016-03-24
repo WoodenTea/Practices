@@ -1,8 +1,8 @@
 package com.ymsfd.practices.ui.adapter;
 
-import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
 
 import java.util.ArrayList;
@@ -13,19 +13,22 @@ import java.util.List;
  * Date: 2016/2/19
  * Time: 11:55
  */
-public abstract class GeneralRecyclerAdapter<T> extends RecyclerView.Adapter<RecyclerViewHolder> {
+public abstract class GeneralRecyclerAdapter<T> extends RecyclerView.Adapter<RecyclerViewHolder>
+        implements RecyclerViewHolder.OnItemClickListener {
     protected final List<T> mItemDates;
+    private OnItemClickListener listener;
 
-    private final LayoutInflater mInflater;
-
-    public GeneralRecyclerAdapter(Context context) {
+    public GeneralRecyclerAdapter() {
         mItemDates = new ArrayList<>();
-        mInflater = LayoutInflater.from(context);
     }
 
     @Override
     public RecyclerViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        return new RecyclerViewHolder(mInflater.inflate(getItemLayoutId(), parent, false));
+        LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
+        View view = layoutInflater.inflate(getItemLayoutId(), parent, false);
+        RecyclerViewHolder holder = new RecyclerViewHolder(view);
+        holder.setOnItemClickListener(this);
+        return holder;
     }
 
     @Override
@@ -38,13 +41,33 @@ public abstract class GeneralRecyclerAdapter<T> extends RecyclerView.Adapter<Rec
         return mItemDates.size();
     }
 
-    abstract protected void bindHolder(RecyclerViewHolder holder, int position, T item);
+    public void setOnItemClickListener(OnItemClickListener listener) {
+        this.listener = listener;
+    }
+
+    @Override
+    public void onItemClick(View view, int position) {
+        if (listener != null && isEnable(position)) {
+            listener.onItemClick(position);
+        }
+    }
 
     abstract protected int getItemLayoutId();
 
+    abstract protected void bindHolder(RecyclerViewHolder holder, int position, T item);
+
+    public boolean isEnable(int position) {
+        return true;
+    }
+
+    public T getItem(int position) {
+        return mItemDates.get(position);
+    }
+
     public void addAll(List<T> items) {
+        int position = mItemDates.size();
         mItemDates.addAll(items);
-        notifyDataSetChanged();
+        notifyItemInserted(position);
     }
 
     public void addItem(T item) {
@@ -56,5 +79,14 @@ public abstract class GeneralRecyclerAdapter<T> extends RecyclerView.Adapter<Rec
     public void remove(int position) {
         mItemDates.remove(position);
         notifyItemRemoved(position);
+    }
+
+    public void clear() {
+        mItemDates.clear();
+        notifyDataSetChanged();
+    }
+
+    public interface OnItemClickListener {
+        void onItemClick(int position);
     }
 }

@@ -3,7 +3,6 @@ package com.ymsfd.practices.ui.adapter.util;
 import android.support.v7.widget.GridLayoutManager;
 
 import com.ymsfd.practices.ui.adapter.ComplexRecyclerAdapter;
-import com.ymsfd.practices.ui.adapter.HeaderRecyclerAdapter;
 
 /**
  * Created by WoodenTea.

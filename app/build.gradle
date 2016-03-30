@@ -84,7 +84,7 @@ android {
 
 def supportVersion = '23.2.1'
 def okHttp = '3.2.0'
-def retrofit = '2.0.0-beta4'
+def retrofit = '2.0.0'
 
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
@@ -101,7 +101,7 @@ dependencies {
     compile "com.squareup.retrofit2:converter-gson:$retrofit"
 
     compile 'com.github.bumptech.glide:glide:3.7.0'
-    compile 'io.reactivex:rxjava:1.1.1'
+    compile 'io.reactivex:rxjava:1.1.2'
     compile 'io.reactivex:rxandroid:1.1.0'
     compile 'com.jakewharton.rxbinding:rxbinding:0.3.0'
     compile 'com.trello:rxlifecycle:0.4.0'

@@ -8,13 +8,13 @@
 
 -keep public class * extends android.app.Fragment
 -keep public class * extends android.app.Activity
--keep public class * extends android.app.Application 
+-keep public class * extends android.app.Application
 -keep public class * extends android.app.Service
--keep public class * extends android.content.BroadcastReceiver 
+-keep public class * extends android.content.BroadcastReceiver
 -keep public class * extends android.content.ContentProvider
--keep public class * extends android.app.backup.BackupAgentHelper 
+-keep public class * extends android.app.backup.BackupAgentHelper
 -keep public class * extends android.preference.Preference
--keep public class com.android.vending.licensing.ILicensingService 
+-keep public class com.android.vending.licensing.ILicensingService
 
 # ---------- V4 ---------- #
 -dontwarn android.support.v4.**
@@ -79,17 +79,17 @@
 # ---------- Glide ---------- #
 
 # ---------- RxJava ---------- #
--keep class rx.schedulers.Schedulers {
-    public static <methods>;
+-keepclassmembers class rx.internal.util.unsafe.*ArrayQueue*Field* {
+   long producerIndex;
+   long consumerIndex;
 }
--keep class rx.schedulers.ImmediateScheduler {
-    public <methods>;
+
+-keepclassmembers class rx.internal.util.unsafe.BaseLinkedQueueProducerNodeRef {
+    rx.internal.util.atomic.LinkedQueueNode producerNode;
 }
--keep class rx.schedulers.TestScheduler {
-    public <methods>;
-}
--keep class rx.schedulers.Schedulers {
-    public static ** test();
+
+-keepclassmembers class rx.internal.util.unsafe.BaseLinkedQueueConsumerNodeRef {
+    rx.internal.util.atomic.LinkedQueueNode consumerNode;
 }
 -dontwarn sun.misc.Unsafe
 # ---------- RxJava ---------- #
@@ -99,20 +99,20 @@
 }
 
 -keepclasseswithmembers class * {
-    public <init>(android.content.Context, android.util.AttributeSet); 
+    public <init>(android.content.Context, android.util.AttributeSet);
 }
 
 -keepclasseswithmembers class * {
-    public <init>(android.content.Context, android.util.AttributeSet, int); 
+    public <init>(android.content.Context, android.util.AttributeSet, int);
 }
 
 -keepclassmembers class * extends android.app.Activity {
    public void *(android.view.View);
 }
 
--keepclassmembers enum * { 
-    public static **[] values(); 
-    public static ** valueOf(java.lang.String); 
+-keepclassmembers enum * {
+    public static **[] values();
+    public static ** valueOf(java.lang.String);
 }
 
 -keep class * implements android.os.Parcelable {

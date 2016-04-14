@@ -1,13 +1,11 @@
 package com.ymsfd.practices.ui.activity;
 
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import com.jakewharton.rxbinding.widget.RxCompoundButton;
 import com.jakewharton.rxbinding.widget.RxTextView;
-import com.trello.rxlifecycle.ActivityEvent;
-import com.trello.rxlifecycle.RxLifecycle;
 import com.ymsfd.practices.R;
 
 import java.util.List;
@@ -26,7 +24,6 @@ import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Action0;
 import rx.functions.Func1;
 import rx.schedulers.Schedulers;
-import rx.subjects.BehaviorSubject;
 
 /**
  * Created by WoodenTea.
@@ -35,7 +32,6 @@ import rx.subjects.BehaviorSubject;
  */
 public class RetrofitActivity extends BaseActivity {
     private TextView tv_result;
-    private EditText et_keyword;
 
     @Override
     protected boolean _onCreate(Bundle savedInstanceState) {
@@ -44,7 +40,7 @@ public class RetrofitActivity extends BaseActivity {
         }
 
         setContentView(R.layout.actvt_retrofit);
-        et_keyword = (EditText) findViewById(R.id.et_keyword);
+        EditText et_keyword = (EditText) findViewById(R.id.et_keyword);
         tv_result = (TextView) findViewById(R.id.tv_result);
 
         HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
@@ -57,7 +53,6 @@ public class RetrofitActivity extends BaseActivity {
                 .build();
 
         final SearchService searchService = retrofit.create(SearchService.class);
-        BehaviorSubject<ActivityEvent> lifecycle = BehaviorSubject.create();
         RxTextView.textChanges(et_keyword)
                 .subscribeOn(AndroidSchedulers.mainThread())
                 .debounce(600, TimeUnit.MILLISECONDS, AndroidSchedulers.mainThread())
@@ -65,15 +60,14 @@ public class RetrofitActivity extends BaseActivity {
                     @Override
                     public Boolean call(CharSequence charSequence) {
                         tv_result.setText("");
-                        return charSequence.length() > 0;
+                        return !TextUtils.isEmpty(charSequence);
                     }
                 })
                 .observeOn(Schedulers.io())
                 .switchMap(new Func1<CharSequence, Observable<Data>>() {
                     @Override
                     public Observable<Data> call(CharSequence charSequence) {
-                        return searchService.searchProduct("utf-8",
-                                charSequence.toString());
+                        return searchService.searchProduct("utf-8", charSequence.toString());
                     }
                 })
                 .filter(new Func1<Data, Boolean>() {
@@ -113,8 +107,6 @@ public class RetrofitActivity extends BaseActivity {
                         D("Unsubscribe");
                     }
                 })
-                .compose(RxLifecycle.<String>bindUntilActivityEvent(lifecycle, ActivityEvent
-                        .DESTROY))
                 .subscribe(new Subscriber<String>() {
                     @Override
                     public void onCompleted() {
@@ -123,6 +115,7 @@ public class RetrofitActivity extends BaseActivity {
 
                     @Override
                     public void onError(Throwable e) {
+                        E("onError");
                         E(e);
                     }
 
@@ -130,22 +123,21 @@ public class RetrofitActivity extends BaseActivity {
                     public void onNext(String s) {
                         tv_result.append(s);
                     }
-                })
-        ;
+                });
 
         return true;
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        D("Destroy");
     }
 
     @Override
     protected void onStop() {
         super.onStop();
         D("Stop");
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        D("Destroy");
     }
 
     interface SearchService {

@@ -1,5 +1,7 @@
 package com.ymsfd.practices.ui.adapter;
 
+import android.support.annotation.DrawableRes;
+import android.support.annotation.IdRes;
 import android.support.v7.widget.RecyclerView;
 import android.util.SparseArray;
 import android.view.View;
@@ -7,7 +9,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.RatingBar;
 import android.widget.TextView;
 
 /**
@@ -18,12 +19,7 @@ import android.widget.TextView;
 public class RecyclerViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
     private SparseArray<View> mViews;
     private SparseArray<View.OnClickListener> listeners;
-    private OnItemClickListener listener;
-
-    public RecyclerViewHolder(View itemView, OnItemClickListener listener) {
-        this(itemView);
-        this.listener = listener;
-    }
+    private OnItemClickListener itemListener;
 
     public RecyclerViewHolder(View itemView) {
         super(itemView);
@@ -34,13 +30,13 @@ public class RecyclerViewHolder extends RecyclerView.ViewHolder implements View.
 
     @Override
     public void onClick(View view) {
-        if (listener != null) {
-            listener.onItemClick(view, getAdapterPosition());
+        if (itemListener != null) {
+            itemListener.onItemClick(view, getAdapterPosition());
         }
     }
 
     public void setOnItemClickListener(OnItemClickListener listener) {
-        this.listener = listener;
+        this.itemListener = listener;
     }
 
     public TextView findTextViewById(int viewId) {
@@ -77,34 +73,23 @@ public class RecyclerViewHolder extends RecyclerView.ViewHolder implements View.
         return (EditText) findView(viewId);
     }
 
-    public RecyclerViewHolder setText(int viewId, String value) {
+    public RecyclerViewHolder setText(@IdRes int viewId, String value) {
         TextView view = findViewById(viewId);
         view.setText(value);
 
         return this;
     }
 
-    public RecyclerViewHolder setRating(int viewId, float rating) {
-        RatingBar ratingBar = findRatingBarById(viewId);
-        ratingBar.setRating(rating);
-
-        return this;
-    }
-
-    public RatingBar findRatingBarById(int viewId) {
-        return (RatingBar) findViewById(viewId);
-    }
-
-    public void setSubviewClickListener(int viewId, View.OnClickListener listener) {
+    public void setSubviewClickListener(@IdRes int viewId, View.OnClickListener listener) {
         findViewById(viewId).setOnClickListener(listener);
         listeners.put(viewId, listener);
     }
 
-    public View.OnClickListener getSubviewClickListener(int viewID) {
+    public View.OnClickListener getSubviewClickListener(@IdRes int viewID) {
         return listeners.get(viewID);
     }
 
-    public RecyclerViewHolder setBackground(int viewId, int resId) {
+    public RecyclerViewHolder setBackground(@IdRes int viewId, @DrawableRes int resId) {
         View view = findViewById(viewId);
         view.setBackgroundResource(resId);
 

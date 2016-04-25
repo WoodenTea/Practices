@@ -47,26 +47,29 @@ public class FancyItemActivity extends BaseActivity implements RecyclerListAdapt
         setContentView(R.layout.actvt_fancy);
         RecyclerListAdapter adapter = new RecyclerListAdapter(this);
 
-        RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
+        final RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
+        if (recyclerView == null) {
+            return false;
+        }
         recyclerView.setHasFixedSize(true);
         recyclerView.setAdapter(adapter);
-        recyclerView.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration
-                .VERTICAL));
+        recyclerView.addItemDecoration(new DividerItemDecoration(this,
+                DividerItemDecoration.VERTICAL));
         LinearLayoutManager layout = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layout);
         recyclerView.addOnItemTouchListener(new RecyclerItemClickListener(this, new
                 RecyclerItemClickListener.OnItemClickListener() {
                     @Override
                     public void onItemClick(View view, int position) {
-                        Snackbar.make(findViewById(R.id.recycler_view), "Position: " + position,
-                                Snackbar.LENGTH_LONG).setAction("Action", new View
-                                .OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-                                Toast.makeText(FancyItemActivity.this, "Toast comes out", Toast
-                                        .LENGTH_SHORT).show();
-                            }
-                        }).show();
+                        Snackbar.make(recyclerView, "Position: " + position,
+                                Snackbar.LENGTH_LONG).setAction("Action",
+                                new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View v) {
+                                        Toast.makeText(FancyItemActivity.this, "Toast comes out",
+                                                Toast.LENGTH_SHORT).show();
+                                    }
+                                }).show();
                     }
                 }));
 

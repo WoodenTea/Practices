@@ -23,7 +23,9 @@ public class SceneActivity extends BaseActivity {
         }
 
         setContentView(R.layout.actvt_scene);
-        findViewById(R.id.cartoon).setOnClickListener(new View.OnClickListener() {
+        View view = findViewById(R.id.cartoon);
+
+        view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(SceneActivity.this, SceneActivity2.class);

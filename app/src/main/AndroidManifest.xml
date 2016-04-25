@@ -89,14 +89,6 @@
             android:name=".ui.activity.SceneActivity2"
             android:label="Scene2" />
         <activity
-            android:name=".ui.activity.CaptureActivity"
-            android:label="QR CODE">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="com.ymsfd.android.practices.SAMPLE" />
-            </intent-filter>
-        </activity>
-        <activity
             android:name=".ui.activity.DesignActivity"
             android:label="Design">
             <intent-filter>

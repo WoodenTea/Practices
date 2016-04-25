@@ -16,6 +16,7 @@ import java.util.List;
 public abstract class GeneralRecyclerAdapter<T> extends RecyclerView.Adapter<RecyclerViewHolder>
         implements RecyclerViewHolder.OnItemClickListener {
     protected final List<T> mItemDates;
+    protected LayoutInflater inflater = null;
     private OnItemClickListener listener;
 
     public GeneralRecyclerAdapter() {
@@ -24,8 +25,11 @@ public abstract class GeneralRecyclerAdapter<T> extends RecyclerView.Adapter<Rec
 
     @Override
     public RecyclerViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
-        View view = layoutInflater.inflate(getItemLayoutId(), parent, false);
+        if (inflater == null) {
+            inflater = LayoutInflater.from(parent.getContext());
+        }
+
+        View view = inflater.inflate(getItemLayoutId(), parent, false);
         RecyclerViewHolder holder = new RecyclerViewHolder(view);
         holder.setOnItemClickListener(this);
         return holder;
@@ -41,15 +45,15 @@ public abstract class GeneralRecyclerAdapter<T> extends RecyclerView.Adapter<Rec
         return mItemDates.size();
     }
 
-    public void setOnItemClickListener(OnItemClickListener listener) {
-        this.listener = listener;
-    }
-
     @Override
     public void onItemClick(View view, int position) {
         if (listener != null && isEnable(position)) {
             listener.onItemClick(position);
         }
+    }
+
+    public void setOnItemClickListener(OnItemClickListener listener) {
+        this.listener = listener;
     }
 
     abstract protected int getItemLayoutId();

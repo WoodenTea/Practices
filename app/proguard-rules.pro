@@ -1,10 +1,14 @@
 -optimizationpasses 5
 -dontusemixedcaseclassnames
 -dontskipnonpubliclibraryclasses
+-dontskipnonpubliclibraryclassmembers
 -dontpreverify
 -verbose
--optimizations !code/simplification/arithmetic,!field/*,!class/merging/*
--keepattributes *Annotation*
+-printmapping proguardMapping.txt
+-optimizations !code/simplification/cast,!field/*,!class/merging/*
+-keepattributes *Annotation*,InnerClasses
+-keepattributes Signature
+-keepattributes SourceFile,LineNumberTable
 
 -keep public class * extends android.app.Fragment
 -keep public class * extends android.app.Activity
@@ -15,6 +19,39 @@
 -keep public class * extends android.app.backup.BackupAgentHelper
 -keep public class * extends android.preference.Preference
 -keep public class com.android.vending.licensing.ILicensingService
+
+-keepclasseswithmembernames class * {
+    native <methods>;
+}
+
+-keepclassmembers class * extends android.app.Activity {
+   public void *(android.view.View);
+}
+
+-keepclassmembers enum * {
+    public static **[] values();
+    public static ** valueOf(java.lang.String);
+}
+
+-keepclasseswithmembers class * {
+    public <init>(android.content.Context, android.util.AttributeSet);
+    public <init>(android.content.Context, android.util.AttributeSet, int);
+}
+
+-keep class * implements android.os.Parcelable {
+    public static final android.os.Parcelable$Creator *;
+}
+
+-keepclassmembers class * implements java.io.Serializable {
+    static final long serialVersionUID;
+    private static final java.io.ObjectStreamField[] serialPersistentFields;
+    private void writeObject(java.io.ObjectOutputStream);
+    private void readObject(java.io.ObjectInputStream);
+    java.lang.Object writeReplace();
+    java.lang.Object readResolve();
+}
+
+-keep public class * implements java.io.Serializable {*;}
 
 # ---------- V4 ---------- #
 -dontwarn android.support.v4.**
@@ -93,33 +130,6 @@
 }
 -dontwarn sun.misc.Unsafe
 # ---------- RxJava ---------- #
-
--keepclasseswithmembernames class * {
-    native <methods>;
-}
-
--keepclasseswithmembers class * {
-    public <init>(android.content.Context, android.util.AttributeSet);
-}
-
--keepclasseswithmembers class * {
-    public <init>(android.content.Context, android.util.AttributeSet, int);
-}
-
--keepclassmembers class * extends android.app.Activity {
-   public void *(android.view.View);
-}
-
--keepclassmembers enum * {
-    public static **[] values();
-    public static ** valueOf(java.lang.String);
-}
-
--keep class * implements android.os.Parcelable {
-  public static final android.os.Parcelable$Creator *;
-}
-
--keepnames class * implements java.io.Serializable
 
 # Disable Log #
 -assumenosideeffects class android.util.Log {

@@ -15,8 +15,12 @@ import org.robolectric.Shadows;
 import org.robolectric.annotation.Config;
 import org.robolectric.shadows.ShadowActivity;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
+
 @RunWith(RobolectricTestRunner.class)
-@Config(constants = BuildConfig.class, sdk = 21)
+@Config(manifest = Config.NONE, constants = BuildConfig.class, sdk = 21)
 public class SceneActivityTest {
     @Before
     public void setUp() throws Exception {
@@ -24,7 +28,7 @@ public class SceneActivityTest {
     }
 
     @Test
-    public void clickJump() {
+    public void testClickJump() {
         SceneActivity activity = Robolectric.setupActivity(SceneActivity.class);
         activity.findViewById(R.id.cartoon).performClick();
 
@@ -32,5 +36,16 @@ public class SceneActivityTest {
         ShadowActivity shadowActivity = Shadows.shadowOf(activity);
         Intent actualIntent = shadowActivity.getNextStartedActivity();
         Assert.assertEquals(expectedIntent, actualIntent);
+    }
+
+    @Test
+    public void testFormat() {
+        String str = String.format(Locale.getDefault(), "%1$02d", 3);
+        System.out.println(str);
+
+        Long timestamp = 1460088062 * 1000L;
+        Date date = new Date(timestamp);
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault());
+        System.out.println(format.format(date));
     }
 }

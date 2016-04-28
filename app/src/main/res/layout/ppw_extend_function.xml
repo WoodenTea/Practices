@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="105dp"
+    android:layout_height="wrap_content"
+    android:background="@drawable/bg_extend_function"
+    android:gravity="center"
+    android:orientation="vertical" >
+
+    <LinearLayout
+        android:id="@+id/search_group"
+        android:layout_width="105dp"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="vertical" >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="39dp"
+            android:drawableLeft="@drawable/ic_search"
+            android:drawablePadding="@dimen/official_margin"
+            android:drawableStart="@drawable/ic_search"
+            android:gravity="center_vertical|center"
+            android:text="@string/search"
+            android:textColor="@color/white" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/footprint_group"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="vertical" >
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:background="#666666" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="39dp"
+            android:drawableLeft="@drawable/ic_footprint"
+            android:drawablePadding="@dimen/official_margin"
+            android:drawableStart="@drawable/ic_footprint"
+            android:gravity="center_vertical|center"
+            android:text="@string/footprint"
+            android:textColor="@color/white" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/share_group"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="vertical" >
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:background="#666666" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="39dp"
+            android:drawableLeft="@drawable/ic_share"
+            android:drawablePadding="@dimen/official_margin"
+            android:drawableStart="@drawable/ic_share"
+            android:gravity="center_vertical|center"
+            android:text="@string/share"
+            android:textColor="@color/white" />
+    </LinearLayout>
+
+</LinearLayout>

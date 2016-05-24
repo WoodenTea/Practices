@@ -100,5 +100,4 @@ public class GameView extends View {
             downTimer.cancel();
         }
     }
-
 }

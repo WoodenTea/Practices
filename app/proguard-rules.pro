@@ -1,10 +1,8 @@
 -optimizationpasses 5
--dontusemixedcaseclassnames
--dontskipnonpubliclibraryclasses
 -dontskipnonpubliclibraryclassmembers
--dontpreverify
 -verbose
--printmapping proguardMapping.txt
+-dontpreverify
+-dontoptimize
 -optimizations !code/simplification/cast,!field/*,!class/merging/*
 -keepattributes *Annotation*,InnerClasses
 -keepattributes Signature
@@ -18,20 +16,6 @@
 -keep public class * extends android.content.ContentProvider
 -keep public class * extends android.app.backup.BackupAgentHelper
 -keep public class * extends android.preference.Preference
--keep public class com.android.vending.licensing.ILicensingService
-
--keepclasseswithmembernames class * {
-    native <methods>;
-}
-
--keepclassmembers class * extends android.app.Activity {
-   public void *(android.view.View);
-}
-
--keepclassmembers enum * {
-    public static **[] values();
-    public static ** valueOf(java.lang.String);
-}
 
 -keepclasseswithmembers class * {
     public <init>(android.content.Context, android.util.AttributeSet);

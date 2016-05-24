@@ -96,7 +96,7 @@ public class PorterDuffActivity extends BaseActivity {
         image.setImageBitmap(bitmap);
 
         image = (ImageView) findViewById(R.id.image4);
-        int size = (int) DensityUtil.dp2px(200);
+        int size = (int) DensityUtil.dp2px(this, 200);
         bitmap = Bitmap.createBitmap(size, size, Bitmap.Config.ARGB_8888);
         canvas = new Canvas(bitmap);
 
@@ -113,7 +113,7 @@ public class PorterDuffActivity extends BaseActivity {
 
         RectF rectF = new RectF();
         int centerX = size / 2;
-        int radius = (int) DensityUtil.dp2px(90);
+        int radius = (int) DensityUtil.dp2px(this, 90);
         rectF.left = centerX - radius;
         rectF.top = centerX - radius;
         rectF.right = centerX + radius;
@@ -122,7 +122,7 @@ public class PorterDuffActivity extends BaseActivity {
                 0xFF9A9BF8};
         float[] positions = {0, 1f / 6, 2f / 6, 3f / 6, 4f / 6, 5f / 6, 1};
         SweepGradient sweepGradient = new SweepGradient(centerX, centerX, colors, positions);
-        paint.setStrokeWidth((int) DensityUtil.dp2px(10));
+        paint.setStrokeWidth((int) DensityUtil.dp2px(this, 10));
         paint.setShader(sweepGradient);
         canvas.drawArc(rectF, -240, 300, false, paint);
         image.setImageBitmap(bitmap);

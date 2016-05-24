@@ -22,30 +22,45 @@ public class DividerItemDecoration extends RecyclerView.ItemDecoration {
     private static final int[] ATTRS = new int[]{
             android.R.attr.listDivider
     };
-    private Drawable mDivider;
-    private int mOrientation;
+    private Drawable drawable;
+    private int orientation;
 
     public DividerItemDecoration(Context context, int orientation) {
         final TypedArray a = context.obtainStyledAttributes(ATTRS);
-        mDivider = a.getDrawable(0);
+        drawable = a.getDrawable(0);
         a.recycle();
         setOrientation(orientation);
+    }
+
+    public DividerItemDecoration(Drawable drawable, int orientation) {
+        this.drawable = drawable;
+        this.orientation = orientation;
+    }
+
+    @Override
+    public void onDraw(Canvas c, RecyclerView parent, RecyclerView.State state) {
+        if (orientation == VERTICAL) {
+            drawVertical(c, parent);
+        } else {
+            drawHorizontal(c, parent);
+        }
+    }
+
+    @Override
+    public void getItemOffsets(Rect outRect, View view, RecyclerView parent, RecyclerView.State
+            state) {
+        if (orientation == VERTICAL) {
+            outRect.set(0, 0, 0, drawable.getIntrinsicHeight());
+        } else {
+            outRect.set(0, 0, drawable.getIntrinsicWidth(), 0);
+        }
     }
 
     public void setOrientation(int orientation) {
         if (orientation != HORIZONTAL && orientation != VERTICAL) {
             throw new IllegalArgumentException("invalid orientation");
         }
-        mOrientation = orientation;
-    }
-
-    @Override
-    public void onDraw(Canvas c, RecyclerView parent, RecyclerView.State state) {
-        if (mOrientation == VERTICAL) {
-            drawVertical(c, parent);
-        } else {
-            drawHorizontal(c, parent);
-        }
+        this.orientation = orientation;
     }
 
     public void drawVertical(Canvas c, RecyclerView parent) {
@@ -57,9 +72,9 @@ public class DividerItemDecoration extends RecyclerView.ItemDecoration {
             final RecyclerView.LayoutParams params = (RecyclerView.LayoutParams) child
                     .getLayoutParams();
             final int top = child.getBottom() + params.bottomMargin;
-            final int bottom = top + mDivider.getIntrinsicHeight();
-            mDivider.setBounds(left, top, right, bottom);
-            mDivider.draw(c);
+            final int bottom = top + drawable.getIntrinsicHeight();
+            drawable.setBounds(left, top, right, bottom);
+            drawable.draw(c);
         }
     }
 
@@ -72,19 +87,9 @@ public class DividerItemDecoration extends RecyclerView.ItemDecoration {
             final RecyclerView.LayoutParams params = (RecyclerView.LayoutParams) child
                     .getLayoutParams();
             final int left = child.getRight() + params.rightMargin;
-            final int right = left + mDivider.getIntrinsicHeight();
-            mDivider.setBounds(left, top, right, bottom);
-            mDivider.draw(c);
-        }
-    }
-
-    @Override
-    public void getItemOffsets(Rect outRect, View view, RecyclerView parent, RecyclerView.State
-            state) {
-        if (mOrientation == VERTICAL) {
-            outRect.set(0, 0, 0, mDivider.getIntrinsicHeight());
-        } else {
-            outRect.set(0, 0, mDivider.getIntrinsicWidth(), 0);
+            final int right = left + drawable.getIntrinsicHeight();
+            drawable.setBounds(left, top, right, bottom);
+            drawable.draw(c);
         }
     }
 }

@@ -5,8 +5,14 @@
     android:background="@android:color/holo_orange_dark"
     android:orientation="vertical">
 
-    <TextView
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@android:color/holo_blue_dark" />
+        android:layout_height="100dp"
+        android:background="@android:color/holo_blue_dark">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="a\nb\nc\nd\ne\nf\ng\nh\ni\nj\nk\nl\nm" />
+    </LinearLayout>
 </com.ymsfd.practices.ui.widget.ScrollLayout>

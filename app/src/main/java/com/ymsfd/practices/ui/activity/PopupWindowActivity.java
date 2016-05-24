@@ -34,7 +34,7 @@ public class PopupWindowActivity extends BaseActivity implements View.OnClickLis
         popupWindow.setOutsideTouchable(true);
         popupWindow.setTouchable(true);
         popupWindow.setBackgroundDrawable(new ColorDrawable(0x00000000));
-        int layoutWidth = (int) DensityUtil.dp2px(110) / 2;
+        int layoutWidth = (int) DensityUtil.dp2px(this, 110) / 2;
         int xOff = -layoutWidth + view.getWidth() / 2 - (layoutWidth - 45);
         popupWindow.showAsDropDown(view, xOff, 0);
     }

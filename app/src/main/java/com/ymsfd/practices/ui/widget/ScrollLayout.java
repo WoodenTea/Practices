@@ -5,6 +5,7 @@ import android.util.AttributeSet;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.widget.LinearLayout;
+import android.widget.ScrollView;
 import android.widget.Scroller;
 
 /**
@@ -15,6 +16,7 @@ import android.widget.Scroller;
 public class ScrollLayout extends LinearLayout {
     private Scroller mScroller;
     private GestureDetector mGestureDetector;
+    private ScrollView scrollView;
 
     public ScrollLayout(Context context) {
         this(context, null);
@@ -45,6 +47,27 @@ public class ScrollLayout extends LinearLayout {
         return super.onTouchEvent(event);
     }
 
+    @Override
+    public void computeScroll() {
+        // 先判断mScroller滚动是否完成
+        if (mScroller.computeScrollOffset()) {
+            // 这里调用View的scrollTo()完成实际的滚动
+            scrollTo(mScroller.getCurrX(), mScroller.getCurrY());
+            // 必须调用该方法，否则不一定能看到滚动效果
+            postInvalidate();
+        }
+    }
+
+    @Override
+    public boolean dispatchTouchEvent(MotionEvent ev) {
+        return super.dispatchTouchEvent(ev);
+    }
+
+    @Override
+    public boolean onInterceptTouchEvent(MotionEvent ev) {
+        return super.onInterceptTouchEvent(ev);
+    }
+
     // 调用此方法滚动到目标位置
     private void smoothScrollTo(int fx, int fy) {
         int dx = fx - mScroller.getFinalX();
@@ -58,17 +81,6 @@ public class ScrollLayout extends LinearLayout {
         mScroller.forceFinished(true);
         mScroller.startScroll(mScroller.getFinalX(), mScroller.getFinalY(), dx, dy);
         invalidate();// 这里必须调用invalidate()才能保证computeScroll()会被调用，否则不一定会刷新界面，看不到滚动效果
-    }
-
-    @Override
-    public void computeScroll() {
-        // 先判断mScroller滚动是否完成
-        if (mScroller.computeScrollOffset()) {
-            // 这里调用View的scrollTo()完成实际的滚动
-            scrollTo(mScroller.getCurrX(), mScroller.getCurrY());
-            // 必须调用该方法，否则不一定能看到滚动效果
-            postInvalidate();
-        }
     }
 
     class CustomGestureListener implements GestureDetector.OnGestureListener {

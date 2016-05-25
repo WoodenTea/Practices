@@ -5,7 +5,6 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -21,11 +20,13 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class MainActivity extends AppCompatActivity implements AdapterView.OnItemClickListener {
+public class MainActivity extends BaseActivity implements AdapterView.OnItemClickListener {
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    protected boolean _onCreate(Bundle savedInstanceState) {
+        if (!super._onCreate(savedInstanceState)) {
+            return false;
+        }
 
         setContentView(R.layout.actvt_main);
 
@@ -39,6 +40,8 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         listView.setAdapter(new SimpleAdapter(this, getActivities(path), android.R.layout
                 .simple_list_item_1, new String[]{"title"}, new int[]{android.R.id.text1}));
         listView.setOnItemClickListener(this);
+
+        return true;
     }
 
     @Override
@@ -68,7 +71,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
             PackageInfo info = pm.getPackageInfo(getPackageName(), 0);
             Log.d(getClass().getSimpleName(), info.packageName);
         } catch (Exception e) {
-
+            e.printStackTrace();
         }
 
         List<ResolveInfo> list = pm.queryIntentActivities(mainIntent, 0);

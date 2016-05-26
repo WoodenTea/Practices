@@ -3,6 +3,7 @@ package com.ymsfd.practices.ui.activity;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.support.v4.content.ContextCompat;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.Spanned;
@@ -14,6 +15,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.ymsfd.practices.R;
+import com.ymsfd.practices.infrastructure.util.ViewUtil;
 
 public class SpannableActivity extends BaseActivity {
 
@@ -24,7 +26,9 @@ public class SpannableActivity extends BaseActivity {
         }
 
         setContentView(R.layout.actvt_spannable);
+        setUpActionBar(true);
         TextView tv = (TextView) findViewById(R.id.tv);
+        ViewUtil.checkViewIsNull(tv);
         String level = "等级: M1  ";
         String jewel = "emoji 55";
 
@@ -33,12 +37,13 @@ public class SpannableActivity extends BaseActivity {
             @Override
             public void onClick(View widget) {
                 D("1");
-            }            @Override
+            }
+
+            @Override
             public void updateDrawState(TextPaint textPaint) {
                 super.updateDrawState(textPaint);
                 textPaint.setUnderlineText(false);      //设置下划线
             }
-
 
         }, 0, level.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
         tv.setHighlightColor(Color.TRANSPARENT);
@@ -59,7 +64,7 @@ public class SpannableActivity extends BaseActivity {
             }
         }, 0, jewel.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
 
-        Drawable drawable = getResources().getDrawable(R.drawable.cartoon);
+        Drawable drawable = ContextCompat.getDrawable(this, R.drawable.cartoon);
         drawable.setBounds(0, 0, drawable.getIntrinsicWidth(), drawable.getIntrinsicHeight());
         ImageSpan imageSpan = new ImageSpan(drawable, ImageSpan.ALIGN_BOTTOM);
         spannableJewel.setSpan(imageSpan, 0, 5, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);

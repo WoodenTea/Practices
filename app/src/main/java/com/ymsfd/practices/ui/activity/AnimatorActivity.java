@@ -17,8 +17,9 @@ import android.widget.Button;
 import android.widget.ImageView;
 
 import com.ymsfd.practices.R;
+import com.ymsfd.practices.infrastructure.util.ViewUtil;
 
-public class AnimatorActivity extends BaseActivity implements View.OnClickListener {
+public class AnimatorActivity extends BaseTranslucentActivity implements View.OnClickListener {
     private ObjectAnimator scaleXAnimator, translateXAnimator, alphaAnimator, translateAnimator;
     private AnimatorSet animatorScaleSet, animationSet;
     private ValueAnimator mValueAnimator;
@@ -32,10 +33,13 @@ public class AnimatorActivity extends BaseActivity implements View.OnClickListen
         }
 
         setContentView(R.layout.actvt_animator);
+        setUpActionBar(true);
+
         displayMetrics = getResources().getDisplayMetrics();
         displayMetrics.widthPixels -= 200.f;
         displayMetrics.heightPixels -= 500.f;
         final Button bezier = (Button) findViewById(R.id.bezier);
+        ViewUtil.checkViewIsNull(bezier);
         bezier.setOnClickListener(this);
 
         bezierValueAnimator = ValueAnimator.ofObject(new BezierEvaluator(), new PointF(0, 0), new
@@ -78,92 +82,6 @@ public class AnimatorActivity extends BaseActivity implements View.OnClickListen
         return true;
     }
 
-    private void setupAnimator() {
-        Button button = (Button) findViewById(R.id.scaleX);
-        button.setOnClickListener(this);
-        scaleXAnimator = (ObjectAnimator) AnimatorInflater.loadAnimator(this, R.animator.scalex);
-        scaleXAnimator.setTarget(button);
-
-        button = (Button) findViewById(R.id.scale);
-        button.setOnClickListener(this);
-        animatorScaleSet = (AnimatorSet) AnimatorInflater.loadAnimator(this, R.animator.scale);
-        animatorScaleSet.setTarget(button);
-
-        button = (Button) findViewById(R.id.translateX);
-        button.setOnClickListener(this);
-        translateXAnimator = (ObjectAnimator) AnimatorInflater.loadAnimator(this, R.animator
-                .translatex);
-        translateXAnimator.setTarget(button);
-
-        button = (Button) findViewById(R.id.alpha);
-        button.setOnClickListener(this);
-        alphaAnimator = (ObjectAnimator) AnimatorInflater.loadAnimator(this, R.animator.alpha);
-        alphaAnimator.setTarget(button);
-
-        Button buttonProValHolder;
-        buttonProValHolder = (Button) findViewById(R.id.propertyValHolder);
-        buttonProValHolder.setOnClickListener(this);
-        PropertyValuesHolder pvhX = PropertyValuesHolder.ofFloat("translationX", 0f, 300f);
-        PropertyValuesHolder pvhY = PropertyValuesHolder.ofFloat("translationY", 0f, 300f);
-        translateAnimator = ObjectAnimator.ofPropertyValuesHolder(buttonProValHolder, pvhX, pvhY);
-        translateAnimator.setRepeatMode(ValueAnimator.REVERSE);
-        translateAnimator.setRepeatCount(1);
-        translateAnimator.setDuration(2000);
-
-        button = (Button) findViewById(R.id.propertyAnimator);
-        button.setOnClickListener(this);
-
-        button = (Button) findViewById(R.id.set);
-        button.setOnClickListener(this);
-        animationSet = new AnimatorSet();
-        animationSet.playTogether(ObjectAnimator.ofFloat(button, "alpha", 1, 0, 1),
-                ObjectAnimator.ofFloat(button, "translationX", 0f, 400f, 0f), ObjectAnimator
-                        .ofFloat(button, "rotation", 0, 180, 360));
-        animationSet.setDuration(1000);
-        animationSet.setTarget(button);
-        animationSet.addListener(new Animator.AnimatorListener() {
-            @Override
-            public void onAnimationStart(Animator arg0) {
-                D("onAnimationStart");
-            }
-
-            @Override
-            public void onAnimationEnd(Animator arg0) {
-                D("onAnimationEnd");
-            }
-
-            @Override
-            public void onAnimationCancel(Animator arg0) {
-                D("onAnimationCancel");
-            }
-
-            @Override
-            public void onAnimationRepeat(Animator arg0) {
-                D("onAnimationRepeat");
-            }
-        });
-
-        final Button buttonValueAnimator = (Button) findViewById(R.id.animator);
-        buttonValueAnimator.setOnClickListener(this);
-
-        mValueAnimator = ValueAnimator.ofInt(1, 100);
-        mValueAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
-            @Override
-            public void onAnimationUpdate(ValueAnimator valueAnimator) {
-                float factor = valueAnimator.getAnimatedFraction();
-                ViewGroup.MarginLayoutParams marginLayoutParams = (ViewGroup.MarginLayoutParams)
-                        buttonValueAnimator
-                                .getLayoutParams();
-                marginLayoutParams.leftMargin = (int) (factor * 100);
-                buttonValueAnimator.setLayoutParams(marginLayoutParams);
-            }
-        });
-        mValueAnimator.setDuration(2000);
-        mValueAnimator.setRepeatCount(1);
-        mValueAnimator.setRepeatMode(ValueAnimator.REVERSE);
-        mValueAnimator.setTarget(buttonValueAnimator);
-    }
-
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
@@ -204,6 +122,100 @@ public class AnimatorActivity extends BaseActivity implements View.OnClickListen
                 break;
 
         }
+    }
+
+    private void setupAnimator() {
+        Button button = (Button) findViewById(R.id.scaleX);
+        ViewUtil.checkViewIsNull(button);
+        button.setOnClickListener(this);
+        scaleXAnimator = (ObjectAnimator) AnimatorInflater.loadAnimator(this, R.animator.scalex);
+        scaleXAnimator.setTarget(button);
+
+        button = (Button) findViewById(R.id.scale);
+        ViewUtil.checkViewIsNull(button);
+        button.setOnClickListener(this);
+        animatorScaleSet = (AnimatorSet) AnimatorInflater.loadAnimator(this, R.animator.scale);
+        animatorScaleSet.setTarget(button);
+
+        button = (Button) findViewById(R.id.translateX);
+        ViewUtil.checkViewIsNull(button);
+        button.setOnClickListener(this);
+        translateXAnimator = (ObjectAnimator) AnimatorInflater.loadAnimator(this, R.animator
+                .translatex);
+        translateXAnimator.setTarget(button);
+
+        button = (Button) findViewById(R.id.alpha);
+        ViewUtil.checkViewIsNull(button);
+        button.setOnClickListener(this);
+        alphaAnimator = (ObjectAnimator) AnimatorInflater.loadAnimator(this, R.animator.alpha);
+        alphaAnimator.setTarget(button);
+
+        Button buttonProValHolder;
+        buttonProValHolder = (Button) findViewById(R.id.propertyValHolder);
+        ViewUtil.checkViewIsNull(buttonProValHolder);
+        buttonProValHolder.setOnClickListener(this);
+        PropertyValuesHolder pvhX = PropertyValuesHolder.ofFloat("translationX", 0f, 300f);
+        PropertyValuesHolder pvhY = PropertyValuesHolder.ofFloat("translationY", 0f, 300f);
+        translateAnimator = ObjectAnimator.ofPropertyValuesHolder(buttonProValHolder, pvhX, pvhY);
+        translateAnimator.setRepeatMode(ValueAnimator.REVERSE);
+        translateAnimator.setRepeatCount(1);
+        translateAnimator.setDuration(2000);
+
+        button = (Button) findViewById(R.id.propertyAnimator);
+        ViewUtil.checkViewIsNull(button);
+        button.setOnClickListener(this);
+
+        button = (Button) findViewById(R.id.set);
+        ViewUtil.checkViewIsNull(button);
+        button.setOnClickListener(this);
+        animationSet = new AnimatorSet();
+        animationSet.playTogether(ObjectAnimator.ofFloat(button, "alpha", 1, 0, 1),
+                ObjectAnimator.ofFloat(button, "translationX", 0f, 400f, 0f), ObjectAnimator
+                        .ofFloat(button, "rotation", 0, 180, 360));
+        animationSet.setDuration(1000);
+        animationSet.setTarget(button);
+        animationSet.addListener(new Animator.AnimatorListener() {
+            @Override
+            public void onAnimationStart(Animator arg0) {
+                D("onAnimationStart");
+            }
+
+            @Override
+            public void onAnimationEnd(Animator arg0) {
+                D("onAnimationEnd");
+            }
+
+            @Override
+            public void onAnimationCancel(Animator arg0) {
+                D("onAnimationCancel");
+            }
+
+            @Override
+            public void onAnimationRepeat(Animator arg0) {
+                D("onAnimationRepeat");
+            }
+        });
+
+        final Button buttonValueAnimator = (Button) findViewById(R.id.animator);
+        ViewUtil.checkViewIsNull(buttonValueAnimator);
+        buttonValueAnimator.setOnClickListener(this);
+
+        mValueAnimator = ValueAnimator.ofInt(1, 100);
+        mValueAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+            @Override
+            public void onAnimationUpdate(ValueAnimator valueAnimator) {
+                float factor = valueAnimator.getAnimatedFraction();
+                ViewGroup.MarginLayoutParams marginLayoutParams = (ViewGroup.MarginLayoutParams)
+                        buttonValueAnimator
+                                .getLayoutParams();
+                marginLayoutParams.leftMargin = (int) (factor * 100);
+                buttonValueAnimator.setLayoutParams(marginLayoutParams);
+            }
+        });
+        mValueAnimator.setDuration(2000);
+        mValueAnimator.setRepeatCount(1);
+        mValueAnimator.setRepeatMode(ValueAnimator.REVERSE);
+        mValueAnimator.setTarget(buttonValueAnimator);
     }
 
     class BezierEvaluator implements TypeEvaluator<PointF> {

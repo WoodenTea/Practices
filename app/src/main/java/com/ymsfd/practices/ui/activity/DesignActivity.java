@@ -10,6 +10,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.ymsfd.practices.R;
+import com.ymsfd.practices.infrastructure.util.ViewUtil;
 
 /**
  * Created by WoodenTea.
@@ -25,11 +26,12 @@ public class DesignActivity extends BaseActivity {
         }
 
         setContentView(R.layout.actvt_design);
+        setUpActionBar(true);
         final TextInputLayout textInputLayout = (TextInputLayout) findViewById(R.id.til_pwd);
-
+        ViewUtil.checkViewIsNull(textInputLayout);
         EditText editText = textInputLayout.getEditText();
         textInputLayout.setHint("Password");
-
+        ViewUtil.checkViewIsNull(editText);
         editText.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {

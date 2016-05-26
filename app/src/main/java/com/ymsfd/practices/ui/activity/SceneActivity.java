@@ -7,6 +7,7 @@ import android.support.v4.app.ActivityOptionsCompat;
 import android.view.View;
 
 import com.ymsfd.practices.R;
+import com.ymsfd.practices.infrastructure.util.ViewUtil;
 
 /**
  * Created by WoodenTea.
@@ -23,8 +24,9 @@ public class SceneActivity extends BaseActivity {
         }
 
         setContentView(R.layout.actvt_scene);
+        setUpActionBar(true);
         View view = findViewById(R.id.cartoon);
-
+        ViewUtil.checkViewIsNull(view);
         view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

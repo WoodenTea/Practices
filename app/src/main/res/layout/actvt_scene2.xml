@@ -4,11 +4,9 @@
     android:layout_height="match_parent"
     android:gravity="center_horizontal"
     android:orientation="vertical"
-    android:paddingBottom="@dimen/official_margin"
-    android:paddingLeft="@dimen/official_margin"
-    android:paddingRight="@dimen/official_margin"
-    android:paddingTop="@dimen/official_margin"
     android:transitionName="robot">
+
+    <include layout="@layout/app_bar_layout" />
 
     <ImageView
         android:id="@+id/cartoon"

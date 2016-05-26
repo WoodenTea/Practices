@@ -25,6 +25,7 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.ymsfd.practices.R;
+import com.ymsfd.practices.infrastructure.util.ViewUtil;
 import com.ymsfd.practices.ui.adapter.fancy.RecyclerListAdapter;
 import com.ymsfd.practices.ui.adapter.fancy.helper.DividerItemDecoration;
 import com.ymsfd.practices.ui.adapter.fancy.helper.RecyclerItemClickListener;
@@ -45,12 +46,11 @@ public class FancyItemActivity extends BaseActivity implements RecyclerListAdapt
         }
 
         setContentView(R.layout.actvt_fancy);
+        setUpActionBar(true);
         RecyclerListAdapter adapter = new RecyclerListAdapter(this);
 
         final RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
-        if (recyclerView == null) {
-            return false;
-        }
+        ViewUtil.checkViewIsNull(recyclerView);
         recyclerView.setHasFixedSize(true);
         recyclerView.setAdapter(adapter);
         recyclerView.addItemDecoration(new DividerItemDecoration(this,

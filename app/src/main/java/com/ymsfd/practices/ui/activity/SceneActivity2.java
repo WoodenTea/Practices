@@ -5,6 +5,7 @@ import android.support.v4.app.ActivityCompat;
 import android.view.View;
 
 import com.ymsfd.practices.R;
+import com.ymsfd.practices.infrastructure.util.ViewUtil;
 
 /**
  * Created by WoodenTea.
@@ -21,7 +22,10 @@ public class SceneActivity2 extends BaseActivity {
         }
 
         setContentView(R.layout.actvt_scene2);
-        findViewById(R.id.cartoon).setOnClickListener(new View.OnClickListener() {
+        setUpActionBar(true);
+        View view = findViewById(R.id.cartoon);
+        ViewUtil.checkViewIsNull(view);
+        view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 ActivityCompat.finishAfterTransition(SceneActivity2.this);

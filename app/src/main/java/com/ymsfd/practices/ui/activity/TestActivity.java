@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.View;
 
 import com.ymsfd.practices.R;
+import com.ymsfd.practices.infrastructure.util.ViewUtil;
 
 /**
  * Created by ymsfdDev.
@@ -11,7 +12,7 @@ import com.ymsfd.practices.R;
  * Date: 4/30/15
  * Time: 10:32
  */
-public class TestActivity extends BaseActivity {
+public class TestActivity extends BaseTranslucentActivity {
 
     @Override
     protected boolean _onCreate(Bundle savedInstanceState) {
@@ -21,7 +22,10 @@ public class TestActivity extends BaseActivity {
 
         setContentView(R.layout.actvt_test);
 
-        findViewById(R.id.button).setOnClickListener(new View.OnClickListener() {
+        setUpActionBar(true);
+        View view = findViewById(R.id.button);
+        ViewUtil.checkViewIsNull(view);
+        view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 D("Width: " + view.getWidth() + " Height: " + view.getHeight());

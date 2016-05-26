@@ -5,6 +5,7 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -14,13 +15,15 @@ import android.widget.ListView;
 import android.widget.SimpleAdapter;
 
 import com.ymsfd.practices.R;
+import com.ymsfd.practices.infrastructure.util.ViewUtil;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class MainActivity extends BaseActivity implements AdapterView.OnItemClickListener {
+public class MainActivity extends BaseActivity implements
+        AdapterView.OnItemClickListener {
 
     @Override
     protected boolean _onCreate(Bundle savedInstanceState) {
@@ -29,6 +32,7 @@ public class MainActivity extends BaseActivity implements AdapterView.OnItemClic
         }
 
         setContentView(R.layout.actvt_main);
+        setUpActionBar(true).setHomeAsUpIndicator(R.drawable.ic_menu);
 
         Intent intent = getIntent();
         String path = intent.getStringExtra("com.ymsfd.android.practices.Path");
@@ -37,6 +41,7 @@ public class MainActivity extends BaseActivity implements AdapterView.OnItemClic
         }
 
         ListView listView = (ListView) findViewById(R.id.activities);
+        ViewUtil.checkViewIsNull(listView);
         listView.setAdapter(new SimpleAdapter(this, getActivities(path), android.R.layout
                 .simple_list_item_1, new String[]{"title"}, new int[]{android.R.id.text1}));
         listView.setOnItemClickListener(this);
@@ -53,12 +58,19 @@ public class MainActivity extends BaseActivity implements AdapterView.OnItemClic
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
-
         if (id == R.id.action_settings) {
             return true;
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        Map<String, Object> map = (Map<String, Object>) parent.getItemAtPosition(position);
+
+        Intent intent = (Intent) map.get("intent");
+        startActivity(intent);
     }
 
     private List<Map<String, Object>> getActivities(String prefix) {
@@ -141,13 +153,5 @@ public class MainActivity extends BaseActivity implements AdapterView.OnItemClic
         result.setClass(this, MainActivity.class);
         result.putExtra("com.ymsfd.android.practices.Path", path);
         return result;
-    }
-
-    @Override
-    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        Map<String, Object> map = (Map<String, Object>) parent.getItemAtPosition(position);
-
-        Intent intent = (Intent) map.get("intent");
-        startActivity(intent);
     }
 }

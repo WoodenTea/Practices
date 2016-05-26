@@ -3,12 +3,12 @@ package com.ymsfd.practices.ui.activity;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 
 import com.ymsfd.practices.R;
+import com.ymsfd.practices.infrastructure.util.ViewUtil;
 import com.ymsfd.practices.ui.fragment.AFragment;
 import com.ymsfd.practices.ui.fragment.BFragment;
 import com.ymsfd.practices.ui.fragment.CFragment;
@@ -22,7 +22,7 @@ import java.util.List;
  * Date: 4/24/15
  * Time: 14:40
  */
-public class FragmentViewPagerActivity extends FragmentActivity {
+public class FragmentViewPagerActivity extends BaseActivity {
     private List<Fragment> list;
 
     @Override
@@ -30,13 +30,14 @@ public class FragmentViewPagerActivity extends FragmentActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.actvt_fragment);
 
+        setUpActionBar(true);
         list = new ArrayList<>();
         list.add(new AFragment());
         list.add(new BFragment());
         list.add(new CFragment());
         ViewPager viewPager = (ViewPager) findViewById(R.id.parent);
+        ViewUtil.checkViewIsNull(viewPager);
         FragmentPagerAdapter adapter = new FragmentAdapter(getSupportFragmentManager());
-
         viewPager.setAdapter(adapter);
     }
 

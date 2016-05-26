@@ -24,7 +24,8 @@
 
         <activity
             android:name=".ui.activity.MainActivity"
-            android:label="@string/app_name">
+            android:label="@string/app_name"
+            android:theme="@style/AppTheme.TranslucentStatus">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
@@ -40,7 +41,8 @@
         </activity>
         <activity
             android:name=".ui.activity.CustomViewActivity"
-            android:label="CustomView">
+            android:label="CustomView"
+            android:theme="@style/AppTheme.TranslucentStatus">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="com.ymsfd.android.practices.SAMPLE" />
@@ -48,7 +50,8 @@
         </activity>
         <activity
             android:name=".ui.activity.FragmentViewPagerActivity"
-            android:label="Fragment">
+            android:label="Fragment"
+            android:theme="@style/AppTheme.TranslucentStatus">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="com.ymsfd.android.practices.SAMPLE" />
@@ -56,7 +59,8 @@
         </activity>
         <activity
             android:name=".ui.activity.TestActivity"
-            android:label="Test">
+            android:label="Test"
+            android:theme="@style/AppTheme.TranslucentStatus">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="com.ymsfd.android.practices.SAMPLE" />
@@ -64,7 +68,8 @@
         </activity>
         <activity
             android:name=".ui.activity.ViewGroupActivity"
-            android:label="ViewGroup">
+            android:label="ViewGroup"
+            android:theme="@style/AppTheme.TranslucentStatus">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="com.ymsfd.android.practices.SAMPLE" />
@@ -72,7 +77,8 @@
         </activity>
         <activity
             android:name=".ui.activity.JSActivity"
-            android:label="JavaScript">
+            android:label="JavaScript"
+            android:theme="@style/AppTheme.TranslucentStatus">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="com.ymsfd.android.practices.SAMPLE" />
@@ -80,7 +86,8 @@
         </activity>
         <activity
             android:name=".ui.activity.SceneActivity"
-            android:label="Scene">
+            android:label="Scene"
+            android:theme="@style/AppTheme.TranslucentStatus">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="com.ymsfd.android.practices.SAMPLE" />
@@ -88,10 +95,12 @@
         </activity>
         <activity
             android:name=".ui.activity.SceneActivity2"
-            android:label="Scene2" />
+            android:label="Scene2"
+            android:theme="@style/AppTheme.TranslucentStatus" />
         <activity
             android:name=".ui.activity.DesignActivity"
-            android:label="Design">
+            android:label="Design"
+            android:theme="@style/AppTheme.TranslucentStatus">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="com.ymsfd.android.practices.SAMPLE" />
@@ -99,7 +108,8 @@
         </activity>
         <activity
             android:name=".ui.activity.FancyItemActivity"
-            android:label="FancyItem">
+            android:label="FancyItem"
+            android:theme="@style/AppTheme.TranslucentStatus">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="com.ymsfd.android.practices.SAMPLE" />
@@ -107,7 +117,8 @@
         </activity>
         <activity
             android:name=".ui.activity.SpannableActivity"
-            android:label="Spannable">
+            android:label="Spannable"
+            android:theme="@style/AppTheme.TranslucentStatus">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="com.ymsfd.android.practices.SAMPLE" />

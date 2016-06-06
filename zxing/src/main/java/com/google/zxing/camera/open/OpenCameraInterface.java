@@ -1,4 +1,4 @@
-package com.google.zxing.camera;
+package com.google.zxing.camera.open;
 
 import android.hardware.Camera;
 import android.util.Log;
@@ -22,7 +22,7 @@ public class OpenCameraInterface {
             return null;
         }
 
-        boolean explicitRequest = cameraId >= 0;
+        boolean explicitRequest = cameraId >= 0 && cameraId <= numCameras;
         Camera.CameraInfo selectedCameraInfo = null;
         int index;
         if (explicitRequest) {
@@ -42,6 +42,26 @@ public class OpenCameraInterface {
             }
         }
 
-        return null;
+        Camera camera;
+        if (index < numCameras) {
+            camera = Camera.open(index);
+        } else {
+            camera = Camera.open(0);
+            selectedCameraInfo = new Camera.CameraInfo();
+            Camera.getCameraInfo(0, selectedCameraInfo);
+        }
+
+        if (camera == null || selectedCameraInfo == null) {
+            return null;
+        }
+
+        CameraFacing cameraFacing = new CameraFacing();
+        if (selectedCameraInfo.facing == CameraFacing.BACK) {
+            cameraFacing.facing = CameraFacing.BACK;
+        } else {
+            cameraFacing.facing = CameraFacing.FRONT;
+        }
+
+        return new OpenCamera(camera, index, cameraFacing, selectedCameraInfo.orientation);
     }
 }

@@ -2,18 +2,27 @@ package com.ymsfd.practices.ui.activity;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.drawable.Drawable;
-import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.v4.graphics.drawable.RoundedBitmapDrawable;
+import android.support.v4.graphics.drawable.RoundedBitmapDrawableFactory;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.FutureTarget;
 import com.bumptech.glide.request.RequestListener;
-import com.bumptech.glide.request.animation.GlideAnimation;
+import com.bumptech.glide.request.target.BitmapImageViewTarget;
 import com.bumptech.glide.request.target.GlideDrawableImageViewTarget;
-import com.bumptech.glide.request.target.SimpleTarget;
 import com.bumptech.glide.request.target.Target;
 import com.ymsfd.practices.R;
+import com.ymsfd.practices.infrastructure.util.ViewUtil;
+
+import java.io.File;
+
+import rx.Observable;
+import rx.Subscriber;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.functions.Func1;
+import rx.schedulers.Schedulers;
 
 /**
  * Created by WoodenTea.
@@ -31,105 +40,91 @@ public class GlideActivity extends BaseActivity {
 
         setContentView(R.layout.actvt_glide);
         imageView = (ImageView) findViewById(R.id.imageView);
-        Glide.with(this)
-                .load("http://testecshop2.magicwe.com/" +
-                        "images/201509/source_img/793_G_1441785900196.jpg")
-                .asBitmap()
+        ViewUtil.checkViewIsNull(imageView);
+        createObservable("http://testecshop.magicwe.com/" +
+                "images/201509/source_img/793_G_1441785900196.jpg")
+                .subscribeOn(Schedulers.newThread())
+                .map(new Func1<String, File>() {
+                    @Override
+                    public File call(String s) {
+                        File file = null;
+                        try {
+                            FutureTarget<File> futureTarget = Glide.with(GlideActivity.this).load
+                                    (s).downloadOnly(100, 100);
+                            file = futureTarget.get();
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                        return file;
+                    }
+                })
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Subscriber<File>() {
+                    @Override
+                    public void onCompleted() {
+
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+
+                    }
+
+                    @Override
+                    public void onNext(File file) {
+                        if (file != null && file.exists()) {
+                            D(file.getAbsolutePath());
+                        } else {
+                            Intent intent = new Intent(GlideActivity.this, TestActivity.class);
+                            startActivity(intent);
+                        }
+                    }
+                });
+
+        Glide.with(this).load("http://5.26923" +
+                ".com/download/pic/000/263/ff5bc9a1c0386778a0ba1a783fd0fa2c.jpg").asBitmap()
                 .listener(new RequestListener<String, Bitmap>() {
                     @Override
                     public boolean onException(Exception e, String model, Target<Bitmap> target,
                                                boolean isFirstResource) {
-                        e.printStackTrace();
-                        Intent intent = new Intent(GlideActivity.this, TestActivity.class);
-                        startActivity(intent);
-                        return true;
+                        return false;
                     }
 
                     @Override
                     public boolean onResourceReady(Bitmap resource, String model, Target<Bitmap>
                             target, boolean isFromMemoryCache, boolean isFirstResource) {
+                        D("ResourceReady");
                         return false;
                     }
                 })
-                .error(R.drawable.cartoon)
-                .into(new SimpleTarget<Bitmap>() {
+                .centerCrop()
+                .into(new BitmapImageViewTarget(imageView) {
                     @Override
-                    public void onResourceReady(Bitmap resource, GlideAnimation<? super Bitmap>
-                            glideAnimation) {
-                        D("Ready");
-                        D("Size->" + resource.getByteCount());
+                    protected void setResource(Bitmap resource) {
+                        RoundedBitmapDrawable drawable = RoundedBitmapDrawableFactory.create
+                                (getResources(), resource);
+                        drawable.setCornerRadius(20.0f);
+                        drawable.setCircular(true);
+                        drawable.setAntiAlias(true);
+                        view.setImageDrawable(drawable);
                     }
-
-                    @Override
-                    public void onLoadFailed(Exception e, final Drawable errorDrawable) {
-                        D("Failed");
-                        e.printStackTrace();
-                        new AsyncTask<Void, Void, Void>() {
-                            @Override
-                            protected Void doInBackground(Void... voids) {
-                                return null;
-                            }
-
-                            @Override
-                            protected void onPostExecute(Void aVoid) {
-                                super.onPostExecute(aVoid);
-//                                imageView.setImageResource(R.drawable.cartoon);
-//                                imageView.setImageDrawable(errorDrawable);
-//                                Intent intent = new Intent(GlideActivity.this, TestActivity.class);
-//                                startActivity(intent);
-                            }
-                        }.execute();
-
-                    }
-                })
-        ;
-
-//        Glide.with(this)
-//                .load("http://5.26923" +
-//                        ".com/download/pic/000/263/ff5bc9a1c0386778a0ba1a783fd0fa2c.jpg")
-//                .downloadOnly(new SimpleTarget<File>() {
-//                    @Override
-//                    public void onResourceReady(File resource, GlideAnimation<? super File>
-//                            glideAnimation) {
-//                        D("Path->" + resource.getPath() + " " + resource.exists());
-//                    }
-//                })
-//        ;
-
-//        Glide.with(this).load("http://5.26923" +
-//                ".com/download/pic/000/263/ff5bc9a1c0386778a0ba1a783fd0fa2c.jpg").asBitmap()
-//                .listener(new RequestListener<String, Bitmap>() {
-//                    @Override
-//                    public boolean onException(Exception e, String model, Target<Bitmap> target,
-//                                               boolean isFirstResource) {
-//                        return false;
-//                    }
-//
-//                    @Override
-//                    public boolean onResourceReady(Bitmap resource, String model, Target<Bitmap>
-//                            target, boolean isFromMemoryCache, boolean isFirstResource) {
-//                        D("ResourceReady");
-//                        return false;
-//                    }
-//                })
-//                .centerCrop()
-//                .into(new BitmapImageViewTarget(imageView) {
-//                    @Override
-//                    protected void setResource(Bitmap resource) {
-//                        RoundedBitmapDrawable drawable = RoundedBitmapDrawableFactory.create
-//                                (getResources(), resource);
-//                        drawable.setCornerRadius(20.0f);
-//                        drawable.setCircular(true);
-//                        drawable.setAntiAlias(true);
-//                        view.setImageDrawable(drawable);
-//                    }
-//                });
+                });
 
         ImageView imageView2 = (ImageView) findViewById(R.id.imageView2);
+        ViewUtil.checkViewIsNull(imageView2);
         GlideDrawableImageViewTarget target = new GlideDrawableImageViewTarget(imageView2);
         Glide.with(this).load("http://pic.joke01.com/uppic/13-05/30/30215236.gif").placeholder(R
                 .drawable.cartoon).error(R.drawable.border_circle).into(target);
 
         return true;
+    }
+
+    public Observable<String> createObservable(final String str) {
+        return Observable.create(new Observable.OnSubscribe<String>() {
+            @Override
+            public void call(Subscriber<? super String> subscriber) {
+                subscriber.onNext(str);
+            }
+        });
     }
 }

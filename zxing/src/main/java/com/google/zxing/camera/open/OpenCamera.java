@@ -1,4 +1,4 @@
-package com.google.zxing.camera;
+package com.google.zxing.camera.open;
 
 import android.hardware.Camera;
 
@@ -33,7 +33,7 @@ public class OpenCamera {
         return orientation;
     }
 
-    public CameraFacing getCameraFacing() {
-        return cameraFacing;
+    public int getFacing() {
+        return cameraFacing.facing;
     }
 }

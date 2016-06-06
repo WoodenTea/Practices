@@ -1,4 +1,4 @@
-package com.google.zxing.camera;
+package com.google.zxing.camera.open;
 
 import android.support.annotation.IntDef;
 

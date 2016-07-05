@@ -16,7 +16,7 @@ public class SlidingActivity extends BaseActivity {
             return false;
         }
 
-        setContentView(R.layout.actvt_sliding);
+        setContentView(R.layout.sliding_activity);
         return true;
     }
 }

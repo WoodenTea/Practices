@@ -2,6 +2,8 @@ package com.ymsfd.practices;
 
 import android.content.Intent;
 
+import com.google.zxing.camera.FrontLightMode;
+import com.google.zxing.camera.open.CameraFacing;
 import com.ymsfd.practices.ui.activity.SceneActivity;
 import com.ymsfd.practices.ui.activity.SceneActivity2;
 
@@ -47,5 +49,7 @@ public class SceneActivityTest {
         Date date = new Date(timestamp);
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault());
         System.out.println(format.format(date));
+
+        CameraFacing.parse(3);
     }
 }

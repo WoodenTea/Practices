@@ -1,6 +1,10 @@
 <resources>
 
-    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+    <style name="AppTheme" parent="WTTheme">
+
+    </style>
+
+    <style name="WTTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
@@ -10,6 +14,27 @@
         <item name="android:windowTranslucentStatus">true</item>
         <item name="android:windowTranslucentNavigation">false</item>
         <item name="android:fitsSystemWindows">false</item>
+    </style>
+
+    <style name="AppTheme.TranslucentStatus.Launcher">
+        <item name="android:windowBackground">@drawable/eiffel_tower</item>
+    </style>
+
+    <style name="WTTextView">
+        <item name="android:layout_width">50dp</item>
+        <item name="android:layout_height">30dp</item>
+        <item name="android:textSize">@dimen/normal_text_size</item>
+        <item name="android:gravity">center_vertical|center</item>
+    </style>
+
+    <style name="WTSubmitButton" parent="WTTextView">
+        <item name="android:background">@drawable/bg_submit_button</item>
+        <item name="android:textColor">@color/submit_button_text_color</item>
+    </style>
+
+    <style name="WTCancelButton" parent="WTTextView">
+        <item name="android:background">@drawable/bg_cancel_button</item>
+        <item name="android:textColor">@color/cancel_button_text_color</item>
     </style>
 
 </resources>

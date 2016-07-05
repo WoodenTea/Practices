@@ -11,6 +11,7 @@ import android.util.Log;
  * Date: 2016/6/6
  * Time: 16:18
  */
+@SuppressWarnings("deprecation")
 public class PreviewCallback implements Camera.PreviewCallback {
     private static final String TAG = PreviewCallback.class.getSimpleName();
 

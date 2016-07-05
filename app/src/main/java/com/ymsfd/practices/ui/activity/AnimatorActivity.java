@@ -17,7 +17,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 
 import com.ymsfd.practices.R;
-import com.ymsfd.practices.infrastructure.util.ViewUtil;
+import com.ymsfd.practices.infrastructure.util.Preconditions;
 
 public class AnimatorActivity extends BaseTranslucentActivity implements View.OnClickListener {
     private ObjectAnimator scaleXAnimator, translateXAnimator, alphaAnimator, translateAnimator;
@@ -32,14 +32,14 @@ public class AnimatorActivity extends BaseTranslucentActivity implements View.On
             return false;
         }
 
-        setContentView(R.layout.actvt_animator);
+        setContentView(R.layout.animator_activity);
         setUpActionBar(true);
 
         displayMetrics = getResources().getDisplayMetrics();
         displayMetrics.widthPixels -= 200.f;
         displayMetrics.heightPixels -= 500.f;
         final Button bezier = (Button) findViewById(R.id.bezier);
-        ViewUtil.checkViewIsNull(bezier);
+        Preconditions.checkNotNull(bezier);
         bezier.setOnClickListener(this);
 
         bezierValueAnimator = ValueAnimator.ofObject(new BezierEvaluator(), new PointF(0, 0), new
@@ -126,33 +126,33 @@ public class AnimatorActivity extends BaseTranslucentActivity implements View.On
 
     private void setupAnimator() {
         Button button = (Button) findViewById(R.id.scaleX);
-        ViewUtil.checkViewIsNull(button);
+        Preconditions.checkNotNull(button);
         button.setOnClickListener(this);
         scaleXAnimator = (ObjectAnimator) AnimatorInflater.loadAnimator(this, R.animator.scalex);
         scaleXAnimator.setTarget(button);
 
         button = (Button) findViewById(R.id.scale);
-        ViewUtil.checkViewIsNull(button);
+        Preconditions.checkNotNull(button);
         button.setOnClickListener(this);
         animatorScaleSet = (AnimatorSet) AnimatorInflater.loadAnimator(this, R.animator.scale);
         animatorScaleSet.setTarget(button);
 
         button = (Button) findViewById(R.id.translateX);
-        ViewUtil.checkViewIsNull(button);
+        Preconditions.checkNotNull(button);
         button.setOnClickListener(this);
         translateXAnimator = (ObjectAnimator) AnimatorInflater.loadAnimator(this, R.animator
                 .translatex);
         translateXAnimator.setTarget(button);
 
         button = (Button) findViewById(R.id.alpha);
-        ViewUtil.checkViewIsNull(button);
+        Preconditions.checkNotNull(button);
         button.setOnClickListener(this);
         alphaAnimator = (ObjectAnimator) AnimatorInflater.loadAnimator(this, R.animator.alpha);
         alphaAnimator.setTarget(button);
 
         Button buttonProValHolder;
         buttonProValHolder = (Button) findViewById(R.id.propertyValHolder);
-        ViewUtil.checkViewIsNull(buttonProValHolder);
+        Preconditions.checkNotNull(buttonProValHolder);
         buttonProValHolder.setOnClickListener(this);
         PropertyValuesHolder pvhX = PropertyValuesHolder.ofFloat("translationX", 0f, 300f);
         PropertyValuesHolder pvhY = PropertyValuesHolder.ofFloat("translationY", 0f, 300f);
@@ -162,11 +162,11 @@ public class AnimatorActivity extends BaseTranslucentActivity implements View.On
         translateAnimator.setDuration(2000);
 
         button = (Button) findViewById(R.id.propertyAnimator);
-        ViewUtil.checkViewIsNull(button);
+        Preconditions.checkNotNull(button);
         button.setOnClickListener(this);
 
         button = (Button) findViewById(R.id.set);
-        ViewUtil.checkViewIsNull(button);
+        Preconditions.checkNotNull(button);
         button.setOnClickListener(this);
         animationSet = new AnimatorSet();
         animationSet.playTogether(ObjectAnimator.ofFloat(button, "alpha", 1, 0, 1),
@@ -197,7 +197,7 @@ public class AnimatorActivity extends BaseTranslucentActivity implements View.On
         });
 
         final Button buttonValueAnimator = (Button) findViewById(R.id.animator);
-        ViewUtil.checkViewIsNull(buttonValueAnimator);
+        Preconditions.checkNotNull(buttonValueAnimator);
         buttonValueAnimator.setOnClickListener(this);
 
         mValueAnimator = ValueAnimator.ofInt(1, 100);
@@ -206,8 +206,7 @@ public class AnimatorActivity extends BaseTranslucentActivity implements View.On
             public void onAnimationUpdate(ValueAnimator valueAnimator) {
                 float factor = valueAnimator.getAnimatedFraction();
                 ViewGroup.MarginLayoutParams marginLayoutParams = (ViewGroup.MarginLayoutParams)
-                        buttonValueAnimator
-                                .getLayoutParams();
+                        buttonValueAnimator.getLayoutParams();
                 marginLayoutParams.leftMargin = (int) (factor * 100);
                 buttonValueAnimator.setLayoutParams(marginLayoutParams);
             }

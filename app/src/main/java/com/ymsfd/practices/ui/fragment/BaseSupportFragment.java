@@ -26,7 +26,7 @@ public class BaseSupportFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle
             savedInstanceState) {
         if (rootView == null) {
-            rootView = inflater.inflate(R.layout.frg_base, container, false);
+            rootView = inflater.inflate(R.layout.fragment_base, container, false);
             tv_name = (TextView) rootView.findViewById(R.id.tv_name);
             tv_name.setText(getClass().getSimpleName());
             D("Create View 1");

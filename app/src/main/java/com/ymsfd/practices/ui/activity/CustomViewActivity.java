@@ -18,7 +18,7 @@ public class CustomViewActivity extends BaseActivity {
             return false;
         }
 
-        setContentView(R.layout.actvt_custom_view);
+        setContentView(R.layout.custom_view_activity);
         setUpActionBar(true);
 
         return true;

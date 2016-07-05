@@ -8,6 +8,7 @@ import android.util.Log;
  * Date: 2016/6/3
  * Time: 13:52
  */
+@SuppressWarnings("deprecation")
 public class OpenCameraInterface {
     public static final int NO_REQUESTED_CAMERA = -1;
     private static final String TAG = OpenCameraInterface.class.getClass().getSimpleName();

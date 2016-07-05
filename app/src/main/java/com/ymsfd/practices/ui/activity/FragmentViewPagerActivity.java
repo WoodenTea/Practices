@@ -8,7 +8,7 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 
 import com.ymsfd.practices.R;
-import com.ymsfd.practices.infrastructure.util.ViewUtil;
+import com.ymsfd.practices.infrastructure.util.Preconditions;
 import com.ymsfd.practices.ui.fragment.AFragment;
 import com.ymsfd.practices.ui.fragment.BFragment;
 import com.ymsfd.practices.ui.fragment.CFragment;
@@ -28,7 +28,7 @@ public class FragmentViewPagerActivity extends BaseActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.actvt_fragment);
+        setContentView(R.layout.fragment_activity);
 
         setUpActionBar(true);
         list = new ArrayList<>();
@@ -36,7 +36,7 @@ public class FragmentViewPagerActivity extends BaseActivity {
         list.add(new BFragment());
         list.add(new CFragment());
         ViewPager viewPager = (ViewPager) findViewById(R.id.parent);
-        ViewUtil.checkViewIsNull(viewPager);
+        Preconditions.checkNotNull(viewPager);
         FragmentPagerAdapter adapter = new FragmentAdapter(getSupportFragmentManager());
         viewPager.setAdapter(adapter);
     }

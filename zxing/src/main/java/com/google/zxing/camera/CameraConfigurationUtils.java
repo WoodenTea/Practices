@@ -16,18 +16,15 @@
 
 package com.google.zxing.camera;
 
-import android.annotation.TargetApi;
 import android.graphics.Point;
 import android.graphics.Rect;
 import android.hardware.Camera;
 import android.os.Build;
 import android.util.Log;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.Iterator;
 import java.util.List;
 import java.util.regex.Pattern;
@@ -37,17 +34,15 @@ import java.util.regex.Pattern;
  *
  * @author Sean Owen
  */
-@TargetApi(Build.VERSION_CODES.ICE_CREAM_SANDWICH_MR1)
+@SuppressWarnings("deprecation")
 public final class CameraConfigurationUtils {
 
     private static final String TAG = "CameraConfiguration";
 
     private static final Pattern SEMICOLON = Pattern.compile(";");
 
-    private static final int MIN_PREVIEW_PIXELS = 480 * 320; // normal screen
     private static final float MAX_EXPOSURE_COMPENSATION = 1.5f;
     private static final float MIN_EXPOSURE_COMPENSATION = 0.0f;
-    private static final double MAX_ASPECT_DISTORTION = 0.15;
     private static final int MIN_FPS = 10;
     private static final int MAX_FPS = 20;
     private static final int AREA_PER_1000 = 400;
@@ -361,8 +356,9 @@ public final class CameraConfigurationUtils {
         return result.toString();
     }
 
-    public static Camera.Size getOptimalPreviewSize(List<Camera.Size> sizes, int width, int
-            height) {
+    public static Camera.Size getOptimalPreviewSize(List<Camera.Size> sizes,
+                                                    int width,
+                                                    int height) {
         final double ASPECT_TOLERANCE = 0.1;
         double targetRatio = (double) width / height;
         if (sizes == null) {
@@ -372,8 +368,6 @@ public final class CameraConfigurationUtils {
         Camera.Size optimalSize = null;
         double minDiff = Double.MAX_VALUE;
 
-        int targetHeight = height;
-
         // Try to find an size match aspect ratio and size
         for (Camera.Size size : sizes) {
             double ratio = (double) size.width / size.height;
@@ -381,9 +375,9 @@ public final class CameraConfigurationUtils {
                 continue;
             }
 
-            if (Math.abs(size.height - targetHeight) < minDiff) {
+            if (Math.abs(size.height - height) < minDiff) {
                 optimalSize = size;
-                minDiff = Math.abs(size.height - targetHeight);
+                minDiff = Math.abs(size.height - height);
             }
         }
 
@@ -391,9 +385,9 @@ public final class CameraConfigurationUtils {
         if (optimalSize == null) {
             minDiff = Double.MAX_VALUE;
             for (Camera.Size size : sizes) {
-                if (Math.abs(size.height - targetHeight) < minDiff) {
+                if (Math.abs(size.height - height) < minDiff) {
                     optimalSize = size;
-                    minDiff = Math.abs(size.height - targetHeight);
+                    minDiff = Math.abs(size.height - height);
                 }
             }
         }
@@ -401,8 +395,8 @@ public final class CameraConfigurationUtils {
         return optimalSize;
     }
 
-    public static Point getOptimalPreviewSize(Camera.Parameters parameters, Point
-            screenResolution) {
+    public static Point getOptimalPreviewSize(Camera.Parameters parameters,
+                                              Point screenResolution) {
         List<Camera.Size> sizes = parameters.getSupportedPreviewSizes();
         final double ASPECT_TOLERANCE = 0.1;
         double targetRatio = (double) screenResolution.y / screenResolution.x;

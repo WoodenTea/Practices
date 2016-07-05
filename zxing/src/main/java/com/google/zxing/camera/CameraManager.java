@@ -37,6 +37,7 @@ import java.io.IOException;
  *
  * @author dswitkin@google.com (Daniel Switkin)
  */
+@SuppressWarnings("deprecation")
 public final class CameraManager {
 
     private static final String TAG = CameraManager.class.getSimpleName();
@@ -46,8 +47,12 @@ public final class CameraManager {
     private static final int MAX_FRAME_WIDTH = 1200; // = 5/8 * 1920
     private static final int MAX_FRAME_HEIGHT = 675; // = 5/8 * 1080
 
-    private final Context context;
     private final CameraConfigurationManager configManager;
+    /**
+     * Preview frames are delivered here, which we pass on to the registered handler. Make sure to
+     * clear the handler so it will only receive one message.
+     */
+    private final PreviewCallback previewCallback;
     private OpenCamera camera;
     private AutoFocusManager autoFocusManager;
     private Rect framingRect;
@@ -57,16 +62,49 @@ public final class CameraManager {
     private int requestedCameraId = OpenCameraInterface.NO_REQUESTED_CAMERA;
     private int requestedFramingRectWidth;
     private int requestedFramingRectHeight;
-    /**
-     * Preview frames are delivered here, which we pass on to the registered handler. Make sure to
-     * clear the handler so it will only receive one message.
-     */
-    private final PreviewCallback previewCallback;
 
     public CameraManager(Context context) {
-        this.context = context;
         this.configManager = new CameraConfigurationManager(context);
         previewCallback = new PreviewCallback(configManager);
+    }
+
+    public synchronized void setTorch(boolean newSetting) {
+        OpenCamera theCamera = camera;
+        if (theCamera != null) {
+            if (newSetting != configManager.getTorchState(theCamera.getCamera())) {
+                boolean wasAutoFocusManager = autoFocusManager != null;
+                if (wasAutoFocusManager) {
+                    autoFocusManager.stop();
+                    autoFocusManager = null;
+                }
+                configManager.setTorch(theCamera.getCamera(), newSetting);
+                if (wasAutoFocusManager) {
+                    autoFocusManager = new AutoFocusManager(theCamera.getCamera());
+                    autoFocusManager.start();
+                }
+            }
+        }
+    }
+
+    /**
+     * Allows third party apps to specify the camera ID, rather than determine
+     * it automatically based on available cameras and their orientation.
+     *
+     * @param cameraId camera ID of the camera to use. A negative value means "no preference".
+     */
+    public synchronized void setManualCameraId(int cameraId) {
+        requestedCameraId = cameraId;
+    }
+
+    private static int findDesiredDimensionInRange(int resolution, int hardMin, int hardMax) {
+        int dim = 5 * resolution / 8; // Target 5/8 of each dimension
+        if (dim < hardMin) {
+            return hardMin;
+        }
+        if (dim > hardMax) {
+            return hardMax;
+        }
+        return dim;
     }
 
     /**
@@ -147,7 +185,7 @@ public final class CameraManager {
         if (theCamera != null && !previewing) {
             theCamera.getCamera().startPreview();
             previewing = true;
-            autoFocusManager = new AutoFocusManager(context, theCamera.getCamera());
+            autoFocusManager = new AutoFocusManager(theCamera.getCamera());
         }
     }
 
@@ -163,24 +201,6 @@ public final class CameraManager {
             camera.getCamera().stopPreview();
             previewCallback.setHandler(null, 0);
             previewing = false;
-        }
-    }
-
-    public synchronized void setTorch(boolean newSetting) {
-        OpenCamera theCamera = camera;
-        if (theCamera != null) {
-            if (newSetting != configManager.getTorchState(theCamera.getCamera())) {
-                boolean wasAutoFocusManager = autoFocusManager != null;
-                if (wasAutoFocusManager) {
-                    autoFocusManager.stop();
-                    autoFocusManager = null;
-                }
-                configManager.setTorch(theCamera.getCamera(), newSetting);
-                if (wasAutoFocusManager) {
-                    autoFocusManager = new AutoFocusManager(context, theCamera.getCamera());
-                    autoFocusManager.start();
-                }
-            }
         }
     }
 
@@ -232,17 +252,6 @@ public final class CameraManager {
         return framingRect;
     }
 
-    private static int findDesiredDimensionInRange(int resolution, int hardMin, int hardMax) {
-        int dim = 5 * resolution / 8; // Target 5/8 of each dimension
-        if (dim < hardMin) {
-            return hardMin;
-        }
-        if (dim > hardMax) {
-            return hardMax;
-        }
-        return dim;
-    }
-
     /**
      * Like {@link #getFramingRect} but coordinates are in terms of the preview frame,
      * not UI / screen.
@@ -271,16 +280,6 @@ public final class CameraManager {
         }
 
         return framingRectInPreview;
-    }
-
-    /**
-     * Allows third party apps to specify the camera ID, rather than determine
-     * it automatically based on available cameras and their orientation.
-     *
-     * @param cameraId camera ID of the camera to use. A negative value means "no preference".
-     */
-    public synchronized void setManualCameraId(int cameraId) {
-        requestedCameraId = cameraId;
     }
 
     /**

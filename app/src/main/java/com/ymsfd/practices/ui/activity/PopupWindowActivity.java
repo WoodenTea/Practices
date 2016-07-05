@@ -21,7 +21,7 @@ public class PopupWindowActivity extends BaseActivity implements View.OnClickLis
             return false;
         }
 
-        setContentView(R.layout.actvt_popup_window);
+        setContentView(R.layout.popup_window_activity);
         findViewById(R.id.btn).setOnClickListener(this);
         return true;
     }

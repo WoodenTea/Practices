@@ -5,7 +5,6 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.os.Bundle;
-import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -15,7 +14,7 @@ import android.widget.ListView;
 import android.widget.SimpleAdapter;
 
 import com.ymsfd.practices.R;
-import com.ymsfd.practices.infrastructure.util.ViewUtil;
+import com.ymsfd.practices.infrastructure.util.Preconditions;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -26,33 +25,17 @@ public class MainActivity extends BaseActivity implements
         AdapterView.OnItemClickListener {
 
     @Override
-    protected boolean _onCreate(Bundle savedInstanceState) {
-        if (!super._onCreate(savedInstanceState)) {
-            return false;
-        }
-
-        setContentView(R.layout.actvt_main);
-        setUpActionBar(true).setHomeAsUpIndicator(R.drawable.ic_menu);
-
-        Intent intent = getIntent();
-        String path = intent.getStringExtra("com.ymsfd.android.practices.Path");
-        if (path == null) {
-            path = "";
-        }
-
-        ListView listView = (ListView) findViewById(R.id.activities);
-        ViewUtil.checkViewIsNull(listView);
-        listView.setAdapter(new SimpleAdapter(this, getActivities(path), android.R.layout
-                .simple_list_item_1, new String[]{"title"}, new int[]{android.R.id.text1}));
-        listView.setOnItemClickListener(this);
-
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        Map<String, Object> map = (Map<String, Object>) parent.getItemAtPosition(position);
+
+        Intent intent = (Intent) map.get("intent");
+        startActivity(intent);
     }
 
     @Override
@@ -66,11 +49,47 @@ public class MainActivity extends BaseActivity implements
     }
 
     @Override
-    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        Map<String, Object> map = (Map<String, Object>) parent.getItemAtPosition(position);
+    protected boolean _onCreate(Bundle savedInstanceState) {
+        if (!super._onCreate(savedInstanceState)) {
+            return false;
+        }
 
-        Intent intent = (Intent) map.get("intent");
-        startActivity(intent);
+        setContentView(R.layout.main_activity);
+        setUpActionBar(true).setHomeAsUpIndicator(R.drawable.ic_menu);
+
+        Intent intent = getIntent();
+        String path = intent.getStringExtra("com.ymsfd.android.practices.Path");
+        if (path == null) {
+            path = "";
+        }
+
+        ListView listView = (ListView) findViewById(R.id.activities);
+        Preconditions.checkNotNull(listView);
+        listView.setAdapter(new SimpleAdapter(this, getActivities(path), android.R.layout
+                .simple_list_item_1, new String[]{"title"}, new int[]{android.R.id.text1}));
+        listView.setOnItemClickListener(this);
+
+        return true;
+    }
+
+    protected Intent activityIntent(String pkg, String componentName) {
+        Intent result = new Intent();
+        result.setClassName(pkg, componentName);
+        return result;
+    }
+
+    protected void addItem(List<Map<String, Object>> data, String name, Intent intent) {
+        Map<String, Object> tmp = new HashMap<>();
+        tmp.put("title", name);
+        tmp.put("intent", intent);
+        data.add(tmp);
+    }
+
+    protected Intent browseIntent(String path) {
+        Intent result = new Intent();
+        result.setClass(this, MainActivity.class);
+        result.putExtra("com.ymsfd.android.practices.Path", path);
+        return result;
     }
 
     private List<Map<String, Object>> getActivities(String prefix) {
@@ -133,25 +152,5 @@ public class MainActivity extends BaseActivity implements
         }
 
         return mapActivity;
-    }
-
-    protected void addItem(List<Map<String, Object>> data, String name, Intent intent) {
-        Map<String, Object> tmp = new HashMap<>();
-        tmp.put("title", name);
-        tmp.put("intent", intent);
-        data.add(tmp);
-    }
-
-    protected Intent activityIntent(String pkg, String componentName) {
-        Intent result = new Intent();
-        result.setClassName(pkg, componentName);
-        return result;
-    }
-
-    protected Intent browseIntent(String path) {
-        Intent result = new Intent();
-        result.setClass(this, MainActivity.class);
-        result.putExtra("com.ymsfd.android.practices.Path", path);
-        return result;
     }
 }

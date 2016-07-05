@@ -33,6 +33,7 @@ import com.google.zxing.camera.open.OpenCamera;
  * A class which deals with reading, parsing, and setting the camera parameters which are used to
  * configure the camera hardware.
  */
+@SuppressWarnings("deprecation")
 final class CameraConfigurationManager {
 
     private static final String TAG = "CameraConfiguration";
@@ -223,7 +224,7 @@ final class CameraConfigurationManager {
 
     private void initializeTorch(Camera.Parameters parameters, SharedPreferences prefs, boolean
             safeMode) {
-        boolean currentSetting = FrontLightMode.readPref(prefs) == FrontLightMode.ON;
+        boolean currentSetting = FrontLightMode.readPref() == FrontLightMode.ON;
         doSetTorch(parameters, currentSetting, safeMode);
     }
 

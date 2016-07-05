@@ -2,9 +2,10 @@ package com.ymsfd.practices.ui.activity;
 
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ImageView;
 
 import com.ymsfd.practices.R;
-import com.ymsfd.practices.infrastructure.util.ViewUtil;
+import com.ymsfd.practices.infrastructure.util.Preconditions;
 
 /**
  * Created by ymsfdDev.
@@ -20,15 +21,17 @@ public class TestActivity extends BaseTranslucentActivity {
             return false;
         }
 
-        setContentView(R.layout.actvt_test);
+        setContentView(R.layout.test_activity);
 
         setUpActionBar(true);
-        View view = findViewById(R.id.button);
-        ViewUtil.checkViewIsNull(view);
+        final ImageView imageView = (ImageView) findViewById(R.id.cartoon);
+        Preconditions.checkNotNull(imageView);
+        View view = findViewById(R.id.submit);
+        Preconditions.checkNotNull(view);
         view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                D("Width: " + view.getWidth() + " Height: " + view.getHeight());
+                imageView.scrollBy(-10, 0);
             }
         });
 

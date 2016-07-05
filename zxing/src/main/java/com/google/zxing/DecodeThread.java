@@ -20,9 +20,7 @@ import android.os.Handler;
 import android.os.Looper;
 import android.util.Log;
 
-import com.google.zxing.BarcodeFormat;
-import com.google.zxing.DecodeHintType;
-import com.google.zxing.ResultPointCallback;
+import com.google.zxing.camera.CameraManager;
 
 import java.util.Collection;
 import java.util.EnumMap;
@@ -39,13 +37,17 @@ final class DecodeThread extends Thread {
     public static final String BARCODE_BITMAP = "barcode_bitmap";
     public static final String BARCODE_SCALED_FACTOR = "barcode_scaled_factor";
 
-    private final CaptureActivity activity;
     private final Map<DecodeHintType, Object> hints;
     private final CountDownLatch handlerInitLatch;
     private Handler handler;
+    private Handler h;
+    private CameraManager cameraManager;
 
-    DecodeThread(CaptureActivity activity, ResultPointCallback resultPointCallback) {
-        this.activity = activity;
+    DecodeThread(ResultPointCallback resultPointCallback,
+                 CameraManager cameraManager,
+                 Handler handler) {
+        this.cameraManager = cameraManager;
+        this.h = handler;
         handlerInitLatch = new CountDownLatch(1);
 
         hints = new EnumMap<>(DecodeHintType.class);
@@ -67,17 +69,18 @@ final class DecodeThread extends Thread {
     @Override
     public void run() {
         Looper.prepare();
-        handler = new DecodeHandler(activity, hints);
+        handler = new DecodeHandler(hints, cameraManager, h);
         handlerInitLatch.countDown();
         Looper.loop();
     }
 
-    Handler getHandler() {
+    public Handler getHandler() {
         try {
             handlerInitLatch.await();
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
+
         return handler;
     }
 }

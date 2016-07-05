@@ -29,11 +29,8 @@ import android.util.Log;
  * Finishes an activity after a period of inactivity if the device is on battery power.
  */
 final class InactivityTimer {
-
     private static final String TAG = InactivityTimer.class.getSimpleName();
-
     private static final long INACTIVITY_DELAY_MS = 5 * 60 * 1000L;
-
     private final Activity activity;
     private final BroadcastReceiver powerStatusReceiver;
     private boolean registered;
@@ -46,7 +43,15 @@ final class InactivityTimer {
         onActivity();
     }
 
-    synchronized void onActivity() {
+    private synchronized void cancel() {
+        AsyncTask<?, ?, ?> task = inactivityTask;
+        if (task != null) {
+            task.cancel(true);
+            inactivityTask = null;
+        }
+    }
+
+    public synchronized void onActivity() {
         cancel();
         inactivityTask = new InactivityAsyncTask();
         inactivityTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
@@ -66,22 +71,15 @@ final class InactivityTimer {
         if (registered) {
             Log.w(TAG, "PowerStatusReceiver was already registered?");
         } else {
-            activity.registerReceiver(powerStatusReceiver, new IntentFilter(Intent
-                    .ACTION_BATTERY_CHANGED));
+            activity.registerReceiver(powerStatusReceiver,
+                    new IntentFilter(Intent.ACTION_BATTERY_CHANGED));
             registered = true;
         }
+
         onActivity();
     }
 
-    private synchronized void cancel() {
-        AsyncTask<?, ?, ?> task = inactivityTask;
-        if (task != null) {
-            task.cancel(true);
-            inactivityTask = null;
-        }
-    }
-
-    void shutdown() {
+    public void shutdown() {
         cancel();
     }
 
@@ -108,7 +106,7 @@ final class InactivityTimer {
                 Log.i(TAG, "Finishing activity due to inactivity");
                 activity.finish();
             } catch (InterruptedException e) {
-                // continue without killing
+                e.printStackTrace();
             }
 
             return null;

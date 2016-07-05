@@ -22,7 +22,7 @@ public class ReboundScrollViewActivity extends BaseActivity {
             return false;
         }
 
-        setContentView(R.layout.actvt_rebound_scroll);
+        setContentView(R.layout.rebound_scroll_activity);
         TableLayout tableLayout = (TableLayout) findViewById(R.id.table_layout);
         TableRow.LayoutParams layoutParams = new TableRow.LayoutParams(
                 TableRow.LayoutParams.MATCH_PARENT,

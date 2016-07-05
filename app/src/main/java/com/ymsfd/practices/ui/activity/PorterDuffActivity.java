@@ -30,7 +30,7 @@ public class PorterDuffActivity extends BaseActivity {
             return false;
         }
 
-        setContentView(R.layout.actvt_porterduff);
+        setContentView(R.layout.porterduff_activity);
         ImageView image = (ImageView) findViewById(R.id.image);
         Bitmap bitmapBorder;
         Bitmap bitmapMask;

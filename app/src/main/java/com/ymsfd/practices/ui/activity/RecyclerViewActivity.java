@@ -35,7 +35,7 @@ public class RecyclerViewActivity extends BaseActivity implements View.OnClickLi
             return false;
         }
 
-        setContentView(R.layout.actvt_recycler_view);
+        setContentView(R.layout.recycler_view_activity);
         editText = (EditText) findViewById(R.id.position);
         View view = findViewById(R.id.add);
         if (view == null) {

@@ -17,12 +17,10 @@
 package com.google.zxing;
 
 import android.content.Context;
-import android.content.SharedPreferences;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
-import android.preference.PreferenceManager;
 
 import com.google.zxing.camera.CameraManager;
 import com.google.zxing.camera.FrontLightMode;
@@ -61,13 +59,11 @@ final class AmbientLightManager implements SensorEventListener {
 
     @Override
     public void onAccuracyChanged(Sensor sensor, int accuracy) {
-        // do nothing
     }
 
     void start(CameraManager cameraManager) {
         this.cameraManager = cameraManager;
-        SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(context);
-        if (FrontLightMode.readPref(sharedPrefs) == FrontLightMode.AUTO) {
+        if (FrontLightMode.readPref() == FrontLightMode.AUTO) {
             SensorManager sensorManager = (SensorManager) context.getSystemService(Context
                     .SENSOR_SERVICE);
             lightSensor = sensorManager.getDefaultSensor(Sensor.TYPE_LIGHT);

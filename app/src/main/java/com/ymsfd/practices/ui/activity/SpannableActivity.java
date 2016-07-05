@@ -15,7 +15,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.ymsfd.practices.R;
-import com.ymsfd.practices.infrastructure.util.ViewUtil;
+import com.ymsfd.practices.infrastructure.util.Preconditions;
 
 public class SpannableActivity extends BaseActivity {
 
@@ -25,10 +25,10 @@ public class SpannableActivity extends BaseActivity {
             return false;
         }
 
-        setContentView(R.layout.actvt_spannable);
+        setContentView(R.layout.spannable_activity);
         setUpActionBar(true);
-        TextView tv = (TextView) findViewById(R.id.tv);
-        ViewUtil.checkViewIsNull(tv);
+        TextView textView = (TextView) findViewById(R.id.text_view);
+        Preconditions.checkNotNull(textView);
         String level = "等级: M1  ";
         String jewel = "emoji 55";
 
@@ -46,9 +46,9 @@ public class SpannableActivity extends BaseActivity {
             }
 
         }, 0, level.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-        tv.setHighlightColor(Color.TRANSPARENT);
-        tv.append(spannableLevel);
-        tv.setMovementMethod(LinkMovementMethod.getInstance());
+        textView.setHighlightColor(Color.TRANSPARENT);
+        textView.setText(spannableLevel);
+        textView.setMovementMethod(LinkMovementMethod.getInstance());
 
         SpannableString spannableJewel = new SpannableString(jewel);
         spannableJewel.setSpan(new ClickableSpan() {
@@ -69,9 +69,9 @@ public class SpannableActivity extends BaseActivity {
         ImageSpan imageSpan = new ImageSpan(drawable, ImageSpan.ALIGN_BOTTOM);
         spannableJewel.setSpan(imageSpan, 0, 5, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
 
-        tv.setHighlightColor(Color.TRANSPARENT);
-        tv.append(spannableJewel);
-        tv.setMovementMethod(LinkMovementMethod.getInstance());
+        textView.setHighlightColor(Color.TRANSPARENT);
+        textView.append(spannableJewel);
+        textView.setMovementMethod(LinkMovementMethod.getInstance());
 
         return true;
     }

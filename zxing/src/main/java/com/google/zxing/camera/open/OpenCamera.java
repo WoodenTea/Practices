@@ -7,6 +7,8 @@ import android.hardware.Camera;
  * Date: 2016/6/3
  * Time: 11:55
  */
+
+@SuppressWarnings("deprecation")
 public class OpenCamera {
     private final int index;
     private final Camera camera;

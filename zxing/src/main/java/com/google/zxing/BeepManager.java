@@ -18,12 +18,10 @@ package com.google.zxing;
 
 import android.app.Activity;
 import android.content.Context;
-import android.content.SharedPreferences;
 import android.content.res.AssetFileDescriptor;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.os.Vibrator;
-import android.preference.PreferenceManager;
 import android.util.Log;
 
 import java.io.Closeable;
@@ -51,18 +49,6 @@ final class BeepManager implements MediaPlayer.OnErrorListener, Closeable {
     }
 
     @Override
-    public synchronized boolean onError(MediaPlayer mp, int what, int extra) {
-        if (what == MediaPlayer.MEDIA_ERROR_SERVER_DIED) {
-            // we are finished, so put up an appropriate error toast if required and finish
-        } else {
-            // possibly media player error, so release and recreate
-            close();
-            updatePrefs();
-        }
-        return true;
-    }
-
-    @Override
     public synchronized void close() {
         if (mediaPlayer != null) {
             mediaPlayer.release();
@@ -70,36 +56,27 @@ final class BeepManager implements MediaPlayer.OnErrorListener, Closeable {
         }
     }
 
-    private static boolean shouldBeep(SharedPreferences prefs, Context context) {
-        boolean shouldPlayBeep =  true;
-        if (shouldPlayBeep) {
-            // See if sound settings overrides this
-            AudioManager audioService = (AudioManager) context.getSystemService(Context
-                    .AUDIO_SERVICE);
-            if (audioService.getRingerMode() != AudioManager.RINGER_MODE_NORMAL) {
-                shouldPlayBeep = false;
-            }
+    @Override
+    public synchronized boolean onError(MediaPlayer mp, int what, int extra) {
+        if (what == MediaPlayer.MEDIA_ERROR_SERVER_DIED) {
+            // we are finished, so put up an appropriate error toast if required and finish
+            //TODO
+        } else {
+            close();
+            updatePrefs();
+        }
+
+        return true;
+    }
+
+    private static boolean shouldBeep(Context context) {
+        boolean shouldPlayBeep = true;
+        // See if sound settings overrides this
+        AudioManager audioService = (AudioManager) context.getSystemService(Context.AUDIO_SERVICE);
+        if (audioService.getRingerMode() != AudioManager.RINGER_MODE_NORMAL) {
+            shouldPlayBeep = false;
         }
         return shouldPlayBeep;
-    }
-
-    synchronized void updatePrefs() {
-        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(activity);
-        playBeep = shouldBeep(prefs, activity);
-        vibrate =  false;
-        if (playBeep && mediaPlayer == null) {
-            mediaPlayer = buildMediaPlayer(activity);
-        }
-    }
-
-    synchronized void playBeepSoundAndVibrate() {
-        if (playBeep && mediaPlayer != null) {
-            mediaPlayer.start();
-        }
-        if (vibrate) {
-            Vibrator vibrator = (Vibrator) activity.getSystemService(Context.VIBRATOR_SERVICE);
-            vibrator.vibrate(VIBRATE_DURATION);
-        }
     }
 
     private MediaPlayer buildMediaPlayer(Context context) {
@@ -109,6 +86,8 @@ final class BeepManager implements MediaPlayer.OnErrorListener, Closeable {
             try {
                 mediaPlayer.setDataSource(file.getFileDescriptor(), file.getStartOffset(), file
                         .getLength());
+            } catch (Exception e) {
+                e.printStackTrace();
             } finally {
                 file.close();
             }
@@ -122,6 +101,25 @@ final class BeepManager implements MediaPlayer.OnErrorListener, Closeable {
             Log.w(TAG, ioe);
             mediaPlayer.release();
             return null;
+        }
+    }
+
+    synchronized void playBeepSoundAndVibrate() {
+        if (playBeep && mediaPlayer != null) {
+            mediaPlayer.start();
+        }
+
+        if (vibrate) {
+            Vibrator vibrator = (Vibrator) activity.getSystemService(Context.VIBRATOR_SERVICE);
+            vibrator.vibrate(VIBRATE_DURATION);
+        }
+    }
+
+    synchronized void updatePrefs() {
+        playBeep = shouldBeep(activity);
+        vibrate = true;
+        if (playBeep && mediaPlayer == null) {
+            mediaPlayer = buildMediaPlayer(activity);
         }
     }
 }

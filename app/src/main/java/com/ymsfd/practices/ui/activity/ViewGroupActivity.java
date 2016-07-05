@@ -11,7 +11,7 @@ public class ViewGroupActivity extends BaseActivity {
             return false;
         }
 
-        setContentView(R.layout.actvt_viewgroup);
+        setContentView(R.layout.viewgroup_activity);
         setUpActionBar(true);
 
         return true;

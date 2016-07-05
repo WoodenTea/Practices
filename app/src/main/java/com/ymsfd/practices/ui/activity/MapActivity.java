@@ -17,7 +17,7 @@ public class MapActivity extends BaseActivity {
             return false;
         }
 
-        setContentView(R.layout.actvt_map);
+        setContentView(R.layout.map_activity);
         findViewById(R.id.btn).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

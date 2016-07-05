@@ -9,14 +9,15 @@ import com.ymsfd.practices.R;
  * Date: 11/11/15
  * Time: 21:10
  */
-public class ScrollLayoutActivity extends BaseActivity {
+public class ScrollLayoutActivity extends BaseTranslucentActivity {
     @Override
     protected boolean _onCreate(Bundle savedInstanceState) {
         if (!super._onCreate(savedInstanceState)) {
             return false;
         }
 
-        setContentView(R.layout.actvt_scroll_layout);
+        setContentView(R.layout.scroll_layout_activity);
+        setUpActionBar(true);
         return true;
     }
 }

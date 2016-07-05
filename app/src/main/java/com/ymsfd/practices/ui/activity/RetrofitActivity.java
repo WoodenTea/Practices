@@ -39,7 +39,7 @@ public class RetrofitActivity extends BaseActivity {
             return false;
         }
 
-        setContentView(R.layout.actvt_retrofit);
+        setContentView(R.layout.retrofit_activity);
         EditText et_keyword = (EditText) findViewById(R.id.et_keyword);
         tv_result = (TextView) findViewById(R.id.tv_result);
 
@@ -124,6 +124,13 @@ public class RetrofitActivity extends BaseActivity {
                         tv_result.append(s);
                     }
                 });
+
+        Observable<Void> observable = Observable.create(new Observable.OnSubscribe<Void>() {
+            @Override
+            public void call(Subscriber<? super Void> subscriber) {
+
+            }
+        });
 
         return true;
     }

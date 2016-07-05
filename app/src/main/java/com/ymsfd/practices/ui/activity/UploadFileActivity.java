@@ -31,7 +31,7 @@ public class UploadFileActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.actvt_upload_file);
+        setContentView(R.layout.upload_file_activity);
         assignViews();
     }
 

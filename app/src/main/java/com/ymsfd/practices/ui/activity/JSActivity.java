@@ -9,7 +9,7 @@ import android.webkit.WebView;
 import android.widget.Button;
 
 import com.ymsfd.practices.R;
-import com.ymsfd.practices.infrastructure.util.ViewUtil;
+import com.ymsfd.practices.infrastructure.util.Preconditions;
 
 /**
  * Created by ymsfdDev.
@@ -24,15 +24,15 @@ public class JSActivity extends BaseActivity {
             return false;
         }
 
-        setContentView(R.layout.actvt_javascript);
+        setContentView(R.layout.javascript_activity);
         setUpActionBar(true);
 
         final WebView webview = (WebView) findViewById(R.id.webview);
-        ViewUtil.checkViewIsNull(webview);
+        Preconditions.checkNotNull(webview);
         webview.getSettings().setJavaScriptEnabled(true);
         webview.loadUrl("file:///android_asset/index.html");
-        Button button = (Button) findViewById(R.id.button);
-        ViewUtil.checkViewIsNull(button);
+        Button button = (Button) findViewById(R.id.submit);
+        Preconditions.checkNotNull(button);
         button.setOnClickListener(new Button.OnClickListener() {
             public void onClick(View v) {
                 webview.loadUrl("javascript:updateHtml()");
@@ -40,7 +40,7 @@ public class JSActivity extends BaseActivity {
         });
 
         button = (Button) findViewById(R.id.button1);
-        ViewUtil.checkViewIsNull(button);
+        Preconditions.checkNotNull(button);
         button.setOnClickListener(new Button.OnClickListener() {
             public void onClick(View v) {
                 webview.loadUrl("file:///android_asset/index.html");

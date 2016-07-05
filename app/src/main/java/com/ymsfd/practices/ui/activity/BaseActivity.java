@@ -9,7 +9,7 @@ import android.view.MenuItem;
 import android.view.View;
 
 import com.ymsfd.practices.R;
-import com.ymsfd.practices.infrastructure.util.ViewUtil;
+import com.ymsfd.practices.infrastructure.util.Preconditions;
 
 import java.io.PrintWriter;
 import java.io.StringWriter;
@@ -93,7 +93,7 @@ public class BaseActivity extends AppCompatActivity {
 
     protected ActionBar setUpActionBar(boolean up) {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        ViewUtil.checkViewIsNull(toolbar);
+        Preconditions.checkNotNull(toolbar);
         translucentStatusBar(toolbar);
         return enableActionBar(toolbar, up);
     }

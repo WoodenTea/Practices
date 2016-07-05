@@ -17,7 +17,8 @@ public class FlowLayoutActivity extends BaseActivity {
             return false;
         }
 
-        setContentView(R.layout.actvt_flow_layout);
+        setContentView(R.layout.flow_layout_activity);
+        setUpActionBar(true);
         return true;
     }
 }

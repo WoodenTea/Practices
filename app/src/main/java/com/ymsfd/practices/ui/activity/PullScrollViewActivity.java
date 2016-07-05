@@ -22,7 +22,7 @@ public class PullScrollViewActivity extends BaseActivity {
             return false;
         }
 
-        setContentView(R.layout.actvt_pull_scroll);
+        setContentView(R.layout.pull_scroll_activity);
 
         TableLayout tableLayout = (TableLayout) findViewById(R.id.table_layout);
         TableRow.LayoutParams layoutParams = new TableRow.LayoutParams(

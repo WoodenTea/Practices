@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+
+        <variable
+            name="handlers"
+            type="com.ymsfd.practices.ui.databinding.ClickHandler" />
+
+        <variable
+            name="user"
+            type="com.ymsfd.practices.domain.UserEntity" />
+
+        <variable
+            name="task"
+            type="com.ymsfd.practices.ui.databinding.Task" />
+
+        <variable
+            name="presenter"
+            type="com.ymsfd.practices.ui.databinding.Presenter" />
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <include layout="@layout/app_bar_layout" />
+
+        <TextView
+            style="@style/WTTextView"
+            android:onClick="@{handlers.onClickFriend}"
+            android:text="@{user.firstName}" />
+
+        <TextView
+            style="@style/WTTextView"
+            android:onClick="@{(view)->presenter.onSaveClick(view,task)}"
+            android:text="@{user.lastName}" />
+    </LinearLayout>
+</layout>

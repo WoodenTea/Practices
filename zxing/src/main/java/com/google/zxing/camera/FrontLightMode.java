@@ -16,8 +16,6 @@
 
 package com.google.zxing.camera;
 
-import android.content.SharedPreferences;
-
 /**
  * Enumerates settings of the preference controlling the front light.
  */
@@ -40,8 +38,8 @@ public enum FrontLightMode {
         return modeString == null ? OFF : valueOf(modeString);
     }
 
-    public static FrontLightMode readPref(SharedPreferences sharedPrefs) {
-        return parse(OFF.toString());
+    public static FrontLightMode readPref() {
+        return parse(AUTO.toString());
     }
 
 }

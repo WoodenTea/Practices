@@ -8,9 +8,9 @@ import android.animation.ObjectAnimator;
 import android.animation.PropertyValuesHolder;
 import android.animation.TypeEvaluator;
 import android.animation.ValueAnimator;
+import android.graphics.Point;
 import android.graphics.PointF;
 import android.os.Bundle;
-import android.util.DisplayMetrics;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -18,13 +18,14 @@ import android.widget.ImageView;
 
 import com.ymsfd.practices.R;
 import com.ymsfd.practices.infrastructure.util.Preconditions;
+import com.ymsfd.practices.infrastructure.util.Utils;
 
 public class AnimatorActivity extends BaseTranslucentActivity implements View.OnClickListener {
     private ObjectAnimator scaleXAnimator, translateXAnimator, alphaAnimator, translateAnimator;
     private AnimatorSet animatorScaleSet, animationSet;
     private ValueAnimator mValueAnimator;
     private ValueAnimator bezierValueAnimator;
-    private DisplayMetrics displayMetrics;
+    private Point metricsPoint;
 
     @Override
     protected boolean _onCreate(Bundle savedInstanceState) {
@@ -35,15 +36,13 @@ public class AnimatorActivity extends BaseTranslucentActivity implements View.On
         setContentView(R.layout.animator_activity);
         setUpActionBar(true);
 
-        displayMetrics = getResources().getDisplayMetrics();
-        displayMetrics.widthPixels -= 200.f;
-        displayMetrics.heightPixels -= 500.f;
+        metricsPoint = Utils.displaySize(this);
         final Button bezier = (Button) findViewById(R.id.bezier);
         Preconditions.checkNotNull(bezier);
         bezier.setOnClickListener(this);
 
-        bezierValueAnimator = ValueAnimator.ofObject(new BezierEvaluator(), new PointF(0, 0), new
-                PointF(displayMetrics.widthPixels, displayMetrics.heightPixels));
+        bezierValueAnimator = ValueAnimator.ofObject(new BezierEvaluator(), new PointF(0, 0),
+                new PointF(metricsPoint.x, metricsPoint.y));
         bezierValueAnimator.setDuration(2000);
         bezierValueAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
             @Override
@@ -140,8 +139,8 @@ public class AnimatorActivity extends BaseTranslucentActivity implements View.On
         button = (Button) findViewById(R.id.translateX);
         Preconditions.checkNotNull(button);
         button.setOnClickListener(this);
-        translateXAnimator = (ObjectAnimator) AnimatorInflater.loadAnimator(this, R.animator
-                .translatex);
+        translateXAnimator = (ObjectAnimator) AnimatorInflater.loadAnimator(this,
+                R.animator.translatex);
         translateXAnimator.setTarget(button);
 
         button = (Button) findViewById(R.id.alpha);
@@ -217,28 +216,31 @@ public class AnimatorActivity extends BaseTranslucentActivity implements View.On
         mValueAnimator.setTarget(buttonValueAnimator);
     }
 
+    /**
+     * 三阶贝塞尔曲线
+     * B(t) = P0(1-t)^3 + 3P1t(1-t)^2 + 3P2t^2(1-t) + P3t^3, t∈[0,1]
+     */
     class BezierEvaluator implements TypeEvaluator<PointF> {
 
         private PointF point = new PointF();
-        private PointF point1 = new PointF(displayMetrics.widthPixels, 0);
-        private PointF point2 = new PointF(0, displayMetrics.heightPixels);
+        private PointF point1 = new PointF(metricsPoint.x, 0);
+        private PointF point2 = new PointF(0, metricsPoint.y);
 
         @Override
         public PointF evaluate(float fraction, PointF startValue, PointF endValue) {
-            point = new PointF();
             D("Fraction: " + fraction + " Start->" + startValue + " End->" + endValue);
             float oneMinusT = 1.0f - fraction;
 
-            point.x = oneMinusT * oneMinusT * oneMinusT * (startValue.x) + 3
-                    * oneMinusT * oneMinusT * fraction * (point1.x) + 3 * oneMinusT
-                    * fraction * fraction * (point2.x) + fraction * fraction * fraction *
-                    (endValue.x);
+            point.x = startValue.x * (float) Math.pow(oneMinusT, 3.f) +
+                    3 * point1.x * fraction * (float) Math.pow(oneMinusT, 2.f) +
+                    3 * point2.x * (float) Math.pow(fraction, 2.f) * oneMinusT +
+                    endValue.x * (float) Math.pow(fraction, 3.f);
 
-            point.y = oneMinusT * oneMinusT * oneMinusT * (startValue.y) + 3
-                    * oneMinusT * oneMinusT * fraction * (point1.y) + 3 * oneMinusT
-                    * fraction * fraction * (point2.y) + fraction * fraction * fraction *
-                    (endValue.y);
-            D("Value->" + point);
+            point.y = startValue.y * (float) Math.pow(oneMinusT, 3.f) +
+                    3 * fraction * point1.y * (float) Math.pow(oneMinusT, 2.f) +
+                    3 * point2.y * (float) Math.pow(fraction, 2.f) * oneMinusT +
+                    endValue.y * (float) Math.pow(fraction, 3.f);
+
             return point;
         }
     }

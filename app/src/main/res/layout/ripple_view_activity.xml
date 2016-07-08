@@ -6,11 +6,15 @@
 
     <include layout="@layout/app_bar_layout" />
 
+    <com.ymsfd.practices.ui.widget.RippleView
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:layout_margin="@dimen/official_margin" />
+
     <ImageView
-        android:id="@+id/cartoon"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="@null"
+        android:id="@+id/image_view"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
         android:contentDescription="@null"
         android:src="@drawable/cartoon" />
 
@@ -23,14 +27,16 @@
         android:showDividers="middle">
 
         <Button
-            android:id="@+id/submit"
-            style="@style/WTSubmitButton"
-            android:text="@string/submit" />
+            android:id="@+id/button"
+            style="@style/WTSubmitButton" />
 
         <Button
-            android:id="@+id/cancel"
-            style="@style/WTCancelButton"
-            android:text="@string/cancel" />
+            android:id="@+id/button2"
+            style="@style/WTSubmitButton" />
+
+        <Button
+            android:id="@+id/button3"
+            style="@style/WTSubmitButton" />
     </LinearLayout>
 
 </LinearLayout>

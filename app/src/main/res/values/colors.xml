@@ -22,4 +22,6 @@
     <color name="cancel_button_background_color_n">#c2dffa</color>
     <color name="cancel_button_background_color_p">#d6eafc</color>
     <color name="cancel_button_background_stroke">#fffbec</color>
+
+    <color name="ripple_color">#63B8FF</color>
 </resources>

@@ -1,3 +1,5 @@
+import java.text.SimpleDateFormat
+
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 
 buildscript {
@@ -22,12 +24,18 @@ task clean(type: Delete) {
     delete rootProject.buildDir
 }
 
+def releaseTime() {
+    def df = new SimpleDateFormat('yyyyMMddHHmm')
+    df.setTimeZone(TimeZone.getDefault())
+    return df.format(new Date())
+}
+
 ext {
     // Sdk and tools
     minSdkVersion = 19
-    targetSdkVersion = 23
-    compileSdkVersion = 23
-    buildToolsVersion = '23.0.3'
+    targetSdkVersion = 24
+    compileSdkVersion = 24
+    buildToolsVersion = '24.0.0'
 
     // App dependencies
     supportVersion = '24.2.1'
@@ -38,4 +46,6 @@ ext {
     versionMajor = 1
     versionMinor = 0
     versionPatch = 0
+
+    releaseTime = releaseTime()
 }

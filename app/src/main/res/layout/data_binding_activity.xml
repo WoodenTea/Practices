@@ -28,7 +28,7 @@
 
         <TextView
             style="@style/WTTextView"
-            android:onClick="@{handlers.onClickFriend}"
+            android:onClick="@{handlers::onClickFriend}"
             android:text="@{user.firstName}" />
 
         <TextView

@@ -289,6 +289,16 @@
                 <category android:name="com.ymsfd.android.practices.SAMPLE" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".ui.activity.BezierActivity"
+            android:label="Bezier"
+            android:theme="@style/AppTheme.TranslucentStatus">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="com.ymsfd.android.practices.SAMPLE" />
+            </intent-filter>
+        </activity>
 
     </application>
 

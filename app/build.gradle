@@ -1,12 +1,4 @@
-import java.text.SimpleDateFormat
-
 apply plugin: 'com.android.application'
-
-def releaseTime() {
-    def df = new SimpleDateFormat('yyyyMMddHHmm')
-    df.setTimeZone(TimeZone.getDefault())
-    return df.format(new Date())
-}
 
 android {
     compileSdkVersion rootProject.ext.compileSdkVersion
@@ -74,7 +66,7 @@ android {
                             "${variant.productFlavors.collect()[0].name}.apk"
                 } else {
                     fileName = "${defaultConfig.applicationId}_" +
-                            "v${defaultConfig.versionName}_${releaseTime()}_" +
+                            "v${defaultConfig.versionName}_${rootProject.ext.releaseTime}_" +
                             "${variant.productFlavors.collect()[0].name}.apk"
                 }
                 output.outputFile = new File(outputFile.parent, fileName)

@@ -10,6 +10,7 @@ import android.view.View;
 
 import com.ymsfd.practices.R;
 import com.ymsfd.practices.infrastructure.util.Preconditions;
+import com.ymsfd.practices.infrastructure.util.WTLogger;
 
 import java.io.PrintWriter;
 import java.io.StringWriter;
@@ -33,12 +34,8 @@ public class BaseActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    protected boolean _onCreate(Bundle savedInstanceState) {
-        return true;
-    }
-
     final protected void D(String msg) {
-        Log.d(TAG, msg);
+        WTLogger.d(TAG, msg);
     }
 
     final protected void E(Throwable throwable) {
@@ -57,24 +54,8 @@ public class BaseActivity extends AppCompatActivity {
         Log.i(TAG, msg);
     }
 
-    protected int statusBarHeight() {
-        int height = 0;
-        int resourceId = getResources().getIdentifier("status_bar_height", "dimen", "android");
-        if (resourceId > 0) {
-            height = getResources().getDimensionPixelSize(resourceId);
-        }
-        D("Status bar height->" + height);
-        return height;
-    }
-
-    protected void translucentStatusBar(View view) {
-        if (view != null) {
-            int paddingTop = view.getPaddingTop();
-            paddingTop += statusBarHeight();
-            view.setPadding(view.getPaddingLeft(), paddingTop,
-                    view.getPaddingRight(), view.getPaddingBottom());
-            D("paddingTop->" + paddingTop);
-        }
+    protected boolean _onCreate(Bundle savedInstanceState) {
+        return true;
     }
 
     protected ActionBar enableActionBar(Toolbar toolbar, boolean up) {
@@ -97,5 +78,25 @@ public class BaseActivity extends AppCompatActivity {
         Preconditions.checkNotNull(toolbar);
         translucentStatusBar(toolbar);
         return enableActionBar(toolbar, up);
+    }
+
+    protected int statusBarHeight() {
+        int height = 0;
+        int resourceId = getResources().getIdentifier("status_bar_height", "dimen", "android");
+        if (resourceId > 0) {
+            height = getResources().getDimensionPixelSize(resourceId);
+        }
+        D("Status bar height->" + height);
+        return height;
+    }
+
+    protected void translucentStatusBar(View view) {
+        if (view != null) {
+            int paddingTop = view.getPaddingTop();
+            paddingTop += statusBarHeight();
+            view.setPadding(view.getPaddingLeft(), paddingTop,
+                    view.getPaddingRight(), view.getPaddingBottom());
+            D("paddingTop->" + paddingTop);
+        }
     }
 }

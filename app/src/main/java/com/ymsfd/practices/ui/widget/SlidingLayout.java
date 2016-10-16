@@ -128,7 +128,7 @@ public class SlidingLayout extends ViewGroup {
      */
     private int mSlideRange;
     /**
-     * A panel view is locked into internal scrolling or another condition that
+     * BaseViewHolder panel view is locked into internal scrolling or another condition that
      * is preventing a drag.
      */
     private boolean mIsUnableToDrag;

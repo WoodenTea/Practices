@@ -18,6 +18,7 @@ import org.robolectric.annotation.Config;
 import org.robolectric.shadows.ShadowActivity;
 
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 
@@ -42,14 +43,14 @@ public class SceneActivityTest {
 
     @Test
     public void testFormat() {
-        String str = String.format(Locale.getDefault(), "%1$02d", 3);
-        System.out.println(str);
-
-        Long timestamp = 1460088062 * 1000L;
-        Date date = new Date(timestamp);
+        Long timestamp = 1476263113 * 1000L;
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTimeInMillis(timestamp);
+        Date date = calendar.getTime();
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault());
         System.out.println(format.format(date));
-
-        CameraFacing.parse(3);
+        System.out.println(String.format("时-> %tH", date));
+        System.out.println(String.format("分-> %tM", date));
+        System.out.println(String.format(Locale.getDefault(), "%td", date));
     }
 }

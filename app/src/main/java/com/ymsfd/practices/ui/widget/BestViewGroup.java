@@ -40,9 +40,9 @@ public class BestViewGroup extends ViewGroup {
         int height = 0;
 
         mProfilePhoto = getChildAt(0);
-        mMenu = getChildAt(1);
-        mTitle = getChildAt(2);
-        mSubtitle = getChildAt(3);
+        mTitle = getChildAt(1);
+        mSubtitle = getChildAt(2);
+        mMenu = getChildAt(3);
 
         // 2. Measure the ProfilePhoto
         measureChildWithMargins(

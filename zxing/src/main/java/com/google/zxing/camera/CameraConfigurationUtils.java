@@ -407,7 +407,7 @@ public final class CameraConfigurationUtils {
         Camera.Size optimalSize = null;
         double minDiff = Double.MAX_VALUE;
 
-        int targetHeight = screenResolution.x;
+        int targetSize = screenResolution.x;
 
         // Try to find an size match aspect ratio and size
         for (Camera.Size size : sizes) {
@@ -416,9 +416,9 @@ public final class CameraConfigurationUtils {
                 continue;
             }
 
-            if (Math.abs(size.height - targetHeight) < minDiff) {
+            if (Math.abs(size.height - targetSize) < minDiff) {
                 optimalSize = size;
-                minDiff = Math.abs(size.height - targetHeight);
+                minDiff = Math.abs(size.height - targetSize);
             }
         }
 
@@ -426,11 +426,15 @@ public final class CameraConfigurationUtils {
         if (optimalSize == null) {
             minDiff = Double.MAX_VALUE;
             for (Camera.Size size : sizes) {
-                if (Math.abs(size.height - targetHeight) < minDiff) {
+                if (Math.abs(size.height - targetSize) < minDiff) {
                     optimalSize = size;
-                    minDiff = Math.abs(size.height - targetHeight);
+                    minDiff = Math.abs(size.height - targetSize);
                 }
             }
+        }
+
+        if (optimalSize == null) {
+            return new Point(320, 480);
         }
 
         return new Point(optimalSize.width, optimalSize.height);

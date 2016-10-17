@@ -35,6 +35,7 @@ public class OpenCamera {
         return orientation;
     }
 
+    @CameraFacing.FACING
     public int getFacing() {
         return cameraFacing.facing;
     }

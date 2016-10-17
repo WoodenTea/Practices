@@ -5,6 +5,7 @@ import android.content.res.Resources;
 import android.content.res.TypedArray;
 import android.graphics.Canvas;
 import android.graphics.Paint;
+import android.support.v4.content.ContextCompat;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.View;
@@ -46,9 +47,12 @@ public class CircleIndicatorView extends View {
 
         final Resources res = context.getResources();
         final boolean defaultCentered = res.getBoolean(R.bool.default_circle_indicator_centered);
-        final int defaultRoundColor = res.getColor(R.color.default_circle_indicator_round_color);
-        final int defaultStrokeColor = res.getColor(R.color.default_circle_indicator_stroke_color);
-        final int defaultFloatColor = res.getColor(R.color.default_circle_indicator_float_color);
+        final int defaultRoundColor = ContextCompat.getColor(context,
+                R.color.default_circle_indicator_round_color);
+        final int defaultStrokeColor = ContextCompat.getColor(context,
+                R.color.default_circle_indicator_stroke_color);
+        final int defaultFloatColor = ContextCompat.getColor(context,
+                R.color.default_circle_indicator_float_color);
         final float defaultRadius = res.getDimension(R.dimen.default_circle_indicator_radius);
         final float defaultStrokeWidth = res.getDimension(R.dimen
                 .default_circle_indicator_stroke_width);
@@ -118,8 +122,8 @@ public class CircleIndicatorView extends View {
         float threeRadius = 3 * mRadius;
 
         if (mCentered) {
-            lengthOffset += ((length - lengthPaddingAfter - lengthPaddingAfter) / 2.0f) - ((count
-                    * threeRadius) / 2.0f) + mRadius / 2.0f;
+            lengthOffset += ((length - lengthPaddingAfter - lengthPaddingAfter) / 2.0f) -
+                    ((count * threeRadius) / 2.0f) + mRadius / 2.0f;
         }
 
         float dx;

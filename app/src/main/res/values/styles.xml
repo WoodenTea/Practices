@@ -37,4 +37,7 @@
         <item name="android:textColor">@color/cancel_button_text_color</item>
     </style>
 
+    <style name="WTTransparentDialog" parent="Theme.AppCompat.Dialog">
+        <item name="android:windowBackground">@color/transparent</item>
+    </style>
 </resources>

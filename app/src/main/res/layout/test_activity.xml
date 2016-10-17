@@ -31,6 +31,10 @@
             android:id="@+id/cancel"
             style="@style/WTCancelButton"
             android:text="@string/cancel" />
+
+        <Button
+            android:id="@+id/btn"
+            style="@style/WTSubmitButton" />
     </LinearLayout>
 
 </LinearLayout>

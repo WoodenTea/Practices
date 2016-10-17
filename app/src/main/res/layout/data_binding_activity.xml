@@ -27,13 +27,13 @@
 
         <include layout="@layout/app_bar_layout" />
 
-        <TextView
-            style="@style/WTTextView"
+        <Button
+            style="@style/WTSubmitButton"
             android:onClick="@{handlers::onClickFriend}"
             android:text="@{user.firstName}" />
 
-        <TextView
-            style="@style/WTTextView"
+        <Button
+            style="@style/WTSubmitButton"
             android:onClick="@{(view)->presenter.onSaveClick(view,task)}"
             android:text="@{user.lastName}" />
     </LinearLayout>

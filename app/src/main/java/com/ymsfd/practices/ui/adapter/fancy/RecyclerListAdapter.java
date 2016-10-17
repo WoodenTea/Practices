@@ -27,6 +27,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.ymsfd.practices.R;
+import com.ymsfd.practices.infrastructure.util.WTLogger;
 import com.ymsfd.practices.ui.adapter.fancy.helper.ItemTouchHelperAdapter;
 import com.ymsfd.practices.ui.adapter.fancy.helper.ItemTouchHelperViewHolder;
 
@@ -59,6 +60,12 @@ public class RecyclerListAdapter extends RecyclerView.Adapter<RecyclerListAdapte
     public ItemViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_main, parent,
                 false);
+        view.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                WTLogger.d(getClass().getSimpleName(), "onClick");
+            }
+        });
         return new ItemViewHolder(view);
     }
 

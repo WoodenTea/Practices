@@ -1,7 +1,11 @@
 package com.ymsfd.practices.ui.activity;
 
+import android.app.DialogFragment;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.ymsfd.practices.R;
@@ -34,6 +38,9 @@ public class TestActivity extends BaseTranslucentActivity implements View.OnClic
         view = findViewById(R.id.cancel);
         Preconditions.checkNotNull(view);
         view.setOnClickListener(this);
+        view = findViewById(R.id.btn);
+        Preconditions.checkNotNull(view);
+        view.setOnClickListener(this);
 
         return true;
     }
@@ -44,6 +51,25 @@ public class TestActivity extends BaseTranslucentActivity implements View.OnClic
             imageView.scrollBy(-10, 0);
         } else if (v.getId() == R.id.cancel) {
             imageView.scrollBy(10, 0);
+        } else if (v.getId() == R.id.btn) {
+            DialogFragment dialog = new A();
+            dialog.show(getFragmentManager(), "Dialog");
+        }
+    }
+
+    public static class A extends DialogFragment {
+        @Nullable
+        @Override
+        public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle
+                savedInstanceState) {
+            View view = inflater.inflate(R.layout.item_card_view, container, false);
+            return view;
+        }
+
+        @Override
+        public void onStart() {
+            super.onStart();
+            dismiss();
         }
     }
 }

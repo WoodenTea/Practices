@@ -17,10 +17,8 @@
 package com.google.zxing.camera;
 
 import android.content.Context;
-import android.content.SharedPreferences;
 import android.graphics.Point;
 import android.hardware.Camera;
-import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.Display;
 import android.view.Surface;
@@ -145,9 +143,7 @@ final class CameraConfigurationManager {
             Log.w(TAG, "In camera config safe mode -- most settings will not be honored");
         }
 
-        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
-
-        initializeTorch(parameters, prefs, safeMode);
+        initializeTorch(parameters, safeMode);
 
         CameraConfigurationUtils.setFocus(
                 parameters,
@@ -173,10 +169,10 @@ final class CameraConfigurationManager {
         Camera.Size afterSize = afterParameters.getPreviewSize();
         if (afterSize != null && (bestPreviewSize.x != afterSize.width
                 || bestPreviewSize.y != afterSize.height)) {
-            Log.w(TAG, "Camera said it supported preview size " + bestPreviewSize.x + 'x' +
-                    bestPreviewSize.y +
-                    ", but after setting it, preview size is " + afterSize.width + 'x' +
-                    afterSize.height);
+            Log.w(TAG, "Camera said it supported preview size " +
+                    bestPreviewSize.x + 'x' + bestPreviewSize.y +
+                    ", but after setting it, preview size is " +
+                    afterSize.width + 'x' + afterSize.height);
             bestPreviewSize.x = afterSize.width;
             bestPreviewSize.y = afterSize.height;
         }
@@ -222,8 +218,7 @@ final class CameraConfigurationManager {
         camera.setParameters(parameters);
     }
 
-    private void initializeTorch(Camera.Parameters parameters, SharedPreferences prefs, boolean
-            safeMode) {
+    private void initializeTorch(Camera.Parameters parameters, boolean safeMode) {
         boolean currentSetting = FrontLightMode.readPref() == FrontLightMode.ON;
         doSetTorch(parameters, currentSetting, safeMode);
     }

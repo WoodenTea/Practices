@@ -10,8 +10,8 @@ import android.view.View;
  */
 public class ClickHandler {
     public void onClickFriend(View view) {
-        view.setEnabled(false);
+//        view.setEnabled(false);
         Log.d(getClass().getSimpleName(), "ClickHandler");
-        view.setEnabled(true);
+//        view.setEnabled(true);
     }
 }

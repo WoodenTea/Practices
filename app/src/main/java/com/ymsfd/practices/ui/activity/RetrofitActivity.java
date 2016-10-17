@@ -125,13 +125,6 @@ public class RetrofitActivity extends BaseActivity {
                     }
                 });
 
-        Observable<Void> observable = Observable.create(new Observable.OnSubscribe<Void>() {
-            @Override
-            public void call(Subscriber<? super Void> subscriber) {
-
-            }
-        });
-
         return true;
     }
 

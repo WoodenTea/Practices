@@ -35,9 +35,9 @@ public class BitmapUtil {
             Bitmap tempBitmap = BitmapFactory.decodeFile(pathName, decodeOptions);
 
             // If necessary, scale down to the maximal acceptable size.
-            if (tempBitmap != null &&
-                    (tempBitmap.getWidth() > desiredWidth ||
-                            tempBitmap.getHeight() > desiredHeight)) {
+            if (tempBitmap != null
+                    && (tempBitmap.getWidth() > desiredWidth
+                    || tempBitmap.getHeight() > desiredHeight)) {
                 bitmap = Bitmap.createScaledBitmap(tempBitmap, desiredWidth, desiredHeight, true);
                 tempBitmap.recycle();
             } else {

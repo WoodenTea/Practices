@@ -50,7 +50,6 @@ public class FancyItemActivity extends BaseActivity implements RecyclerListAdapt
         RecyclerListAdapter adapter = new RecyclerListAdapter(this);
 
         final RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
-        Preconditions.checkNotNull(recyclerView);
         recyclerView.setHasFixedSize(true);
         recyclerView.setAdapter(adapter);
         recyclerView.addItemDecoration(new DividerItemDecoration(this,

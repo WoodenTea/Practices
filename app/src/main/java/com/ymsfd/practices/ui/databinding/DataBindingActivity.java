@@ -20,8 +20,8 @@ public class DataBindingActivity extends BaseTranslucentActivity {
             return false;
         }
 
-        DataBindingActivityBinding binding = DataBindingUtil.setContentView(this, R.layout
-                .data_binding_activity);
+        DataBindingActivityBinding binding = DataBindingUtil.setContentView(this,
+                R.layout.data_binding_activity);
 
         setUpActionBar(true);
         UserEntity user = new UserEntity("First", "Last");

@@ -32,7 +32,7 @@ import android.widget.WrapperListAdapter;
 import java.util.ArrayList;
 
 /**
- * A {@link GridView} that supports adding header rows in a
+ * BaseViewHolder {@link GridView} that supports adding header rows in a
  * very similar way to {@link android.widget.ListView}.
  * See {@link HeaderGridView#addHeaderView(View, Object, boolean)}
  */
@@ -172,7 +172,7 @@ public class HeaderGridView extends GridView {
     }
 
     /**
-     * A class that represents a fixed view in a list, for example a header at the top
+     * BaseViewHolder class that represents a fixed view in a list, for example a header at the top
      * or a footer at the bottom.
      */
     private static class FixedViewInfo {

@@ -1,15 +1,18 @@
 package com.ymsfd.practices.ui.activity;
 
-import android.app.DialogFragment;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.view.LayoutInflater;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.ymsfd.practices.R;
 import com.ymsfd.practices.infrastructure.util.Preconditions;
+import com.ymsfd.practices.ui.adapter.ComplexRecyclerAdapter;
+import com.ymsfd.practices.ui.adapter.RecyclerViewHolder;
+import com.ymsfd.practices.ui.adapter.fancy.RecyclerListAdapter;
+
+import java.util.ArrayList;
 
 /**
  * Created by ymsfdDev.
@@ -17,9 +20,7 @@ import com.ymsfd.practices.infrastructure.util.Preconditions;
  * Date: 4/30/15
  * Time: 10:32
  */
-public class TestActivity extends BaseTranslucentActivity implements View.OnClickListener {
-
-    private ImageView imageView;
+public class TestActivity extends BaseTranslucentActivity {
 
     @Override
     protected boolean _onCreate(Bundle savedInstanceState) {
@@ -28,48 +29,37 @@ public class TestActivity extends BaseTranslucentActivity implements View.OnClic
         }
 
         setContentView(R.layout.test_activity);
-
         setUpActionBar(true);
-        imageView = (ImageView) findViewById(R.id.cartoon);
-        Preconditions.checkNotNull(imageView);
-        View view = findViewById(R.id.submit);
-        Preconditions.checkNotNull(view);
-        view.setOnClickListener(this);
-        view = findViewById(R.id.cancel);
-        Preconditions.checkNotNull(view);
-        view.setOnClickListener(this);
-        view = findViewById(R.id.btn);
-        Preconditions.checkNotNull(view);
-        view.setOnClickListener(this);
 
+        RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        ArrayList<String> strings = new ArrayList<>();
+        for (int index = 0; index < 10; index++) {
+            strings.add("" + index);
+        }
+        ComplexRecyclerAdapter<String> adapter = new ComplexRecyclerAdapter<String>() {
+            @Override
+            protected int getItemLayoutId() {
+                return R.layout.item_card_view;
+            }
+
+            @Override
+            protected void bindHolder(RecyclerViewHolder holder, int position, String item) {
+                holder.setText(R.id.news_title, item);
+            }
+
+            @Override
+            public void bindHeaderHolder(RecyclerViewHolder holder, int position, int index) {
+                holder.setText(R.id.text, "0");
+            }
+
+            @Override
+            public int[] getHeaderLayoutId() {
+                return new int[]{R.layout.item_main};
+            }
+        };
+        adapter.addAll(strings);
+        recyclerView.setAdapter(adapter);
         return true;
-    }
-
-    @Override
-    public void onClick(View v) {
-        if (v.getId() == R.id.submit) {
-            imageView.scrollBy(-10, 0);
-        } else if (v.getId() == R.id.cancel) {
-            imageView.scrollBy(10, 0);
-        } else if (v.getId() == R.id.btn) {
-            DialogFragment dialog = new A();
-            dialog.show(getFragmentManager(), "Dialog");
-        }
-    }
-
-    public static class A extends DialogFragment {
-        @Nullable
-        @Override
-        public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle
-                savedInstanceState) {
-            View view = inflater.inflate(R.layout.item_card_view, container, false);
-            return view;
-        }
-
-        @Override
-        public void onStart() {
-            super.onStart();
-            dismiss();
-        }
     }
 }

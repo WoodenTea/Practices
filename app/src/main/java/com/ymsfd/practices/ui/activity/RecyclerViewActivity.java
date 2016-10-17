@@ -60,6 +60,7 @@ public class RecyclerViewActivity extends BaseActivity implements View.OnClickLi
             strings.add("" + index);
         }
 
+
         adapter = new ComplexRecyclerAdapter<String>() {
             @Override
             protected int getItemLayoutId() {

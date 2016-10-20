@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.view.View;
 
 import com.ymsfd.practices.R;
-import com.ymsfd.practices.infrastructure.util.Preconditions;
 import com.ymsfd.practices.ui.widget.LuckView;
 
 /**
@@ -24,9 +23,7 @@ public class LuckViewActivity extends BaseTranslucentActivity {
         setContentView(R.layout.luck_view_activity);
         setUpActionBar(true);
         final LuckView luckView = (LuckView) findViewById(R.id.luck_view);
-        Preconditions.checkNotNull(luckView);
         View view = findViewById(R.id.submit);
-        Preconditions.checkNotNull(view);
         view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

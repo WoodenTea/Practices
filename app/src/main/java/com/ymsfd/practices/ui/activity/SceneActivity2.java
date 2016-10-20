@@ -5,7 +5,6 @@ import android.support.v4.app.ActivityCompat;
 import android.view.View;
 
 import com.ymsfd.practices.R;
-import com.ymsfd.practices.infrastructure.util.Preconditions;
 
 /**
  * Created by WoodenTea.
@@ -24,7 +23,6 @@ public class SceneActivity2 extends BaseActivity {
         setContentView(R.layout.scene2_activity);
         setUpActionBar(true);
         View view = findViewById(R.id.cartoon);
-        Preconditions.checkNotNull(view);
         view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

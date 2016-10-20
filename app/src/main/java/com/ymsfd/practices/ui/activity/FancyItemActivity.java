@@ -25,7 +25,6 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.ymsfd.practices.R;
-import com.ymsfd.practices.infrastructure.util.Preconditions;
 import com.ymsfd.practices.ui.adapter.fancy.RecyclerListAdapter;
 import com.ymsfd.practices.ui.adapter.fancy.helper.DividerItemDecoration;
 import com.ymsfd.practices.ui.adapter.fancy.helper.RecyclerItemClickListener;

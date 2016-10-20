@@ -16,7 +16,6 @@ import android.text.style.ImageSpan;
 import android.util.TypedValue;
 
 import com.ymsfd.practices.R;
-import com.ymsfd.practices.infrastructure.support.crashmanager.ExceptionHandler;
 import com.ymsfd.practices.ui.fragment.AFragment;
 import com.ymsfd.practices.ui.fragment.BFragment;
 import com.ymsfd.practices.ui.fragment.CFragment;

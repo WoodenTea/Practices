@@ -5,7 +5,6 @@ import android.support.v7.app.AlertDialog;
 import android.view.View;
 
 import com.ymsfd.practices.R;
-import com.ymsfd.practices.infrastructure.util.Preconditions;
 
 /**
  * Created by WoodenTea.
@@ -22,7 +21,6 @@ public class DialogActivity extends BaseTranslucentActivity implements View.OnCl
         setContentView(R.layout.dialog_activity);
         setUpActionBar(true);
         View view = findViewById(R.id.submit);
-        Preconditions.checkNotNull(view);
         view.setOnClickListener(this);
         return true;
     }

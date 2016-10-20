@@ -9,8 +9,6 @@ import com.ymsfd.practices.R;
 import com.ymsfd.practices.ui.widget.RefreshLayout;
 import com.ymsfd.practices.ui.widget.SwipeRefreshLayout;
 
-import static com.ymsfd.practices.infrastructure.util.Preconditions.checkNotNull;
-
 /**
  * Created by WoodenTea.
  * Date: 2016/8/11
@@ -28,7 +26,6 @@ public class RefreshActivity extends BaseTranslucentActivity {
         setContentView(R.layout.refresh_activity);
         setUpActionBar(true);
         RefreshLayout refreshLayout = (RefreshLayout) findViewById(R.id.refresh);
-        checkNotNull(refreshLayout);
         final View header = LayoutInflater.from(this).inflate(R.layout.refresh_header,
                 refreshLayout,
                 false);

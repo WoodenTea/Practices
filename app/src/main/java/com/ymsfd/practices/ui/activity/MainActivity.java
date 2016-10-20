@@ -14,7 +14,6 @@ import android.widget.ListView;
 import android.widget.SimpleAdapter;
 
 import com.ymsfd.practices.R;
-import com.ymsfd.practices.infrastructure.util.Preconditions;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -64,7 +63,6 @@ public class MainActivity extends BaseActivity implements
         }
 
         ListView listView = (ListView) findViewById(R.id.activities);
-        Preconditions.checkNotNull(listView);
         listView.setAdapter(new SimpleAdapter(this, getActivities(path), android.R.layout
                 .simple_list_item_1, new String[]{"title"}, new int[]{android.R.id.text1}));
         listView.setOnItemClickListener(this);

@@ -6,7 +6,6 @@ import android.os.Vibrator;
 import android.view.View;
 
 import com.ymsfd.practices.R;
-import com.ymsfd.practices.infrastructure.util.Preconditions;
 
 /**
  * Created by WoodenTea.
@@ -25,7 +24,6 @@ public class VibratorActivity extends BaseActivity implements View.OnClickListen
 
         setContentView(R.layout.test_activity);
         View view = findViewById(R.id.submit);
-        Preconditions.checkNotNull(view);
         view.setOnClickListener(this);
 
         vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);

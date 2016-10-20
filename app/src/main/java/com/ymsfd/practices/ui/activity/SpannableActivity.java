@@ -15,7 +15,6 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.ymsfd.practices.R;
-import com.ymsfd.practices.infrastructure.util.Preconditions;
 
 public class SpannableActivity extends BaseActivity {
 
@@ -28,7 +27,6 @@ public class SpannableActivity extends BaseActivity {
         setContentView(R.layout.spannable_activity);
         setUpActionBar(true);
         TextView textView = (TextView) findViewById(R.id.text_view);
-        Preconditions.checkNotNull(textView);
         String level = "等级: M1  ";
         String jewel = "emoji 55";
 

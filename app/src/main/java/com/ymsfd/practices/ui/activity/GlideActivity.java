@@ -13,7 +13,6 @@ import com.bumptech.glide.request.target.BitmapImageViewTarget;
 import com.bumptech.glide.request.target.GlideDrawableImageViewTarget;
 import com.bumptech.glide.request.target.Target;
 import com.ymsfd.practices.R;
-import com.ymsfd.practices.infrastructure.util.Preconditions;
 
 import java.io.File;
 
@@ -40,7 +39,6 @@ public class GlideActivity extends BaseActivity {
         setContentView(R.layout.glide_activity);
         setUpActionBar(true);
         imageView = (ImageView) findViewById(R.id.imageView);
-        Preconditions.checkNotNull(imageView);
         createObservable("http://testecshop2.magicwe.com/" +
                 "images/201509/source_img/793_G_1441785900196.jpg")
                 .subscribeOn(Schedulers.newThread())
@@ -104,7 +102,6 @@ public class GlideActivity extends BaseActivity {
                 });
 
         ImageView imageView2 = (ImageView) findViewById(R.id.imageView2);
-        Preconditions.checkNotNull(imageView2);
         GlideDrawableImageViewTarget target = new GlideDrawableImageViewTarget(imageView2);
         Glide.with(this).load("http://pic.joke01.com/uppic/13-05/30/30215236.gif").placeholder(R
                 .drawable.cartoon).error(R.drawable.border_circle).into(target);

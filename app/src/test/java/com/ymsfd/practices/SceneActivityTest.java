@@ -2,8 +2,6 @@ package com.ymsfd.practices;
 
 import android.content.Intent;
 
-import com.google.zxing.camera.FrontLightMode;
-import com.google.zxing.camera.open.CameraFacing;
 import com.ymsfd.practices.ui.activity.SceneActivity;
 import com.ymsfd.practices.ui.activity.SceneActivity2;
 

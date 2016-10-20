@@ -38,18 +38,14 @@ public class BezierActivity extends BaseActivity implements View.OnClickListener
         setUpActionBar(true);
 
         imageView = (ImageView) findViewById(R.id.image_view);
-        Preconditions.checkNotNull(imageView);
 
         View view = findViewById(R.id.button);
-        Preconditions.checkNotNull(view);
         view.setOnClickListener(this);
 
         view = findViewById(R.id.button2);
-        Preconditions.checkNotNull(view);
         view.setOnClickListener(this);
 
         view = findViewById(R.id.button3);
-        Preconditions.checkNotNull(view);
         view.setOnClickListener(this);
 
         return true;

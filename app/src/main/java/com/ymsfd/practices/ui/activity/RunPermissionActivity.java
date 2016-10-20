@@ -13,7 +13,6 @@ import android.support.v7.app.AlertDialog;
 import android.view.View;
 
 import com.ymsfd.practices.R;
-import com.ymsfd.practices.infrastructure.util.Preconditions;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,7 +31,6 @@ public class RunPermissionActivity extends BasePermissionActivity implements Vie
 
         setContentView(R.layout.run_permission_activity);
         View view = findViewById(R.id.submit);
-        Preconditions.checkNotNull(view);
         view.setOnClickListener(this);
         return true;
     }

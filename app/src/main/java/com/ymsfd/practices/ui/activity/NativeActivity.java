@@ -3,7 +3,6 @@ package com.ymsfd.practices.ui.activity;
 import android.os.Bundle;
 import android.widget.TextView;
 
-import com.woodentea.fun.Happy;
 import com.ymsfd.practices.R;
 
 /**
@@ -21,7 +20,6 @@ public class NativeActivity extends BaseTranslucentActivity {
         setContentView(R.layout.native_activity);
         setUpActionBar(true);
         TextView textView = (TextView) findViewById(R.id.text_view);
-        textView.setText(Happy.goPlay());
 
         return true;
     }

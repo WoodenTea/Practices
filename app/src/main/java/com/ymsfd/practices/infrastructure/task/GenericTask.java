@@ -1,9 +1,9 @@
 package com.ymsfd.practices.infrastructure.task;
 
+import android.os.AsyncTask;
+
 import java.util.Observable;
 import java.util.Observer;
-
-import android.os.AsyncTask;
 
 public abstract class GenericTask extends
         AsyncTask<TaskParams, Object, TaskResult> implements Observer {

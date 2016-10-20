@@ -191,7 +191,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".ui.activity.RecyclerViewActivity"
+            android:name=".ui.activity.recyclerview.RecyclerViewActivity"
             android:label="RecyclerView">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -274,15 +274,6 @@
         <activity
             android:name=".ui.activity.LuckViewActivity"
             android:label="LuckView">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="com.ymsfd.android.practices.SAMPLE" />
-            </intent-filter>
-        </activity>
-        <activity
-            android:name=".ui.databinding.DataBindingActivity"
-            android:label="DataBinding">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

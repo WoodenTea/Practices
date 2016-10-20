@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.view.View;
 
 import com.ymsfd.practices.R;
-import com.ymsfd.practices.infrastructure.util.Preconditions;
 
 /**
  * Created by WoodenTea.
@@ -21,7 +20,6 @@ public class DragLayoutActivity extends BaseActivity {
         setContentView(R.layout.drag_activity);
         setUpActionBar(true);
         View view = findViewById(R.id.view);
-        Preconditions.checkNotNull(view);
         view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

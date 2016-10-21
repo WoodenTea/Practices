@@ -300,15 +300,6 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".ui.activity.NativeActivity"
-            android:label="Native">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="com.ymsfd.android.practices.SAMPLE" />
-            </intent-filter>
-        </activity>
-        <activity
             android:name=".ui.activity.RefreshActivity"
             android:label="Refresh">
             <intent-filter>

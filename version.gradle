@@ -1,62 +1,27 @@
 import java.text.SimpleDateFormat
 
-def compileTime() {
+def releaseTime() {
     def df = new SimpleDateFormat('yyyyMMddHHmm')
     df.setTimeZone(TimeZone.getTimeZone("GMT+8"))
     return df.format(new Date())
 }
 
 ext {
-    android = [
-            // Sdk and tools
-            compileSdkVersion: 24,
-            buildToolsVersion: '24.0.3',
-            minSdkVersion    : 19,
-            targetSdkVersion : 24,
-            javaVersion      : JavaVersion.VERSION_1_8,
+    // Sdk and tools
+    minSdkVersion = 19
+    targetSdkVersion = 25
+    compileSdkVersion = 25
+    buildToolsVersion = '25.0.0'
 
-            // App version
-            versionMajor     : 1,
-            versionMinor     : 0,
-            versionPatch     : 0,
-    ]
+    // App dependencies
+    supportVersion = '25.0.0'
+    okHttp = '3.3.1'
+    retrofit = '2.1.0'
 
-    dependenciesVersion = [
-            supportVersion    : '24.2.1',
-            okHttpVersion     : '3.4.1',
-            retrofitVersion   : '2.1.0',
-            rxJavaVersion     : '1.1.8',
-            rxAndroidVersion  : '1.2.1',
-            rxBindingVersion  : '0.4.0',
-            gsonVersion       : '2.7',
-            glideVersion      : '3.7.0',
+    // App version
+    versionMajor = 1
+    versionMinor = 0
+    versionPatch = 0
 
-            // Test library
-            robolectricVersion: '3.1.2',
-            espressoVersion   : '2.2.2',
-            robotiumVersion   : '5.5.4',
-    ]
-
-    dependenciesLibrary = [
-            supportV4         : 'com.android.support:support-v4:' + dependenciesVersion.supportVersion,
-            appcompatV7       : 'com.android.support:appcompat-v7:' + dependenciesVersion.supportVersion,
-            design            : 'com.android.support:design:' + dependenciesVersion.supportVersion,
-            recyclerviewV7    : 'com.android.support:recyclerview-v7:' + dependenciesVersion.supportVersion,
-            cardviewV7        : 'com.android.support:cardview-v7:' + dependenciesVersion.supportVersion,
-
-            okhttp            : 'com.squareup.okhttp3:okhttp:' + dependenciesVersion.okHttpVersion,
-            loggingInterceptor: 'com.squareup.okhttp3:logging-interceptor:' + dependenciesVersion.okHttpVersion,
-            rxjava            : 'io.reactivex:rxjava:' + dependenciesVersion.rxJavaVersion,
-            rxandroid         : 'io.reactivex:rxandroid:' + dependenciesVersion.rxAndroidVersion,
-            rxbinding         : 'com.jakewharton.rxbinding:rxbinding:' + dependenciesVersion.rxBindingVersion,
-            retrofit          : 'com.squareup.retrofit2:retrofit:' + dependenciesVersion.retrofitVersion,
-            adapterRxJava     : 'com.squareup.retrofit2:adapter-rxjava:' + dependenciesVersion.retrofitVersion,
-            converterGson     : 'com.squareup.retrofit2:converter-gson:' + dependenciesVersion.retrofitVersion,
-            gson              : 'com.google.code.gson:gson:' + dependenciesVersion.gsonVersion,
-            glide             : 'com.github.bumptech.glide:glide:' + dependenciesVersion.glideVersion,
-            robolectric       : 'org.robolectric:robolectric:' + dependenciesVersion.robolectricVersion,
-            robotium          : 'com.jayway.android.robotium:robotium-solo:' + dependenciesVersion.robotiumVersion
-    ]
-
-    releaseTime = compileTime()
+    releaseTime = releaseTime()
 }

@@ -3,12 +3,14 @@ package com.ymsfd.practices.infrastructure.util;
 import android.support.annotation.ColorInt;
 import android.support.v7.widget.RecyclerView;
 
+import com.paginate.recycler.LoadingListItemCreator;
+
 /**
  * Created by WoodenTea.
  * Date: 15/10/2016
  * Time: 22:45
  */
-public class FragmentConfig {
+public class RecyclerViewConfig {
 
     // RecyclerView config
     private RecyclerView.LayoutManager layoutManager;
@@ -32,9 +34,13 @@ public class FragmentConfig {
 
         private int pageSize = 20;
         private int startPage = 1;
+        private int loadingTriggerThreshold = 10;
+        private LoadingListItemCreator loadingListItemCreator;
+        private boolean addLoadingListItem;
+        private int spanSizeLookup;
 
-        public FragmentConfig build() {
-            FragmentConfig config = new FragmentConfig();
+        public RecyclerViewConfig build() {
+            RecyclerViewConfig config = new RecyclerViewConfig();
             config.layoutManager = layoutManager;
             config.decor = decor;
             config.animator = animator;
@@ -77,6 +83,26 @@ public class FragmentConfig {
 
         public Builder startPage(int startPage) {
             this.startPage = startPage;
+            return this;
+        }
+
+        public Builder loadingTriggerThreshold(int loadingTriggerThreshold) {
+            this.loadingTriggerThreshold = loadingTriggerThreshold;
+            return this;
+        }
+
+        public Builder loadingListItemCreator(LoadingListItemCreator loadingListItemCreator) {
+            this.loadingListItemCreator = loadingListItemCreator;
+            return this;
+        }
+
+        public Builder addLoadingListItem(boolean addLoadingListItem) {
+            this.addLoadingListItem = addLoadingListItem;
+            return this;
+        }
+
+        public Builder spanSizeLookup(int spanSizeLookup) {
+            this.spanSizeLookup = spanSizeLookup;
             return this;
         }
     }

@@ -47,6 +47,7 @@ public class RecyclerViewActivity extends BaseActivity implements View.OnClickLi
             stringEntity.name = "" + index;
             list.add(stringEntity);
         }
+
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         adapter = new BindingRecyclerAdapter(this);
         adapter.bind(StringEntity.class, StringViewHolder.class);

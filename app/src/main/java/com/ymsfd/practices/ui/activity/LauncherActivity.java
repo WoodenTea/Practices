@@ -9,7 +9,7 @@ import android.os.CountDownTimer;
  * Date: 2016/6/20
  * Time: 11:18
  */
-public class LauncherActivity extends BaseTranslucentActivity {
+public class LauncherActivity extends BaseActivity {
 
     private CountDownTimer timer;
 

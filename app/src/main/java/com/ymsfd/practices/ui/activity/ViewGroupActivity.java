@@ -12,7 +12,7 @@ public class ViewGroupActivity extends BaseActivity {
         }
 
         setContentView(R.layout.viewgroup_activity);
-        setUpActionBar(true);
+        enableToolbarHomeButton(true);
 
         return true;
     }

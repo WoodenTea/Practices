@@ -19,7 +19,7 @@ public class CustomViewActivity extends BaseActivity {
         }
 
         setContentView(R.layout.custom_view_activity);
-        setUpActionBar(true);
+        enableToolbarHomeButton(true);
 
         return true;
     }

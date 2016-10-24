@@ -45,7 +45,7 @@ public class FancyItemActivity extends BaseActivity implements RecyclerListAdapt
         }
 
         setContentView(R.layout.fancy_activity);
-        setUpActionBar(true);
+        enableToolbarHomeButton(true);
         RecyclerListAdapter adapter = new RecyclerListAdapter(this);
 
         final RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recycler_view);

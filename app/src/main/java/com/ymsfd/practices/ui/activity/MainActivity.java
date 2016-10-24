@@ -54,7 +54,7 @@ public class MainActivity extends BaseActivity implements
         }
 
         setContentView(R.layout.main_activity);
-        setUpActionBar(true);
+        enableToolbarHomeButton(true);
 
         Intent intent = getIntent();
         String path = intent.getStringExtra("com.ymsfd.android.practices.Path");

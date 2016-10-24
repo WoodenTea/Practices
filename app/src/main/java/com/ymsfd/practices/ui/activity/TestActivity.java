@@ -10,7 +10,7 @@ import com.ymsfd.practices.R;
  * Date: 4/30/15
  * Time: 10:32
  */
-public class TestActivity extends BaseTranslucentActivity {
+public class TestActivity extends BaseActivity {
 
     @Override
     protected boolean _onCreate(Bundle savedInstanceState) {
@@ -19,7 +19,7 @@ public class TestActivity extends BaseTranslucentActivity {
         }
 
         setContentView(R.layout.test_activity);
-        setUpActionBar(true);
+        enableToolbarHomeButton(true);
 
         return true;
     }

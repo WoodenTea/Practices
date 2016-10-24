@@ -1,22 +1,17 @@
 <resources>
 
-    <style name="AppTheme" parent="WTTheme">
-
-    </style>
-
     <style name="WTTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
-    </style>
-
-    <style name="AppTheme.TranslucentStatus">
         <item name="android:windowTranslucentStatus">true</item>
-        <item name="android:windowTranslucentNavigation">false</item>
-        <item name="android:fitsSystemWindows">false</item>
     </style>
 
-    <style name="AppTheme.TranslucentStatus.Launcher">
+    <style name="AppTheme" parent="WTTheme">
+
+    </style>
+
+    <style name="AppTheme.Launcher">
         <item name="android:windowBackground">@drawable/eiffel_tower</item>
     </style>
 

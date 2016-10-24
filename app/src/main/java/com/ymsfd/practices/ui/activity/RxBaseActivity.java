@@ -12,7 +12,7 @@ import rx.Observable;
 import rx.subjects.BehaviorSubject;
 
 public class RxBaseActivity extends BaseActivity implements LifecycleProvider<ActivityEvent> {
-    private final BehaviorSubject<ActivityEvent> lifecycleSubject = BehaviorSubject.create();
+    protected final BehaviorSubject<ActivityEvent> lifecycleSubject = BehaviorSubject.create();
 
     @Nonnull
     @Override

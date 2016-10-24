@@ -55,7 +55,7 @@ public class MainActivity extends BaseActivity implements
 
         setContentView(R.layout.main_activity);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setUpActionBar(true);
+        enableToolbarHomeButton(true);
 
         navigationView = (NavigationView) findViewById(R.id.navigation_view);
         drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);

@@ -28,16 +28,14 @@ import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Action0;
 import rx.functions.Func1;
 import rx.schedulers.Schedulers;
-import rx.subjects.BehaviorSubject;
 
 /**
  * Created by WoodenTea.
  * Date: 2015/12/24
  * Time: 16:38
  */
-public class RetrofitActivity extends BaseActivity {
+public class RetrofitActivity extends RxBaseActivity {
     private TextView tv_result;
-    private final BehaviorSubject<ActivityEvent> lifecycleSubject = BehaviorSubject.create();
 
     @Override
     protected boolean _onCreate(Bundle savedInstanceState) {

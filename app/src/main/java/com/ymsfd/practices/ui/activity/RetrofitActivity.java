@@ -1,11 +1,15 @@
 package com.ymsfd.practices.ui.activity;
 
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.text.TextUtils;
 import android.widget.EditText;
 import android.widget.TextView;
 
 import com.jakewharton.rxbinding.widget.RxTextView;
+import com.trello.rxlifecycle.LifecycleTransformer;
+import com.trello.rxlifecycle.RxLifecycle;
+import com.trello.rxlifecycle.android.ActivityEvent;
 import com.ymsfd.practices.R;
 
 import java.util.List;
@@ -24,6 +28,7 @@ import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Action0;
 import rx.functions.Func1;
 import rx.schedulers.Schedulers;
+import rx.subjects.BehaviorSubject;
 
 /**
  * Created by WoodenTea.
@@ -32,6 +37,7 @@ import rx.schedulers.Schedulers;
  */
 public class RetrofitActivity extends BaseActivity {
     private TextView tv_result;
+    private final BehaviorSubject<ActivityEvent> lifecycleSubject = BehaviorSubject.create();
 
     @Override
     protected boolean _onCreate(Bundle savedInstanceState) {
@@ -106,6 +112,7 @@ public class RetrofitActivity extends BaseActivity {
                         D("Unsubscribe");
                     }
                 })
+                .compose(this.<String>bindUntilEvent(ActivityEvent.DESTROY))
                 .subscribe(new Subscriber<String>() {
                     @Override
                     public void onCompleted() {
@@ -135,8 +142,12 @@ public class RetrofitActivity extends BaseActivity {
 
     @Override
     protected void onDestroy() {
+        lifecycleSubject.onNext(ActivityEvent.DESTROY);
         super.onDestroy();
-        D("Destroy");
+    }
+
+    public final <T> LifecycleTransformer<T> bindUntilEvent(@NonNull ActivityEvent event) {
+        return RxLifecycle.bindUntilEvent(lifecycleSubject, event);
     }
 
     interface SearchService {

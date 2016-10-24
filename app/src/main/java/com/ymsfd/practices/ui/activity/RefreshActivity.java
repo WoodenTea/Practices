@@ -14,7 +14,7 @@ import com.ymsfd.practices.ui.widget.SwipeRefreshLayout;
  * Date: 2016/8/11
  * Time: 17:21
  */
-public class RefreshActivity extends BaseTranslucentActivity {
+public class RefreshActivity extends BaseActivity {
     int offset = -10;
 
     @Override
@@ -24,7 +24,7 @@ public class RefreshActivity extends BaseTranslucentActivity {
         }
 
         setContentView(R.layout.refresh_activity);
-        setUpActionBar(true);
+        enableToolbarHomeButton(true);
         RefreshLayout refreshLayout = (RefreshLayout) findViewById(R.id.refresh);
         final View header = LayoutInflater.from(this).inflate(R.layout.refresh_header,
                 refreshLayout,

@@ -11,7 +11,7 @@ import com.ymsfd.practices.R;
  * Date: 2016/7/13
  * Time: 14:16
  */
-public class DialogActivity extends BaseTranslucentActivity implements View.OnClickListener {
+public class DialogActivity extends BaseActivity implements View.OnClickListener {
     @Override
     protected boolean _onCreate(Bundle savedInstanceState) {
         if (!super._onCreate(savedInstanceState)) {
@@ -19,7 +19,7 @@ public class DialogActivity extends BaseTranslucentActivity implements View.OnCl
         }
 
         setContentView(R.layout.dialog_activity);
-        setUpActionBar(true);
+        enableToolbarHomeButton(true);
         View view = findViewById(R.id.submit);
         view.setOnClickListener(this);
         return true;

@@ -18,7 +18,7 @@ public class DragLayoutActivity extends BaseActivity {
         }
 
         setContentView(R.layout.drag_activity);
-        setUpActionBar(true);
+        enableToolbarHomeButton(true);
         View view = findViewById(R.id.view);
         view.setOnClickListener(new View.OnClickListener() {
             @Override

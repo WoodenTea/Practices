@@ -19,7 +19,7 @@ import android.widget.ImageView;
 import com.ymsfd.practices.R;
 import com.ymsfd.practices.infrastructure.util.Utils;
 
-public class AnimatorActivity extends BaseTranslucentActivity implements View.OnClickListener {
+public class AnimatorActivity extends BaseActivity implements View.OnClickListener {
     private ObjectAnimator scaleXAnimator, translateXAnimator, alphaAnimator, translateAnimator;
     private AnimatorSet animatorScaleSet, animationSet;
     private ValueAnimator mValueAnimator;
@@ -33,7 +33,7 @@ public class AnimatorActivity extends BaseTranslucentActivity implements View.On
         }
 
         setContentView(R.layout.animator_activity);
-        setUpActionBar(true);
+        enableToolbarHomeButton(true);
 
         metricsPoint = Utils.displaySize(this);
         final Button bezier = (Button) findViewById(R.id.bezier);

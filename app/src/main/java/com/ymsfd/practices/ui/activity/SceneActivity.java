@@ -23,7 +23,7 @@ public class SceneActivity extends BaseActivity {
         }
 
         setContentView(R.layout.scene_activity);
-        setUpActionBar(true);
+        enableToolbarHomeButton(true);
         View view = findViewById(R.id.cartoon);
         view.setOnClickListener(new View.OnClickListener() {
             @Override

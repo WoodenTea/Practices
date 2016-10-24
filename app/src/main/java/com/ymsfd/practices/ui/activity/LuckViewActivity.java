@@ -11,7 +11,7 @@ import com.ymsfd.practices.ui.widget.LuckView;
  * Date: 2016/6/23
  * Time: 9:54
  */
-public class LuckViewActivity extends BaseTranslucentActivity {
+public class LuckViewActivity extends BaseActivity {
     private boolean flag = false;
 
     @Override
@@ -21,7 +21,7 @@ public class LuckViewActivity extends BaseTranslucentActivity {
         }
 
         setContentView(R.layout.luck_view_activity);
-        setUpActionBar(true);
+        enableToolbarHomeButton(true);
         final LuckView luckView = (LuckView) findViewById(R.id.luck_view);
         View view = findViewById(R.id.submit);
         view.setOnClickListener(new View.OnClickListener() {

@@ -9,7 +9,7 @@ import com.ymsfd.practices.R;
  * Date: 11/11/15
  * Time: 21:10
  */
-public class ScrollLayoutActivity extends BaseTranslucentActivity {
+public class ScrollLayoutActivity extends BaseActivity {
     @Override
     protected boolean _onCreate(Bundle savedInstanceState) {
         if (!super._onCreate(savedInstanceState)) {
@@ -17,7 +17,7 @@ public class ScrollLayoutActivity extends BaseTranslucentActivity {
         }
 
         setContentView(R.layout.scroll_layout_activity);
-        setUpActionBar(true);
+        enableToolbarHomeButton(true);
         return true;
     }
 }

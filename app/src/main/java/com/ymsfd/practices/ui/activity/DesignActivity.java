@@ -25,7 +25,7 @@ public class DesignActivity extends BaseActivity {
         }
 
         setContentView(R.layout.design_activity);
-        setUpActionBar(true);
+        enableToolbarHomeButton(true);
         final TextInputLayout textInputLayout = (TextInputLayout) findViewById(R.id.til_pwd);
         EditText editText = textInputLayout.getEditText();
         textInputLayout.setHint("Password");

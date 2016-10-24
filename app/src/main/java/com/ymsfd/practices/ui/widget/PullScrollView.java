@@ -39,8 +39,8 @@ public class PullScrollView extends ScrollView {
     public PullScrollView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         setOverScrollMode(OVER_SCROLL_NEVER);
-        childScrollHeight = (int) DensityUtil.dp2px(context, 200);
-        headerScrollHeight = (int) DensityUtil.dp2px(context, 100);
+        childScrollHeight = (int) DensityUtil.dp2px(200);
+        headerScrollHeight = (int) DensityUtil.dp2px(100);
     }
 
     @Override

@@ -35,7 +35,7 @@ public class BezierActivity extends BaseActivity implements View.OnClickListener
         }
 
         setContentView(R.layout.ripple_view_activity);
-        setUpActionBar(true);
+        enableToolbarHomeButton(true);
 
         imageView = (ImageView) findViewById(R.id.image_view);
 

@@ -58,7 +58,21 @@ public class BindingRecyclerAdapter extends RecyclerView.Adapter<BindingViewHold
     }
 
     public void addAll(List<? extends Entity> list) {
-        this.dataList.addAll(list);
+        if (list == null) {
+            throw new IllegalArgumentException("list can not be null");
+        }
+
+        int appendSize = list.size();
+        if (appendSize == 0) {
+            return;
+        }
+
+        int prevSize = dataList.size();
+        List<Entity> data = new ArrayList<>(prevSize + appendSize);
+        data.addAll(dataList);
+        data.addAll(list);
+        dataList = data;
+        notifyItemRangeInserted(prevSize, appendSize);
     }
 
     public <E extends Entity> void add(E entity) {

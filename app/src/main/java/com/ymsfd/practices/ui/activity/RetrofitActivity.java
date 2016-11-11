@@ -58,7 +58,7 @@ public class RetrofitActivity extends RxBaseActivity {
 
         final SearchService searchService = retrofit.create(SearchService.class);
         RxTextView.textChanges(et_keyword).subscribeOn(AndroidSchedulers.mainThread())
-                .debounce(600, TimeUnit.MILLISECONDS, AndroidSchedulers.mainThread())
+                .debounce(600, TimeUnit.MILLISECONDS)
                 .filter(new Func1<CharSequence, Boolean>() {
                     @Override
                     public Boolean call(CharSequence charSequence) {

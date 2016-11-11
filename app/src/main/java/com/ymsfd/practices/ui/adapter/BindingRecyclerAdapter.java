@@ -75,6 +75,11 @@ public class BindingRecyclerAdapter extends RecyclerView.Adapter<BindingViewHold
         notifyItemRangeInserted(prevSize, appendSize);
     }
 
+    public void clear() {
+        dataList.clear();
+        notifyDataSetChanged();
+    }
+
     public <E extends Entity> void add(E entity) {
         this.dataList.add(entity);
     }

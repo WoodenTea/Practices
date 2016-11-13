@@ -4,7 +4,7 @@ import android.support.annotation.ColorInt;
 import android.support.v7.widget.RecyclerView;
 
 import com.paginate.recycler.LoadingListItemCreator;
-import com.ymsfd.practices.domain.Entity;
+import com.ymsfd.practices.domain.BaseViewModel;
 import com.ymsfd.practices.ui.adapter.BindingViewHolder;
 
 import java.util.HashMap;
@@ -32,9 +32,10 @@ public class RecyclerViewConfig {
     private boolean addLoadingListItem;
     private int spanSizeLookup;
 
-    private List<Entity> defaultEntities;
+    private List<BaseViewModel> defaultEntities;
 
-    private Map<Class<? extends Entity>, Class<? extends BindingViewHolder>> bindViewHolders =
+    private Map<Class<? extends BaseViewModel>, Class<? extends BindingViewHolder>>
+            bindViewHolders =
             new HashMap<>();
 
     public RecyclerView.LayoutManager getLayoutManager() {
@@ -81,11 +82,12 @@ public class RecyclerViewConfig {
         return requestSize;
     }
 
-    public List<Entity> getDefaultEntities() {
+    public List<BaseViewModel> getDefaultEntities() {
         return defaultEntities;
     }
 
-    public Map<Class<? extends Entity>, Class<? extends BindingViewHolder>> getBindViewHolders() {
+    public Map<Class<? extends BaseViewModel>, Class<? extends BindingViewHolder>>
+    getBindViewHolders() {
         return bindViewHolders;
     }
 
@@ -104,9 +106,10 @@ public class RecyclerViewConfig {
         private boolean addLoadingListItem;
         private int spanSizeLookup = 1;
 
-        private List<Entity> defaultEntities;
+        private List<BaseViewModel> defaultEntities;
 
-        private Map<Class<? extends Entity>, Class<? extends BindingViewHolder>> bindViewHolders
+        private Map<Class<? extends BaseViewModel>, Class<? extends BindingViewHolder>>
+                bindViewHolders
                 = new HashMap<>();
 
         public RecyclerViewConfig build() {
@@ -132,7 +135,7 @@ public class RecyclerViewConfig {
             return config;
         }
 
-        public Builder defaultEntities(List<Entity> list) {
+        public Builder defaultEntities(List<BaseViewModel> list) {
             defaultEntities = list;
 
             return this;
@@ -193,7 +196,8 @@ public class RecyclerViewConfig {
             return this;
         }
 
-        public Builder bind(Class<? extends Entity> key, Class<? extends BindingViewHolder> value) {
+        public Builder bind(Class<? extends BaseViewModel> key, Class<? extends
+                BindingViewHolder> value) {
             bindViewHolders.put(key, value);
             return this;
         }

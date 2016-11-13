@@ -6,7 +6,7 @@ import android.databinding.ViewDataBinding;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
-import com.ymsfd.practices.domain.Entity;
+import com.ymsfd.practices.domain.BaseViewModel;
 
 import java.lang.reflect.Constructor;
 import java.util.HashMap;
@@ -15,14 +15,14 @@ import java.util.Map;
 public class BindingViewHolderFactory {
 
     private Context context;
-    private Map<Class<? extends Entity>, Class<? extends BindingViewHolder>> map = new
+    private Map<Class<? extends BaseViewModel>, Class<? extends BindingViewHolder>> map = new
             HashMap<>();
 
     public BindingViewHolderFactory(Context context) {
         this.context = context;
     }
 
-    BindingViewHolder create(Entity viewModel, ViewGroup parent) {
+    BindingViewHolder create(BaseViewModel viewModel, ViewGroup parent) {
         try {
             ViewDataBinding binding = DataBindingUtil.inflate(LayoutInflater.from(context),
                     viewModel.itemViewType(), parent, false);
@@ -37,7 +37,7 @@ public class BindingViewHolderFactory {
         }
     }
 
-    void bind(Class<? extends Entity> viewModel, Class<? extends BindingViewHolder>
+    void bind(Class<? extends BaseViewModel> viewModel, Class<? extends BindingViewHolder>
             viewHolder) {
         map.put(viewModel, viewHolder);
     }

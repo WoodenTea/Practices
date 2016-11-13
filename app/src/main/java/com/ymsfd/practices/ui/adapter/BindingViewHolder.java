@@ -4,9 +4,10 @@ import android.databinding.ViewDataBinding;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
+import com.ymsfd.practices.domain.BaseViewModel;
 import com.ymsfd.practices.domain.Entity;
 
-public abstract class BindingViewHolder<T extends Entity> extends RecyclerView.ViewHolder {
+public abstract class BindingViewHolder<T extends BaseViewModel> extends RecyclerView.ViewHolder {
     protected ViewDataBinding viewDataBinding;
 
     public BindingViewHolder(ViewDataBinding viewDataBinding) {

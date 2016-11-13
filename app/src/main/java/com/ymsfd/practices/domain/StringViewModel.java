@@ -2,7 +2,7 @@ package com.ymsfd.practices.domain;
 
 import com.ymsfd.practices.R;
 
-public class StringEntity extends Entity {
+public class StringViewModel extends BaseViewModel {
     public String name;
 
     @Override

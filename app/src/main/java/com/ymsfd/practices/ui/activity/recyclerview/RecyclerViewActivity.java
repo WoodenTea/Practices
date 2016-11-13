@@ -11,8 +11,8 @@ import android.view.View;
 import com.paginate.Paginate;
 import com.paginate.recycler.LoadingListItemSpanLookup;
 import com.ymsfd.practices.R;
-import com.ymsfd.practices.domain.Entity;
-import com.ymsfd.practices.domain.StringEntity;
+import com.ymsfd.practices.domain.BaseViewModel;
+import com.ymsfd.practices.domain.StringViewModel;
 import com.ymsfd.practices.ui.activity.BaseActivity;
 import com.ymsfd.practices.ui.activity.util.PaginateManager;
 import com.ymsfd.practices.ui.activity.util.RecyclerViewConfig;
@@ -38,7 +38,7 @@ public class RecyclerViewActivity extends BaseActivity implements View.OnClickLi
     private SwipeRefreshLayout swipeRefreshLayout;
     private Paginate paginate;
     private PaginateManager paginateManager;
-    private List<Entity> list;
+    private List<BaseViewModel> list;
 
     @Override
     protected boolean _onCreate(Bundle savedInstanceState) {
@@ -54,9 +54,9 @@ public class RecyclerViewActivity extends BaseActivity implements View.OnClickLi
 
         list = new ArrayList<>();
         for (int index = 0; index < 10; index++) {
-            StringEntity stringEntity = new StringEntity();
-            stringEntity.name = "" + index;
-            list.add(stringEntity);
+            StringViewModel stringViewModel = new StringViewModel();
+            stringViewModel.name = "" + index;
+            list.add(stringViewModel);
         }
 
         adapter = new BindingRecyclerAdapter(this);
@@ -65,7 +65,7 @@ public class RecyclerViewActivity extends BaseActivity implements View.OnClickLi
                 .recyclerLayoutManager(new LinearLayoutManager(this))
                 .recyclerViewAnimator(new DefaultItemAnimator())
                 .recyclerViewDecor(new DividerGridItemDecoration(this))
-                .bind(StringEntity.class, StringViewHolder.class)
+                .bind(StringViewModel.class, StringViewHolder.class)
                 .enableLoadMore(true)
                 .defaultEntities(list)
                 .addLoadingListItem(true);
@@ -91,7 +91,7 @@ public class RecyclerViewActivity extends BaseActivity implements View.OnClickLi
         recyclerView.postDelayed(new Runnable() {
             @Override
             public void run() {
-                List<Entity> data = list.subList(0, 10);
+                List<BaseViewModel> data = list.subList(0, 10);
                 onLoadCompleted(data);
             }
         }, 2000);
@@ -115,7 +115,7 @@ public class RecyclerViewActivity extends BaseActivity implements View.OnClickLi
                 @Override
                 public void run() {
                     swipeRefreshLayout.setRefreshing(false);
-                    List<Entity> data = list.subList(0, 10);
+                    List<BaseViewModel> data = list.subList(0, 10);
                     onLoadCompleted(data);
                 }
             }, 2000);
@@ -137,7 +137,7 @@ public class RecyclerViewActivity extends BaseActivity implements View.OnClickLi
         setupPaginate();
     }
 
-    public void onLoadCompleted(List<? extends Entity> list) {
+    public void onLoadCompleted(List<BaseViewModel> list) {
         int size = list == null ? 0 : list.size();
         paginateManager.loadCompleted(size);
         paginateManager.setLoading(false);
@@ -213,10 +213,11 @@ public class RecyclerViewActivity extends BaseActivity implements View.OnClickLi
             return;
         }
 
-        Map<Class<? extends Entity>, Class<? extends BindingViewHolder>> bindViewHolders = config
+        Map<Class<? extends BaseViewModel>, Class<? extends BindingViewHolder>> bindViewHolders =
+                config
                 .getBindViewHolders();
         if (bindViewHolders != null) {
-            for (Map.Entry<Class<? extends Entity>, Class<? extends BindingViewHolder>> entry
+            for (Map.Entry<Class<? extends BaseViewModel>, Class<? extends BindingViewHolder>> entry
                     : bindViewHolders.entrySet()) {
                 adapter.bind(entry.getKey(), entry.getValue());
             }

@@ -1,5 +1,5 @@
 package com.ymsfd.practices.domain;
 
-public interface ViewModel {
+public interface AbstractViewModel {
     int itemViewType();
 }

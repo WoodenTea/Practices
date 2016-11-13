@@ -5,8 +5,8 @@
     <data>
 
         <variable
-            name="stringEntity"
-            type="com.ymsfd.practices.domain.StringEntity" />
+            name="stringViewModel"
+            type="com.ymsfd.practices.domain.StringViewModel" />
     </data>
 
     <LinearLayout
@@ -49,7 +49,7 @@
                         android:gravity="center"
                         android:maxLines="1"
                         android:padding="5dp"
-                        android:text="@{stringEntity.name}"
+                        android:text="@{stringViewModel.name}"
                         android:textSize="20sp" />
                 </LinearLayout>
 

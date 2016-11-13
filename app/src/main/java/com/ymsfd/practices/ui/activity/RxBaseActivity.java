@@ -1,34 +1,66 @@
 package com.ymsfd.practices.ui.activity;
 
-import com.trello.rxlifecycle.LifecycleProvider;
-import com.trello.rxlifecycle.LifecycleTransformer;
-import com.trello.rxlifecycle.RxLifecycle;
-import com.trello.rxlifecycle.android.ActivityEvent;
-import com.trello.rxlifecycle.android.RxLifecycleAndroid;
+import android.os.Bundle;
 
-import javax.annotation.Nonnull;
+import com.ymsfd.practices.rxlife.ActivityEvent;
 
 import rx.Observable;
+import rx.functions.Func1;
 import rx.subjects.BehaviorSubject;
 
-public class RxBaseActivity extends BaseActivity implements LifecycleProvider<ActivityEvent> {
-    protected final BehaviorSubject<ActivityEvent> lifecycleSubject = BehaviorSubject.create();
+public class RxBaseActivity extends BaseActivity {
+    protected final BehaviorSubject<Integer> lifecycleSubject = BehaviorSubject.create();
 
-    @Nonnull
     @Override
-    public Observable<ActivityEvent> lifecycle() {
-        return lifecycleSubject.asObservable();
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        lifecycleSubject.onNext(ActivityEvent.CREATE);
     }
 
-    @Nonnull
     @Override
-    public <T> LifecycleTransformer<T> bindUntilEvent(@Nonnull ActivityEvent event) {
-        return RxLifecycle.bindUntilEvent(lifecycleSubject, event);
+    protected void onDestroy() {
+        super.onDestroy();
+        lifecycleSubject.onNext(ActivityEvent.DESTROY);
     }
 
-    @Nonnull
     @Override
-    public <T> LifecycleTransformer<T> bindToLifecycle() {
-        return RxLifecycleAndroid.bindActivity(lifecycleSubject);
+    protected void onStart() {
+        super.onStart();
+        lifecycleSubject.onNext(ActivityEvent.START);
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        lifecycleSubject.onNext(ActivityEvent.STOP);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        lifecycleSubject.onNext(ActivityEvent.PAUSE);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        lifecycleSubject.onNext(ActivityEvent.RESUME);
+    }
+
+    public <T> Observable.Transformer<T, T> bindUntilEvent(final Integer bindEvent) {
+        final Observable<Integer> observable = lifecycleSubject.takeFirst(new Func1<Integer,
+                Boolean>() {
+            @Override
+            public Boolean call(Integer event) {
+                return event.equals(bindEvent);
+            }
+        });
+
+        return new Observable.Transformer<T, T>() {
+            @Override
+            public Observable<T> call(Observable<T> sourceOb) {
+                return sourceOb.takeUntil(observable);
+            }
+        };
     }
 }

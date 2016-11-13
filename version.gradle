@@ -15,7 +15,7 @@ ext {
 
     // App dependencies
     supportVersion = '25.0.0'
-    okHttp = '3.4.1'
+    okHttp = '3.4.2'
     retrofit = '2.1.0'
 
     // App version

@@ -6,14 +6,14 @@ import android.support.v7.widget.RecyclerView;
 import android.util.SparseArray;
 import android.view.ViewGroup;
 
-import com.ymsfd.practices.domain.Entity;
+import com.ymsfd.practices.domain.BaseViewModel;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class BindingRecyclerAdapter extends RecyclerView.Adapter<BindingViewHolder> {
-    private List<Entity> dataList = new ArrayList<>();
-    private SparseArray<Entity> sparseArray = new SparseArray<>();
+    private List<BaseViewModel> dataList = new ArrayList<>();
+    private SparseArray<BaseViewModel> sparseArray = new SparseArray<>();
     private BindingViewHolderFactory factory;
     private ItemClickPresenter presenter;
 
@@ -57,7 +57,7 @@ public class BindingRecyclerAdapter extends RecyclerView.Adapter<BindingViewHold
         return dataList.size();
     }
 
-    public void addAll(List<? extends Entity> list) {
+    public void addAll(List<BaseViewModel> list) {
         if (list == null) {
             throw new IllegalArgumentException("list can not be null");
         }
@@ -68,7 +68,7 @@ public class BindingRecyclerAdapter extends RecyclerView.Adapter<BindingViewHold
         }
 
         int prevSize = dataList.size();
-        List<Entity> data = new ArrayList<>(prevSize + appendSize);
+        List<BaseViewModel> data = new ArrayList<>(prevSize + appendSize);
         data.addAll(dataList);
         data.addAll(list);
         dataList = data;
@@ -80,11 +80,11 @@ public class BindingRecyclerAdapter extends RecyclerView.Adapter<BindingViewHold
         notifyDataSetChanged();
     }
 
-    public <E extends Entity> void add(E entity) {
+    public <E extends BaseViewModel> void add(E entity) {
         this.dataList.add(entity);
     }
 
-    public void bind(Class<? extends Entity> viewModel,
+    public void bind(Class<? extends BaseViewModel> viewModel,
                      Class<? extends BindingViewHolder> viewHolder) {
         factory.bind(viewModel, viewHolder);
     }

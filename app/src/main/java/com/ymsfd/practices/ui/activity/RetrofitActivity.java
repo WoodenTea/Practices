@@ -1,16 +1,15 @@
 package com.ymsfd.practices.ui.activity;
 
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.text.TextUtils;
 import android.widget.EditText;
 import android.widget.TextView;
 
 import com.jakewharton.rxbinding.widget.RxTextView;
-import com.trello.rxlifecycle.LifecycleTransformer;
-import com.trello.rxlifecycle.RxLifecycle;
-import com.trello.rxlifecycle.android.ActivityEvent;
 import com.ymsfd.practices.R;
+import com.ymsfd.practices.domain.SearchResult;
+import com.ymsfd.practices.interfaces.SearchInterface;
+import com.ymsfd.practices.rxlife.ActivityEvent;
 
 import java.util.List;
 import java.util.concurrent.TimeUnit;
@@ -20,8 +19,6 @@ import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
-import retrofit2.http.GET;
-import retrofit2.http.Query;
 import rx.Observable;
 import rx.Subscriber;
 import rx.android.schedulers.AndroidSchedulers;
@@ -44,6 +41,7 @@ public class RetrofitActivity extends RxBaseActivity {
         }
 
         setContentView(R.layout.retrofit_activity);
+        enableToolbarHomeButton(true);
         EditText et_keyword = (EditText) findViewById(R.id.et_keyword);
         tv_result = (TextView) findViewById(R.id.tv_result);
 
@@ -56,9 +54,10 @@ public class RetrofitActivity extends RxBaseActivity {
                 .client(client)
                 .build();
 
-        final SearchService searchService = retrofit.create(SearchService.class);
-        RxTextView.textChanges(et_keyword).subscribeOn(AndroidSchedulers.mainThread())
-                .debounce(600, TimeUnit.MILLISECONDS)
+        final SearchInterface search = retrofit.create(SearchInterface.class);
+        RxTextView.textChanges(et_keyword)
+                .debounce(600, TimeUnit.MICROSECONDS)
+                .observeOn(AndroidSchedulers.mainThread())
                 .filter(new Func1<CharSequence, Boolean>() {
                     @Override
                     public Boolean call(CharSequence charSequence) {
@@ -67,22 +66,16 @@ public class RetrofitActivity extends RxBaseActivity {
                     }
                 })
                 .observeOn(Schedulers.io())
-                .switchMap(new Func1<CharSequence, Observable<Data>>() {
+                .flatMap(new Func1<CharSequence, Observable<SearchResult>>() {
                     @Override
-                    public Observable<Data> call(CharSequence charSequence) {
-                        return searchService.searchProduct("utf-8", charSequence.toString());
+                    public Observable<SearchResult> call(CharSequence charSequence) {
+                        return search.searchProduct("utf-8", charSequence.toString());
                     }
                 })
-                .filter(new Func1<Data, Boolean>() {
+                .map(new Func1<SearchResult, List<List<String>>>() {
                     @Override
-                    public Boolean call(Data data) {
-                        return data != null;
-                    }
-                })
-                .map(new Func1<Data, List<List<String>>>() {
-                    @Override
-                    public List<List<String>> call(Data data) {
-                        return data.result;
+                    public List<List<String>> call(SearchResult searchResult) {
+                        return searchResult.result;
                     }
                 })
                 .flatMap(new Func1<List<List<String>>, Observable<List<String>>>() {
@@ -93,8 +86,8 @@ public class RetrofitActivity extends RxBaseActivity {
                 })
                 .filter(new Func1<List<String>, Boolean>() {
                     @Override
-                    public Boolean call(List<String> strings) {
-                        return strings.size() > 1;
+                    public Boolean call(List<String> lists) {
+                        return lists.size() > 1;
                     }
                 })
                 .map(new Func1<List<String>, String>() {
@@ -119,41 +112,15 @@ public class RetrofitActivity extends RxBaseActivity {
 
                     @Override
                     public void onError(Throwable e) {
-                        E("onError");
-                        E(e);
+                        e.printStackTrace();
                     }
 
                     @Override
-                    public void onNext(String s) {
-                        tv_result.append(s);
+                    public void onNext(String string) {
+                        tv_result.append(string);
                     }
                 });
 
         return true;
-    }
-
-    @Override
-    protected void onStop() {
-        super.onStop();
-        D("Stop");
-    }
-
-    @Override
-    protected void onDestroy() {
-        lifecycleSubject.onNext(ActivityEvent.DESTROY);
-        super.onDestroy();
-    }
-
-    public final <T> LifecycleTransformer<T> bindUntilEvent(@NonNull ActivityEvent event) {
-        return RxLifecycle.bindUntilEvent(lifecycleSubject, event);
-    }
-
-    interface SearchService {
-        @GET("sug")
-        Observable<Data> searchProduct(@Query("code") String code, @Query("q") String keyword);
-    }
-
-    class Data {
-        public List<List<String>> result;
     }
 }

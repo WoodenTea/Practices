@@ -2,9 +2,9 @@ package com.ymsfd.practices.interfaces;
 
 import com.ymsfd.practices.domain.SearchResult;
 
+import io.reactivex.Observable;
 import retrofit2.http.GET;
 import retrofit2.http.Query;
-import rx.Observable;
 
 /**
  * Created by WoodenTea.

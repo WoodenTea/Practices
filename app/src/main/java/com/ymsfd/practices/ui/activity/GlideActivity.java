@@ -16,11 +16,14 @@ import com.ymsfd.practices.R;
 
 import java.io.File;
 
-import rx.Observable;
-import rx.Subscriber;
-import rx.android.schedulers.AndroidSchedulers;
-import rx.functions.Func1;
-import rx.schedulers.Schedulers;
+import io.reactivex.Observable;
+import io.reactivex.ObservableEmitter;
+import io.reactivex.ObservableOnSubscribe;
+import io.reactivex.Observer;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.functions.Function;
+import io.reactivex.schedulers.Schedulers;
 
 /**
  * Created by WoodenTea.
@@ -42,9 +45,9 @@ public class GlideActivity extends BaseActivity {
         createObservable("http://testecshop2.magicwe.com/" +
                 "images/201509/source_img/793_G_1441785900196.jpg")
                 .subscribeOn(Schedulers.newThread())
-                .map(new Func1<String, File>() {
+                .map(new Function<String, File>() {
                     @Override
-                    public File call(String s) {
+                    public File apply(String s) throws Exception {
                         File file = null;
                         try {
                             FutureTarget<File> futureTarget = Glide.with(GlideActivity.this).load
@@ -57,18 +60,25 @@ public class GlideActivity extends BaseActivity {
                     }
                 })
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Subscriber<File>() {
+                .subscribe(new Observer<File>() {
                     @Override
-                    public void onCompleted() {
+                    public void onSubscribe(Disposable d) {
+
+                    }
+
+                    @Override
+                    public void onNext(File value) {
 
                     }
 
                     @Override
                     public void onError(Throwable e) {
+
                     }
 
                     @Override
-                    public void onNext(File file) {
+                    public void onComplete() {
+
                     }
                 });
 
@@ -110,10 +120,10 @@ public class GlideActivity extends BaseActivity {
     }
 
     public Observable<String> createObservable(final String str) {
-        return Observable.create(new Observable.OnSubscribe<String>() {
+        return Observable.create(new ObservableOnSubscribe<String>() {
             @Override
-            public void call(Subscriber<? super String> subscriber) {
-                subscriber.onNext(str);
+            public void subscribe(ObservableEmitter<String> e) throws Exception {
+                e.onNext(str);
             }
         });
     }

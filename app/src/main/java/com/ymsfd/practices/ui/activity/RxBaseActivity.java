@@ -4,9 +4,10 @@ import android.os.Bundle;
 
 import com.ymsfd.practices.rxlife.ActivityEvent;
 
-import rx.Observable;
-import rx.functions.Func1;
-import rx.subjects.BehaviorSubject;
+import io.reactivex.Observable;
+import io.reactivex.ObservableTransformer;
+import io.reactivex.functions.Predicate;
+import io.reactivex.subjects.BehaviorSubject;
 
 public class RxBaseActivity extends BaseActivity {
     protected final BehaviorSubject<Integer> lifecycleSubject = BehaviorSubject.create();
@@ -18,9 +19,15 @@ public class RxBaseActivity extends BaseActivity {
     }
 
     @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        lifecycleSubject.onNext(ActivityEvent.DESTROY);
+    protected void onPause() {
+        super.onPause();
+        lifecycleSubject.onNext(ActivityEvent.PAUSE);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        lifecycleSubject.onNext(ActivityEvent.RESUME);
     }
 
     @Override
@@ -36,29 +43,22 @@ public class RxBaseActivity extends BaseActivity {
     }
 
     @Override
-    protected void onPause() {
-        super.onPause();
-        lifecycleSubject.onNext(ActivityEvent.PAUSE);
+    protected void onDestroy() {
+        super.onDestroy();
+        lifecycleSubject.onNext(ActivityEvent.DESTROY);
     }
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-        lifecycleSubject.onNext(ActivityEvent.RESUME);
-    }
-
-    public <T> Observable.Transformer<T, T> bindUntilEvent(final Integer bindEvent) {
-        final Observable<Integer> observable = lifecycleSubject.takeFirst(new Func1<Integer,
-                Boolean>() {
+    public <T> ObservableTransformer<T, T> bindUntilEvent(final Integer bindEvent) {
+        final Observable<Integer> observable = lifecycleSubject.filter(new Predicate<Integer>() {
             @Override
-            public Boolean call(Integer event) {
+            public boolean test(Integer event) {
                 return event.equals(bindEvent);
             }
         });
 
-        return new Observable.Transformer<T, T>() {
+        return new ObservableTransformer<T, T>() {
             @Override
-            public Observable<T> call(Observable<T> sourceOb) {
+            public Observable<T> apply(Observable<T> sourceOb) {
                 return sourceOb.takeUntil(observable);
             }
         };

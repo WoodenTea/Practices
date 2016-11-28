@@ -6,9 +6,10 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.View;
 
-import rx.Observable;
-import rx.functions.Func1;
-import rx.subjects.BehaviorSubject;
+import io.reactivex.Observable;
+import io.reactivex.ObservableTransformer;
+import io.reactivex.functions.Predicate;
+import io.reactivex.subjects.BehaviorSubject;
 
 /**
  * Created by WoodenTea.
@@ -17,22 +18,6 @@ import rx.subjects.BehaviorSubject;
  */
 public class RxFragment extends Fragment {
     protected final BehaviorSubject<Integer> lifeSubject = BehaviorSubject.create();
-
-    public <T> Observable.Transformer<T, T> bindUntilEvent(final Integer bindEvent) {
-        final Observable<Integer> observable = lifeSubject.takeFirst(new Func1<Integer, Boolean>() {
-            @Override
-            public Boolean call(Integer event) {
-                return event.equals(bindEvent);
-            }
-        });
-
-        return new Observable.Transformer<T, T>() {
-            @Override
-            public Observable<T> call(Observable<T> sourceOb) {
-                return sourceOb.takeUntil(observable);
-            }
-        };
-    }
 
     @Override
     public void onAttach(Context context) {
@@ -77,20 +62,36 @@ public class RxFragment extends Fragment {
     }
 
     @Override
-    public void onDestroy() {
-        super.onDestroy();
-        lifeSubject.onNext(FragmentEvent.DESTROY);
-    }
-
-    @Override
     public void onDestroyView() {
         super.onDestroyView();
         lifeSubject.onNext(FragmentEvent.DESTROY_VIEW);
     }
 
     @Override
+    public void onDestroy() {
+        super.onDestroy();
+        lifeSubject.onNext(FragmentEvent.DESTROY);
+    }
+
+    @Override
     public void onDetach() {
         super.onDetach();
         lifeSubject.onNext(FragmentEvent.DETACH);
+    }
+
+    public <T> ObservableTransformer<T, T> bindUntilEvent(final Integer bindEvent) {
+        final Observable<Integer> observable = lifeSubject.filter(new Predicate<Integer>() {
+            @Override
+            public boolean test(Integer event) {
+                return event.equals(bindEvent);
+            }
+        });
+
+        return new ObservableTransformer<T, T>() {
+            @Override
+            public Observable<T> apply(Observable<T> sourceOb) {
+                return sourceOb.takeUntil(observable);
+            }
+        };
     }
 }

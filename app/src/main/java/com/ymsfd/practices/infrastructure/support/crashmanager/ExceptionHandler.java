@@ -37,8 +37,8 @@ public class ExceptionHandler implements Thread.UncaughtExceptionHandler {
 
             String filename = UUID.randomUUID().toString();
             String path = logDir + File.separator + filename + ".log";
-
-            BufferedWriter write = new BufferedWriter(new FileWriter(path));
+            FileWriter fileWriter = new FileWriter(path);
+            BufferedWriter write = new BufferedWriter(fileWriter);
             write.write("Package: " + CrashManagerConstants.APP_PACKAGE + "\n");
             write.write("Version: " + CrashManagerConstants.APP_VERSION + "\n");
             write.write("Android: " + CrashManagerConstants.ANDROID_VERSION + "\n");
@@ -49,9 +49,11 @@ public class ExceptionHandler implements Thread.UncaughtExceptionHandler {
             write.write(result.toString());
             write.flush();
             write.close();
+            fileWriter.close();
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
+            printWriter.close();
             previousHandler.uncaughtException(thread, exception);
         }
     }

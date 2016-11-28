@@ -5,7 +5,6 @@ import android.util.AttributeSet;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.widget.LinearLayout;
-import android.widget.ScrollView;
 import android.widget.Scroller;
 
 /**
@@ -16,7 +15,6 @@ import android.widget.Scroller;
 public class ScrollLayout extends LinearLayout {
     private Scroller mScroller;
     private GestureDetector mGestureDetector;
-    private ScrollView scrollView;
 
     public ScrollLayout(Context context) {
         this(context, null);
@@ -32,6 +30,16 @@ public class ScrollLayout extends LinearLayout {
         setLongClickable(true);
         mScroller = new Scroller(context);
         mGestureDetector = new GestureDetector(context, new CustomGestureListener());
+    }
+
+    @Override
+    public boolean dispatchTouchEvent(MotionEvent ev) {
+        return super.dispatchTouchEvent(ev);
+    }
+
+    @Override
+    public boolean onInterceptTouchEvent(MotionEvent ev) {
+        return super.onInterceptTouchEvent(ev);
     }
 
     @Override
@@ -56,16 +64,6 @@ public class ScrollLayout extends LinearLayout {
             // 必须调用该方法，否则不一定能看到滚动效果
             postInvalidate();
         }
-    }
-
-    @Override
-    public boolean dispatchTouchEvent(MotionEvent ev) {
-        return super.dispatchTouchEvent(ev);
-    }
-
-    @Override
-    public boolean onInterceptTouchEvent(MotionEvent ev) {
-        return super.onInterceptTouchEvent(ev);
     }
 
     // 调用此方法滚动到目标位置

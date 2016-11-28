@@ -148,7 +148,7 @@ public class CircleIndicatorView extends View {
                 canvas.drawCircle(dx, dy, roundRadius, roundPaint);
             }
 
-            if (roundRadius != mRadius) {
+            if (Math.abs(roundRadius - mRadius) < .0000001) {
                 canvas.drawCircle(dx, dy, mRadius, strokePaint);
             }
         }

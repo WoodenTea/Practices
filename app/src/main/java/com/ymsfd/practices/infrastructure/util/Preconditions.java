@@ -13,4 +13,11 @@ public class Preconditions {
 
         return reference;
     }
+
+    public static <T> T checkNotNull(T value, String message) {
+        if (value == null) {
+            throw new NullPointerException(message);
+        }
+        return value;
+    }
 }

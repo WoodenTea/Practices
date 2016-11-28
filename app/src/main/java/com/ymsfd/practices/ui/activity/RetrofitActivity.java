@@ -5,26 +5,28 @@ import android.text.TextUtils;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import com.jakewharton.rxbinding.widget.RxTextView;
+import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import com.ymsfd.practices.R;
 import com.ymsfd.practices.domain.SearchResult;
 import com.ymsfd.practices.interfaces.SearchInterface;
+import com.ymsfd.practices.rxbinding.RxTextView;
 import com.ymsfd.practices.rxlife.ActivityEvent;
 
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
+import io.reactivex.Observable;
+import io.reactivex.Observer;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.functions.Action;
+import io.reactivex.functions.Function;
+import io.reactivex.functions.Predicate;
+import io.reactivex.schedulers.Schedulers;
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
-import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
-import rx.Observable;
-import rx.Subscriber;
-import rx.android.schedulers.AndroidSchedulers;
-import rx.functions.Action0;
-import rx.functions.Func1;
-import rx.schedulers.Schedulers;
 
 /**
  * Created by WoodenTea.
@@ -50,7 +52,7 @@ public class RetrofitActivity extends RxBaseActivity {
         OkHttpClient client = new OkHttpClient.Builder().addInterceptor(interceptor).build();
         Retrofit retrofit = new Retrofit.Builder().baseUrl("https://suggest.taobao.com")
                 .addConverterFactory(GsonConverterFactory.create())
-                .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
+                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .client(client)
                 .build();
 
@@ -58,56 +60,60 @@ public class RetrofitActivity extends RxBaseActivity {
         RxTextView.textChanges(et_keyword)
                 .debounce(600, TimeUnit.MICROSECONDS)
                 .observeOn(AndroidSchedulers.mainThread())
-                .filter(new Func1<CharSequence, Boolean>() {
+                .filter(new Predicate<CharSequence>() {
                     @Override
-                    public Boolean call(CharSequence charSequence) {
+                    public boolean test(CharSequence charSequence) throws Exception {
                         tv_result.setText("");
                         return !TextUtils.isEmpty(charSequence);
                     }
                 })
                 .observeOn(Schedulers.io())
-                .flatMap(new Func1<CharSequence, Observable<SearchResult>>() {
+                .flatMap(new Function<CharSequence, Observable<SearchResult>>() {
                     @Override
-                    public Observable<SearchResult> call(CharSequence charSequence) {
+                    public Observable<SearchResult> apply(CharSequence charSequence) {
                         return search.searchProduct("utf-8", charSequence.toString());
                     }
                 })
-                .map(new Func1<SearchResult, List<List<String>>>() {
+                .map(new Function<SearchResult, List<List<String>>>() {
                     @Override
-                    public List<List<String>> call(SearchResult searchResult) {
+                    public List<List<String>> apply(SearchResult searchResult) throws Exception {
                         return searchResult.result;
                     }
                 })
-                .flatMap(new Func1<List<List<String>>, Observable<List<String>>>() {
+                .flatMap(new Function<List<List<String>>, Observable<List<String>>>() {
                     @Override
-                    public Observable<List<String>> call(List<List<String>> lists) {
-                        return Observable.from(lists);
+                    public Observable<List<String>> apply(List<List<String>> lists) {
+                        return Observable.fromIterable(lists);
                     }
                 })
-                .filter(new Func1<List<String>, Boolean>() {
+                .filter(new Predicate<List<String>>() {
                     @Override
-                    public Boolean call(List<String> lists) {
+                    public boolean test(List<String> lists) {
                         return lists.size() > 1;
                     }
                 })
-                .map(new Func1<List<String>, String>() {
+                .map(new Function<List<String>, String>() {
                     @Override
-                    public String call(List<String> strings) {
+                    public String apply(List<String> strings) {
                         return "[商品名称:" + strings.get(0) + ", ID:" + strings.get(1) + "]\n";
                     }
                 })
-                .observeOn(AndroidSchedulers.mainThread())
-                .doOnUnsubscribe(new Action0() {
+                .doOnDispose(new Action() {
                     @Override
-                    public void call() {
-                        D("Unsubscribe");
+                    public void run() throws Exception {
+                        D("Dispose");
                     }
                 })
                 .compose(this.<String>bindUntilEvent(ActivityEvent.DESTROY))
-                .subscribe(new Subscriber<String>() {
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<String>() {
                     @Override
-                    public void onCompleted() {
-                        D("Completed");
+                    public void onSubscribe(Disposable d) {
+                    }
+
+                    @Override
+                    public void onNext(String value) {
+                        tv_result.append(value);
                     }
 
                     @Override
@@ -116,8 +122,8 @@ public class RetrofitActivity extends RxBaseActivity {
                     }
 
                     @Override
-                    public void onNext(String string) {
-                        tv_result.append(string);
+                    public void onComplete() {
+                        D("Completed");
                     }
                 });
 

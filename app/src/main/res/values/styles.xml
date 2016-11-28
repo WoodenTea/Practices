@@ -41,4 +41,10 @@
     <style name="WTTransparentDialog" parent="Theme.AppCompat.Dialog">
         <item name="android:windowBackground">@color/transparent</item>
     </style>
+
+    <style name="WTDialog" parent="Theme.AppCompat.Light.Dialog.Alert">
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:textColorPrimary">@color/colorPrimary</item>
+        <item name="android:background">@color/white</item>
+    </style>
 </resources>

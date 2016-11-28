@@ -123,10 +123,9 @@ class CircleImageView extends ImageView {
             mShadowPaint = new Paint();
             mShadowRadius = shadowRadius;
             mCircleDiameter = circleDiameter;
-            mRadialGradient = new RadialGradient(mCircleDiameter / 2, mCircleDiameter / 2,
-                    mShadowRadius, new int[] {
-                    FILL_SHADOW_COLOR, Color.TRANSPARENT
-            }, null, Shader.TileMode.CLAMP);
+            mRadialGradient = new RadialGradient(mCircleDiameter / 2.f, mCircleDiameter / 2.f,
+                    mShadowRadius, new int[] {FILL_SHADOW_COLOR, Color.TRANSPARENT}, null,
+                    Shader.TileMode.CLAMP);
             mShadowPaint.setShader(mRadialGradient);
         }
 
@@ -134,9 +133,9 @@ class CircleImageView extends ImageView {
         public void draw(Canvas canvas, Paint paint) {
             final int viewWidth = CircleImageView.this.getWidth();
             final int viewHeight = CircleImageView.this.getHeight();
-            canvas.drawCircle(viewWidth / 2, viewHeight / 2, (mCircleDiameter / 2 + mShadowRadius),
+            canvas.drawCircle(viewWidth / 2.f, viewHeight / 2.f, (mCircleDiameter / 2.f + mShadowRadius),
                     mShadowPaint);
-            canvas.drawCircle(viewWidth / 2, viewHeight / 2, (mCircleDiameter / 2), paint);
+            canvas.drawCircle(viewWidth / 2.f, viewHeight / 2.f, (mCircleDiameter / 2.f), paint);
         }
     }
 }

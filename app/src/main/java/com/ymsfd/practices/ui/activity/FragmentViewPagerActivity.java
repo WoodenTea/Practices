@@ -39,8 +39,8 @@ public class FragmentViewPagerActivity extends BaseActivity {
     private void setupViewPager() {
         FragmentAdapter adapter = new FragmentAdapter(getSupportFragmentManager());
         adapter.addFragment(new AFragment());
-        adapter.addFragment(new BFragment());
-        adapter.addFragment(new CFragment());
+//        adapter.addFragment(new BFragment());
+//        adapter.addFragment(new CFragment());
         viewPager.setAdapter(adapter);
 
         final int pageMargin = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 4,

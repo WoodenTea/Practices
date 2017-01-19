@@ -1,48 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+  android:layout_width="match_parent"
+  android:layout_height="match_parent"
+  android:orientation="vertical">
+
+  <include layout="@layout/app_bar_layout" />
+
+  <com.ymsfd.practices.ui.widget.SwipeRefreshLayout
+    android:id="@+id/swipe"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:layout_height="100dp"
+    android:visibility="visible">
 
-    <include layout="@layout/app_bar_layout" />
+    <ScrollView
+      android:layout_width="match_parent"
+      android:layout_height="40dp">
 
-    <com.ymsfd.practices.ui.widget.RefreshLayout
-        android:id="@+id/refresh"
+      <TextView
         android:layout_width="match_parent"
-        android:layout_height="100dp"
-        android:visibility="gone">
+        android:layout_height="wrap_content"
+        android:text="a\nb\nc\nd\ne\nf\ng\nh\ni\nj\nk\nl\nm\nn" />
+    </ScrollView>
+  </com.ymsfd.practices.ui.widget.SwipeRefreshLayout>
 
-        <ScrollView
-            android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:background="@android:color/holo_purple">
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="a\nb\nc\nd\ne\nf\ng\nh\ni\nj\nk\nl\nm\nn" />
-        </ScrollView>
-    </com.ymsfd.practices.ui.widget.RefreshLayout>
-
-    <Button
-        android:id="@+id/button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
-
-    <com.ymsfd.practices.ui.widget.SwipeRefreshLayout
-        android:id="@+id/swipe"
+  <com.ymsfd.RefreshLayout
+    android:id="@+id/refresh"
+    android:layout_width="match_parent"
+    android:layout_height="100dp">
+    <ScrollView
+      android:layout_width="match_parent"
+      android:layout_height="match_parent">
+      <TextView
         android:layout_width="match_parent"
-        android:layout_height="100dp"
-        android:visibility="visible">
-
-        <ScrollView
-            android:layout_width="match_parent"
-            android:layout_height="40dp">
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="a\nb\nc\nd\ne\nf\ng\nh\ni\nj\nk\nl\nm\nn" />
-        </ScrollView>
-    </com.ymsfd.practices.ui.widget.SwipeRefreshLayout>
+        android:layout_height="wrap_content"
+        android:padding="30dp"
+        android:background="#2b00fe"
+        android:text="a\nb\nc\nd\ne\nf\ng\nh\ni\nj\nk\nl\nm\nn"
+        android:textColor="@android:color/white" />
+    </ScrollView>
+  </com.ymsfd.RefreshLayout>
 </LinearLayout>

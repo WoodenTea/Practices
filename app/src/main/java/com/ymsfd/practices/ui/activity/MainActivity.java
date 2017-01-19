@@ -13,21 +13,18 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
-
 import com.ymsfd.practices.R;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 public class MainActivity extends BaseActivity implements
-        AdapterView.OnItemClickListener {
+    AdapterView.OnItemClickListener {
 
     private ActionBarDrawerToggle drawerToggle;
     private NavigationView navigationView;
@@ -39,6 +36,16 @@ public class MainActivity extends BaseActivity implements
         return true;
     }
 
+    /* Called whenever we call invalidateOptionsMenu() */
+    @Override
+    public boolean onPrepareOptionsMenu(Menu menu) {
+        // If the nav drawer is open, hide action items related to the content view
+        boolean drawerOpen = drawerLayout.isDrawerOpen(navigationView);
+        menu.findItem(R.id.action_settings).setVisible(!drawerOpen);
+        return super.onPrepareOptionsMenu(menu);
+    }
+
+    @SuppressWarnings("unchecked")
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         Map<String, Object> map = (Map<String, Object>) parent.getItemAtPosition(position);
@@ -61,14 +68,14 @@ public class MainActivity extends BaseActivity implements
         drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawerLayout.setDrawerShadow(R.drawable.drawer_shadow, GravityCompat.START);
         drawerToggle = new ActionBarDrawerToggle(this, drawerLayout,
-                toolbar, R.string.drawer_open, R.string.drawer_close) {
+            toolbar, R.string.drawer_open, R.string.drawer_close) {
             @Override
-            public void onDrawerClosed(View drawerView) {
+            public void onDrawerOpened(View drawerView) {
                 invalidateOptionsMenu();
             }
 
             @Override
-            public void onDrawerOpened(View drawerView) {
+            public void onDrawerClosed(View drawerView) {
                 invalidateOptionsMenu();
             }
         };
@@ -81,20 +88,12 @@ public class MainActivity extends BaseActivity implements
         }
 
         ListView listView = (ListView) findViewById(R.id.activities);
-        listView.setAdapter(new SimpleAdapter(this, getActivities(path), android.R.layout
-                .simple_list_item_1, new String[]{"title"}, new int[]{android.R.id.text1}));
+        listView.setAdapter(new SimpleAdapter(this, getActivities(path),
+            android.R.layout.simple_list_item_1,
+            new String[]{"title"}, new int[]{android.R.id.text1}));
         listView.setOnItemClickListener(this);
 
         return true;
-    }
-
-    /* Called whenever we call invalidateOptionsMenu() */
-    @Override
-    public boolean onPrepareOptionsMenu(Menu menu) {
-        // If the nav drawer is open, hide action items related to the content view
-        boolean drawerOpen = drawerLayout.isDrawerOpen(navigationView);
-        menu.findItem(R.id.action_settings).setVisible(!drawerOpen);
-        return super.onPrepareOptionsMenu(menu);
     }
 
     @Override
@@ -146,8 +145,9 @@ public class MainActivity extends BaseActivity implements
 
         List<ResolveInfo> list = pm.queryIntentActivities(mainIntent, 0);
 
-        if (null == list)
+        if (null == list) {
             return mapActivity;
+        }
 
         String[] prefixPath;
         String prefixWithSlash = prefix;
@@ -166,9 +166,7 @@ public class MainActivity extends BaseActivity implements
         for (int i = 0; i < len; i++) {
             ResolveInfo info = list.get(i);
             CharSequence labelSeq = info.loadLabel(pm);
-            String label = labelSeq != null
-                    ? labelSeq.toString()
-                    : info.activityInfo.name;
+            String label = labelSeq != null ? labelSeq.toString() : info.activityInfo.name;
 
             if (prefixWithSlash.length() == 0 || label.startsWith(prefixWithSlash)) {
 
@@ -178,12 +176,12 @@ public class MainActivity extends BaseActivity implements
 
                 if ((prefixPath != null ? prefixPath.length : 0) == labelPath.length - 1) {
                     addItem(mapActivity, nextLabel, activityIntent(
-                            info.activityInfo.applicationInfo.packageName,
-                            info.activityInfo.name));
+                        info.activityInfo.applicationInfo.packageName,
+                        info.activityInfo.name));
                 } else {
                     if (entries.get(nextLabel) == null) {
                         addItem(mapActivity, nextLabel, browseIntent(prefix.equals("") ?
-                                nextLabel : prefix + "/" + nextLabel));
+                            nextLabel : prefix + "/" + nextLabel));
                         entries.put(nextLabel, true);
                     }
                 }

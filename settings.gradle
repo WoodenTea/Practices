@@ -1,1 +1,1 @@
-include ':app', ':zxing', ':swagpoint'
+include ':app', ':zxing', ':swagpoint', ':refreshlayout'

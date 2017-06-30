@@ -52,7 +52,7 @@ public class MigrationHelper {
                         " AS SELECT * FROM " + tableName + ";";
                 db.execSQL(insertString);
             } catch (SQLException e) {
-                Log.e(TAG, "【Failed to generate temp table】" + tempTableName, e);
+                Log.e(TAG, "[Failed to generate temp table]" + tempTableName, e);
             }
         }
     }
@@ -133,7 +133,7 @@ public class MigrationHelper {
                 }
                 db.execSQL("DROP TABLE " + tempTableName);
             } catch (SQLException e) {
-                Log.e(TAG, "【Failed to restore data from temp table (probably new table)】" +
+                Log.e(TAG, "[Failed to restore data from temp table (probably new table)]" +
                         tempTableName, e);
             }
         }

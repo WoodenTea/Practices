@@ -1,16 +1,40 @@
 package com.ymsfd.practices.ui.activity;
 
 import android.os.Bundle;
+import android.support.annotation.CheckResult;
 
-import com.ymsfd.practices.rxlife.ActivityEvent;
+import com.trello.rxlifecycle2.LifecycleProvider;
+import com.trello.rxlifecycle2.LifecycleTransformer;
+import com.trello.rxlifecycle2.RxLifecycle;
+import com.trello.rxlifecycle2.android.ActivityEvent;
+import com.trello.rxlifecycle2.android.RxLifecycleAndroid;
+
+import javax.annotation.Nonnull;
 
 import io.reactivex.Observable;
-import io.reactivex.ObservableTransformer;
-import io.reactivex.functions.Predicate;
+import io.reactivex.annotations.NonNull;
 import io.reactivex.subjects.BehaviorSubject;
 
-public class RxBaseActivity extends BaseActivity {
-    protected final BehaviorSubject<Integer> lifecycleSubject = BehaviorSubject.create();
+public class RxBaseActivity extends BaseActivity implements LifecycleProvider<ActivityEvent> {
+    protected final BehaviorSubject<ActivityEvent> lifecycleSubject = BehaviorSubject.create();
+
+    @Nonnull
+    @Override
+    public Observable<ActivityEvent> lifecycle() {
+        return lifecycleSubject.hide();
+    }
+
+    @NonNull
+    @CheckResult
+    public final <T> LifecycleTransformer<T> bindUntilEvent(@NonNull ActivityEvent event) {
+        return RxLifecycle.bindUntilEvent(lifecycleSubject, event);
+    }
+
+    @Nonnull
+    @Override
+    public <T> LifecycleTransformer<T> bindToLifecycle() {
+        return RxLifecycleAndroid.bindActivity(lifecycleSubject);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,21 +70,5 @@ public class RxBaseActivity extends BaseActivity {
     protected void onDestroy() {
         super.onDestroy();
         lifecycleSubject.onNext(ActivityEvent.DESTROY);
-    }
-
-    public <T> ObservableTransformer<T, T> bindUntilEvent(final Integer bindEvent) {
-        final Observable<Integer> observable = lifecycleSubject.filter(new Predicate<Integer>() {
-            @Override
-            public boolean test(Integer event) {
-                return event.equals(bindEvent);
-            }
-        });
-
-        return new ObservableTransformer<T, T>() {
-            @Override
-            public Observable<T> apply(Observable<T> sourceOb) {
-                return sourceOb.takeUntil(observable);
-            }
-        };
     }
 }

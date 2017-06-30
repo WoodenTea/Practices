@@ -26,10 +26,9 @@ public class BindingViewHolderFactory {
         try {
             ViewDataBinding binding = DataBindingUtil.inflate(LayoutInflater.from(context),
                     viewModel.itemViewType(), parent, false);
-            Class<? extends BindingViewHolder> easyViewHolderClass = map.get(viewModel
-                    .getClass());
+            Class<? extends BindingViewHolder> viewHolder = map.get(viewModel.getClass());
             Constructor<? extends BindingViewHolder> constructor =
-                    easyViewHolderClass.getDeclaredConstructor(ViewDataBinding.class);
+                    viewHolder.getDeclaredConstructor(ViewDataBinding.class);
             return constructor.newInstance(binding);
         } catch (Throwable e) {
             e.printStackTrace();
@@ -37,8 +36,8 @@ public class BindingViewHolderFactory {
         }
     }
 
-    void bind(Class<? extends BaseViewModel> viewModel, Class<? extends BindingViewHolder>
-            viewHolder) {
+    void bind(Class<? extends BaseViewModel> viewModel,
+              Class<? extends BindingViewHolder> viewHolder) {
         map.put(viewModel, viewHolder);
     }
 }

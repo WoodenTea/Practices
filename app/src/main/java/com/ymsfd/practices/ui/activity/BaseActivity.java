@@ -37,7 +37,7 @@ public class BaseActivity extends AppCompatActivity {
         return true;
     }
 
-    protected ActionBar enableToolbarHomeButton(boolean enable) {
+    protected ActionBar enableToolbarUp(boolean enable) {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         Preconditions.checkNotNull(toolbar);
         setSupportActionBar(toolbar);

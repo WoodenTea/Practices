@@ -10,13 +10,13 @@ ext {
     // Sdk and tools
     minSdkVersion = 19
     targetSdkVersion = 25
-    compileSdkVersion = 25
+    compileSdkVersion = 24
     buildToolsVersion = '25.0.2'
 
     // App dependencies
-    supportVersion = '25.1.0'
+    supportVersion = '25.3.1'
     okHttp = '3.4.2'
-    retrofit = '2.1.0'
+    retrofit = '2.2.0'
 
     // App version
     versionMajor = 1

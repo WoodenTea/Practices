@@ -38,7 +38,7 @@ public class BindingRecyclerAdapter extends RecyclerView.Adapter<BindingViewHold
     @Override
     public void onBindViewHolder(BindingViewHolder holder, int position) {
         ViewDataBinding viewDataBinding = holder.getViewDataBinding();
-        holder.setEntity(dataList.get(position));
+        holder.setViewModel(dataList.get(position));
         viewDataBinding.executePendingBindings();
     }
 

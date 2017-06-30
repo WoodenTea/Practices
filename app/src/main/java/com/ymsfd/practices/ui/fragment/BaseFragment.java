@@ -68,6 +68,7 @@ public class BaseFragment extends Fragment {
     @Override
     public void onDestroyView() {
         D("onDestroyView");
+        D("isAdded: " + isAdded());
         super.onDestroyView();
     }
 

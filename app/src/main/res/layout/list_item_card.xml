@@ -5,6 +5,10 @@
     <data>
 
         <variable
+            name="presenter"
+            type="com.ymsfd.practices.ui.adapter.ItemClickPresenter" />
+
+        <variable
             name="stringViewModel"
             type="com.ymsfd.practices.domain.StringViewModel" />
     </data>
@@ -20,14 +24,15 @@
             android:layout_height="wrap_content"
             android:clickable="true"
             android:foreground="?android:attr/selectableItemBackground"
+            android:onClick="@{()->presenter.onItemClick()}"
             app:cardCornerRadius="3dp"
             app:cardElevation="8dp"
             app:cardUseCompatPadding="true">
 
             <LinearLayout
-                android:orientation="vertical"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
 
                 <LinearLayout
                     android:id="@+id/news_header"

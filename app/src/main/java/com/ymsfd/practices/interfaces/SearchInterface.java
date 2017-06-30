@@ -2,9 +2,11 @@ package com.ymsfd.practices.interfaces;
 
 import com.ymsfd.practices.domain.SearchResult;
 
+import java.util.Map;
+
 import io.reactivex.Observable;
 import retrofit2.http.GET;
-import retrofit2.http.Query;
+import retrofit2.http.QueryMap;
 
 /**
  * Created by WoodenTea.
@@ -13,6 +15,5 @@ import retrofit2.http.Query;
  */
 public interface SearchInterface {
     @GET("sug")
-    Observable<SearchResult> searchProduct(@Query("code") String code,
-                                           @Query("q") String keyword);
+    Observable<SearchResult> searchProduct(@QueryMap Map<String, Object> map);
 }

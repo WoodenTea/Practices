@@ -6,4 +6,6 @@
     <dimen name="small_text_size">14dp</dimen>
     <dimen name="smaller_text_size">12dp</dimen>
     <dimen name="corner_radius">4dp</dimen>
+
+    <dimen name="layout_height_10dp">10dp</dimen>
 </resources>

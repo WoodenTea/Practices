@@ -39,6 +39,9 @@ public class TouchEventLayout extends LinearLayout {
     @Override
     public boolean onTouchEvent(MotionEvent event) {
         D("onTouch");
+        if (event.getAction() == MotionEvent.ACTION_DOWN) {
+            return true;
+        }
         return super.onTouchEvent(event);
     }
 

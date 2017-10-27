@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest package="com.ymsfd.practices"
-    xmlns:android="http://schemas.android.com/apk/res/android">
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.ymsfd.practices">
 
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.INTERNET" />
@@ -308,15 +308,42 @@
                 <category android:name="com.ymsfd.android.practices.SAMPLE" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".KotlinActivity"
+	<activity>
+	    android:name=".KotlinActivity"
             android:label="Kotlin">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="com.ymsfd.android.practices.SAMPLE" />
             </intent-filter>
+	</activity>
+        <activity
+            android:name=".ui.activity.TouchActivity"
+            android:label="Touch">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="com.ymsfd.android.practices.SAMPLE" />
+            </intent-filter>
         </activity>
+        <activity
+            android:name=".spring.SpringActivity"
+            android:label="Spring">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="com.ymsfd.android.practices.SAMPLE" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".spring.PositionActivity"
+            android:label="Position" />
+        <activity
+            android:name=".spring.RotationActivity"
+            android:label="Rotation" />
+        <activity
+            android:name=".spring.ScaleActivity"
+            android:label="Scale" />
     </application>
 
 </manifest>

@@ -3,9 +3,7 @@ package com.ymsfd.practices.ui.adapter;
 import android.databinding.ViewDataBinding;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
-
 import com.ymsfd.practices.domain.BaseViewModel;
-import com.ymsfd.practices.domain.Entity;
 
 public abstract class BindingViewHolder<T extends BaseViewModel> extends RecyclerView.ViewHolder {
     protected ViewDataBinding viewDataBinding;
@@ -24,7 +22,7 @@ public abstract class BindingViewHolder<T extends BaseViewModel> extends Recycle
 
     }
 
-    public abstract <E extends T> void setEntity(E entity);
+    public abstract <E extends T> void setViewModel(E entity);
 
     public ViewDataBinding getViewDataBinding() {
         return viewDataBinding;

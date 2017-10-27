@@ -3,7 +3,6 @@ package com.ymsfd.practices.ui.activity.util;
 import android.support.annotation.ColorInt;
 import android.support.v7.widget.RecyclerView;
 
-import com.paginate.recycler.LoadingListItemCreator;
 import com.ymsfd.practices.domain.BaseViewModel;
 import com.ymsfd.practices.ui.adapter.BindingViewHolder;
 
@@ -17,6 +16,7 @@ import java.util.Map;
  * Time: 22:45
  */
 public class RecyclerViewConfig {
+
     private RecyclerView.LayoutManager layoutManager;
     private RecyclerView.ItemDecoration decor;
     private RecyclerView.ItemAnimator animator;
@@ -26,17 +26,10 @@ public class RecyclerViewConfig {
 
     private int requestSize = 10;
 
-    private boolean enableLoadMore;
-    private int loadingTriggerThreshold = 4;
-    private LoadingListItemCreator loadingListItemCreator;
-    private boolean addLoadingListItem;
-    private int spanSizeLookup;
-
     private List<BaseViewModel> defaultEntities;
 
     private Map<Class<? extends BaseViewModel>, Class<? extends BindingViewHolder>>
-            bindViewHolders =
-            new HashMap<>();
+            bindViewHolders = new HashMap<>();
 
     public RecyclerView.LayoutManager getLayoutManager() {
         return layoutManager;
@@ -58,26 +51,6 @@ public class RecyclerViewConfig {
         return enableRefresh;
     }
 
-    public boolean hasAddLoadingListItem() {
-        return addLoadingListItem;
-    }
-
-    public boolean canLoadMore() {
-        return enableLoadMore;
-    }
-
-    public int getSpanSizeLookup() {
-        return spanSizeLookup;
-    }
-
-    public LoadingListItemCreator getLoadingListItemCreator() {
-        return loadingListItemCreator;
-    }
-
-    public int getLoadingTriggerThreshold() {
-        return loadingTriggerThreshold;
-    }
-
     public int getRequestSize() {
         return requestSize;
     }
@@ -92,6 +65,7 @@ public class RecyclerViewConfig {
     }
 
     public static class Builder {
+
         private RecyclerView.LayoutManager layoutManager;
         private RecyclerView.ItemDecoration decor;
         private RecyclerView.ItemAnimator animator;
@@ -99,18 +73,10 @@ public class RecyclerViewConfig {
         private int[] colorSchemeColors;
         private boolean enableRefresh = true; // default true
 
-        private int requestSize = 10;
-        private boolean enableLoadMore = false;
-        private int loadingTriggerThreshold = 5;
-        private LoadingListItemCreator loadingListItemCreator;
-        private boolean addLoadingListItem;
-        private int spanSizeLookup = 1;
-
         private List<BaseViewModel> defaultEntities;
 
         private Map<Class<? extends BaseViewModel>, Class<? extends BindingViewHolder>>
-                bindViewHolders
-                = new HashMap<>();
+                bindViewHolders = new HashMap<>();
 
         public RecyclerViewConfig build() {
             RecyclerViewConfig config = new RecyclerViewConfig();
@@ -121,16 +87,9 @@ public class RecyclerViewConfig {
             config.colorSchemeColors = colorSchemeColors;
             config.enableRefresh = enableRefresh;
 
-            config.requestSize = requestSize;
-            config.addLoadingListItem = addLoadingListItem;
-            config.loadingTriggerThreshold = loadingTriggerThreshold;
-            config.loadingListItemCreator = loadingListItemCreator;
-            config.spanSizeLookup = spanSizeLookup;
-
             config.bindViewHolders = bindViewHolders;
 
             config.defaultEntities = defaultEntities;
-            config.enableLoadMore = enableLoadMore;
 
             return config;
         }
@@ -138,11 +97,6 @@ public class RecyclerViewConfig {
         public Builder defaultEntities(List<BaseViewModel> list) {
             defaultEntities = list;
 
-            return this;
-        }
-
-        public Builder enableLoadMore(boolean enable) {
-            enableLoadMore = enable;
             return this;
         }
 
@@ -171,33 +125,8 @@ public class RecyclerViewConfig {
             return this;
         }
 
-        public Builder requestSize(int pageSize) {
-            this.requestSize = pageSize;
-            return this;
-        }
-
-        public Builder loadingTriggerThreshold(int loadingTriggerThreshold) {
-            this.loadingTriggerThreshold = loadingTriggerThreshold;
-            return this;
-        }
-
-        public Builder loadingListItemCreator(LoadingListItemCreator loadingListItemCreator) {
-            this.loadingListItemCreator = loadingListItemCreator;
-            return this;
-        }
-
-        public Builder addLoadingListItem(boolean addLoadingListItem) {
-            this.addLoadingListItem = addLoadingListItem;
-            return this;
-        }
-
-        public Builder spanSizeLookup(int spanSizeLookup) {
-            this.spanSizeLookup = spanSizeLookup;
-            return this;
-        }
-
-        public Builder bind(Class<? extends BaseViewModel> key, Class<? extends
-                BindingViewHolder> value) {
+        public Builder bind(Class<? extends BaseViewModel> key,
+                            Class<? extends BindingViewHolder> value) {
             bindViewHolders.put(key, value);
             return this;
         }

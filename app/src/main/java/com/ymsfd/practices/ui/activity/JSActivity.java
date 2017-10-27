@@ -24,7 +24,7 @@ public class JSActivity extends BaseActivity {
         }
 
         setContentView(R.layout.javascript_activity);
-        enableToolbarHomeButton(true);
+        enableToolbarUp(true);
 
         final WebView webview = (WebView) findViewById(R.id.webview);
         webview.getSettings().setJavaScriptEnabled(true);

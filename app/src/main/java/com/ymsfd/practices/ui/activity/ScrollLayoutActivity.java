@@ -17,7 +17,7 @@ public class ScrollLayoutActivity extends BaseActivity {
         }
 
         setContentView(R.layout.scroll_layout_activity);
-        enableToolbarHomeButton(true);
+        enableToolbarUp(true);
         return true;
     }
 }

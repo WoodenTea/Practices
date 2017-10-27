@@ -21,7 +21,7 @@ public class LuckViewActivity extends BaseActivity {
         }
 
         setContentView(R.layout.luck_view_activity);
-        enableToolbarHomeButton(true);
+        enableToolbarUp(true);
         final LuckView luckView = (LuckView) findViewById(R.id.luck_view);
         View view = findViewById(R.id.submit);
         view.setOnClickListener(new View.OnClickListener() {

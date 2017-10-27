@@ -19,7 +19,7 @@ public class DialogActivity extends BaseActivity implements View.OnClickListener
         }
 
         setContentView(R.layout.dialog_activity);
-        enableToolbarHomeButton(true);
+        enableToolbarUp(true);
         View view = findViewById(R.id.submit);
         view.setOnClickListener(this);
         return true;

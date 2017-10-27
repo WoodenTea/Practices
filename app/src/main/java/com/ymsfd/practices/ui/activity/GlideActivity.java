@@ -40,7 +40,7 @@ public class GlideActivity extends BaseActivity {
         }
 
         setContentView(R.layout.glide_activity);
-        enableToolbarHomeButton(true);
+        enableToolbarUp(true);
         imageView = (ImageView) findViewById(R.id.imageView);
         createObservable("http://testecshop2.magicwe.com/" +
                 "images/201509/source_img/793_G_1441785900196.jpg")

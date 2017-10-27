@@ -21,7 +21,7 @@ public class SceneActivity2 extends BaseActivity {
         }
 
         setContentView(R.layout.scene2_activity);
-        enableToolbarHomeButton(true);
+        enableToolbarUp(true);
         View view = findViewById(R.id.cartoon);
         view.setOnClickListener(new View.OnClickListener() {
             @Override

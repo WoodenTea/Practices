@@ -18,7 +18,7 @@ public class FlowLayoutActivity extends BaseActivity {
         }
 
         setContentView(R.layout.flow_layout_activity);
-        enableToolbarHomeButton(true);
+        enableToolbarUp(true);
         return true;
     }
 }

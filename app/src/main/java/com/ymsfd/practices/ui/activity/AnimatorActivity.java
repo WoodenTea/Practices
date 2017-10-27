@@ -33,7 +33,7 @@ public class AnimatorActivity extends BaseActivity implements View.OnClickListen
         }
 
         setContentView(R.layout.animator_activity);
-        enableToolbarHomeButton(true);
+        enableToolbarUp(true);
 
         metricsPoint = Utils.displaySize(this);
         final Button bezier = (Button) findViewById(R.id.bezier);

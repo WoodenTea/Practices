@@ -308,6 +308,15 @@
                 <category android:name="com.ymsfd.android.practices.SAMPLE" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".KotlinActivity"
+            android:label="Kotlin">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="com.ymsfd.android.practices.SAMPLE" />
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>

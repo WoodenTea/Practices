@@ -1,6 +1,8 @@
 apply plugin: 'com.android.application'
 apply plugin: 'findbugs'
 apply plugin: 'org.greenrobot.greendao'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
 
 task findbugs(type: FindBugs) {
     ignoreFailures = true
@@ -104,6 +106,10 @@ android {
         enabled = true
     }
 
+    sourceSets {
+        main.java.srcDirs += 'src/main/kotlin'
+    }
+
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_7
         targetCompatibility JavaVersion.VERSION_1_7
@@ -143,6 +149,7 @@ dependencies {
     compile 'io.reactivex.rxjava2:rxandroid:2.0.1'
 
     compile 'org.greenrobot:greendao:3.2.0'
+    compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
 }
 
 greendao {

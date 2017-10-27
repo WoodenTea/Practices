@@ -2,6 +2,7 @@ package com.ymsfd.practices.ui.activity;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
@@ -24,6 +25,7 @@ import java.util.List;
  */
 public class FragmentViewPagerActivity extends BaseActivity {
     private ViewPager viewPager;
+    private TabLayout tabLayout;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -32,24 +34,14 @@ public class FragmentViewPagerActivity extends BaseActivity {
 
         enableToolbarHomeButton(true);
 
+        tabLayout = (TabLayout) findViewById(R.id.tab_layout);
         viewPager = (ViewPager) findViewById(R.id.parent);
         setupViewPager();
     }
 
-    private void setupViewPager() {
-        FragmentAdapter adapter = new FragmentAdapter(getSupportFragmentManager());
-        adapter.addFragment(new AFragment());
-//        adapter.addFragment(new BFragment());
-//        adapter.addFragment(new CFragment());
-        viewPager.setAdapter(adapter);
-
-        final int pageMargin = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 4,
-                getResources().getDisplayMetrics());
-        viewPager.setPageMargin(pageMargin);
-    }
-
     private class FragmentAdapter extends FragmentPagerAdapter {
         private List<Fragment> fragments = new ArrayList<>();
+        private List<String> titles = new ArrayList<>();
 
         private FragmentAdapter(FragmentManager fm) {
             super(fm);
@@ -61,12 +53,32 @@ public class FragmentViewPagerActivity extends BaseActivity {
         }
 
         @Override
+        public CharSequence getPageTitle(int position) {
+            return super.getPageTitle(position);
+        }
+
+        @Override
         public Fragment getItem(int position) {
             return fragments.get(position);
         }
 
-        void addFragment(Fragment fragment) {
+        void addFragment(Fragment fragment, String title) {
             fragments.add(fragment);
+            titles.add(title);
         }
+    }
+
+    private void setupViewPager() {
+        FragmentAdapter adapter = new FragmentAdapter(getSupportFragmentManager());
+        adapter.addFragment(new AFragment(), "A");
+        adapter.addFragment(new BFragment(), "B");
+        adapter.addFragment(new CFragment(), "C");
+        viewPager.setAdapter(adapter);
+
+        final int pageMargin = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 4,
+                getResources().getDisplayMetrics());
+        viewPager.setPageMargin(pageMargin);
+
+        tabLayout.setupWithViewPager(viewPager);
     }
 }

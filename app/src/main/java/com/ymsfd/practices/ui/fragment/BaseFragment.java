@@ -42,6 +42,18 @@ public class BaseFragment extends Fragment {
     }
 
     @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        D("onViewCreated");
+    }
+
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+        D("setUserVisibleHint " + isVisibleToUser);
+    }
+
+    @Override
     public void onStart() {
         D("onStart");
         super.onStart();
@@ -73,6 +85,6 @@ public class BaseFragment extends Fragment {
     }
 
     void D(String message) {
-        WTLogger.d("BaseFragment", message);
+        WTLogger.d(getClass().getSimpleName(), message);
     }
 }

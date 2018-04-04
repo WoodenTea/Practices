@@ -115,7 +115,10 @@ public class GlideActivity extends BaseActivity {
         GlideDrawableImageViewTarget target = new GlideDrawableImageViewTarget(imageView2);
         Glide.with(this).load("http://pic.joke01.com/uppic/13-05/30/30215236.gif").placeholder(R
                 .drawable.cartoon).error(R.drawable.border_circle).into(target);
-
+        ImageView imageView3 = (ImageView) findViewById(R.id.image_view3);
+        Glide.with(this).load("http://211.149.201.16/ecmall/data/files/mall/ad/5.png")
+                .asBitmap()
+                .into(imageView3);
         return true;
     }
 

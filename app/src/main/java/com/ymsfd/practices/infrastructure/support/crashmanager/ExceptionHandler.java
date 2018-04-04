@@ -29,7 +29,6 @@ public class ExceptionHandler implements Thread.UncaughtExceptionHandler {
         exception.printStackTrace(printWriter);
 
         try {
-
             String logDir = FileManager.getLogDir();
             if (TextUtils.isEmpty(logDir)) {
                 return;

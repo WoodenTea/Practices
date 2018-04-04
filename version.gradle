@@ -1,6 +1,6 @@
 import java.text.SimpleDateFormat
 
-def releaseTime() {
+static def releaseTime() {
     def df = new SimpleDateFormat('yyyyMMddHHmm')
     df.setTimeZone(TimeZone.getTimeZone("GMT+8"))
     return df.format(new Date())
@@ -11,10 +11,10 @@ ext {
     minSdkVersion = 19
     targetSdkVersion = 25
     compileSdkVersion = 26
-    buildToolsVersion = '26.0.2'
+    buildToolsVersion = '27.0.3'
 
     // App dependencies
-    supportVersion = '27.0.0'
+    supportVersion = '27.1.0'
     okHttp = '3.4.2'
     retrofit = '2.2.0'
 

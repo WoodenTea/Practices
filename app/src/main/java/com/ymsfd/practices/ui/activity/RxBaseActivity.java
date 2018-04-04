@@ -9,7 +9,6 @@ import com.trello.rxlifecycle2.RxLifecycle;
 import com.trello.rxlifecycle2.android.ActivityEvent;
 import com.trello.rxlifecycle2.android.RxLifecycleAndroid;
 
-import javax.annotation.Nonnull;
 
 import io.reactivex.Observable;
 import io.reactivex.annotations.NonNull;
@@ -18,7 +17,7 @@ import io.reactivex.subjects.BehaviorSubject;
 public class RxBaseActivity extends BaseActivity implements LifecycleProvider<ActivityEvent> {
     protected final BehaviorSubject<ActivityEvent> lifecycleSubject = BehaviorSubject.create();
 
-    @Nonnull
+    @NonNull
     @Override
     public Observable<ActivityEvent> lifecycle() {
         return lifecycleSubject.hide();
@@ -30,7 +29,7 @@ public class RxBaseActivity extends BaseActivity implements LifecycleProvider<Ac
         return RxLifecycle.bindUntilEvent(lifecycleSubject, event);
     }
 
-    @Nonnull
+    @NonNull
     @Override
     public <T> LifecycleTransformer<T> bindToLifecycle() {
         return RxLifecycleAndroid.bindActivity(lifecycleSubject);

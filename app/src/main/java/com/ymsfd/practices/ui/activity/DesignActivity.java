@@ -26,7 +26,7 @@ public class DesignActivity extends BaseActivity {
 
         setContentView(R.layout.design_activity);
         enableToolbarUp(true);
-        final TextInputLayout textInputLayout = (TextInputLayout) findViewById(R.id.til_pwd);
+        final TextInputLayout textInputLayout = findViewById(R.id.til_pwd);
         EditText editText = textInputLayout.getEditText();
         textInputLayout.setHint("Password");
         editText.addTextChangedListener(new TextWatcher() {

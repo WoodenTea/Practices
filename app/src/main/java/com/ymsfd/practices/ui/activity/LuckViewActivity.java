@@ -22,7 +22,7 @@ public class LuckViewActivity extends BaseActivity {
 
         setContentView(R.layout.luck_view_activity);
         enableToolbarUp(true);
-        final LuckView luckView = (LuckView) findViewById(R.id.luck_view);
+        final LuckView luckView = findViewById(R.id.luck_view);
         View view = findViewById(R.id.submit);
         view.setOnClickListener(new View.OnClickListener() {
             @Override

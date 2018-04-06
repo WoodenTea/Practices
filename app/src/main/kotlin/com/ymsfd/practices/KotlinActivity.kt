@@ -13,15 +13,15 @@ class KotlinActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_kotlin)
-        enableToolbarHomeButton(true)
-        val textView: TextView = findViewById(R.id.name) as TextView
+        enableToolbarUp(true)
+        val textView: TextView = findViewById(R.id.name)
         textView.text = getString(R.string.app_name)
 
         val expr: Expr = Expr.Const(0.01)
         eval(expr)
     }
 
-    fun eval(expr: Expr): Double = when (expr) {
+    private fun eval(expr: Expr): Double = when (expr) {
         is Expr.Const -> {
             expr.number
         }

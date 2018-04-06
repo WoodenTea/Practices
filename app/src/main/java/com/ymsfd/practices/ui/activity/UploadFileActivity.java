@@ -51,7 +51,7 @@ public class UploadFileActivity extends BaseActivity {
     }
 
     private void assignViews() {
-        webview = (WebView) findViewById(R.id.web_view);
+        webview =  findViewById(R.id.web_view);
         WebSettings settings = webview.getSettings();
         settings.setUseWideViewPort(true);
         settings.setLoadWithOverviewMode(true);

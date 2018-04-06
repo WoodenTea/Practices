@@ -48,7 +48,7 @@ public class FancyItemActivity extends BaseActivity implements RecyclerListAdapt
         enableToolbarUp(true);
         RecyclerListAdapter adapter = new RecyclerListAdapter(this);
 
-        final RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
+        final RecyclerView recyclerView = findViewById(R.id.recycler_view);
         recyclerView.setHasFixedSize(true);
         recyclerView.setAdapter(adapter);
         recyclerView.addItemDecoration(new DividerItemDecoration(this,

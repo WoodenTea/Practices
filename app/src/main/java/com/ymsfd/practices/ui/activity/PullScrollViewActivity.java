@@ -24,7 +24,7 @@ public class PullScrollViewActivity extends BaseActivity {
 
         setContentView(R.layout.pull_scroll_activity);
 
-        TableLayout tableLayout = (TableLayout) findViewById(R.id.tab_layout);
+        TableLayout tableLayout = findViewById(R.id.tab_layout);
         TableRow.LayoutParams layoutParams = new TableRow.LayoutParams(
                 TableRow.LayoutParams.MATCH_PARENT,
                 TableRow.LayoutParams.WRAP_CONTENT);

@@ -26,7 +26,7 @@ public class SpannableActivity extends BaseActivity {
 
         setContentView(R.layout.spannable_activity);
         enableToolbarUp(true);
-        TextView textView = (TextView) findViewById(R.id.text_view);
+        TextView textView = findViewById(R.id.text_view);
         String level = "等级: M1  ";
         String jewel = "emoji 55";
 

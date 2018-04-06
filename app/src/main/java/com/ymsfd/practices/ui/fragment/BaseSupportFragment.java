@@ -17,9 +17,9 @@ import com.ymsfd.practices.R;
  * Time: 22:18
  */
 public class BaseSupportFragment extends Fragment {
-    private View rootView;
     protected TextView tv_name;
     protected String TAG = getClass().getSimpleName();
+    private View rootView;
 
     @Nullable
     @Override
@@ -27,7 +27,7 @@ public class BaseSupportFragment extends Fragment {
             savedInstanceState) {
         if (rootView == null) {
             rootView = inflater.inflate(R.layout.fragment_base, container, false);
-            tv_name = (TextView) rootView.findViewById(R.id.tv_name);
+            tv_name = rootView.findViewById(R.id.tv_name);
             tv_name.setText(getClass().getSimpleName());
             D("Create View 1");
         } else {
@@ -44,15 +44,15 @@ public class BaseSupportFragment extends Fragment {
     }
 
     @Override
-    public void onPause() {
-        super.onPause();
-        D("Pause");
-    }
-
-    @Override
     public void onResume() {
         super.onResume();
         D("Resume " + ((ViewGroup) rootView.getParent()).getId());
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        D("Pause");
     }
 
     @Override

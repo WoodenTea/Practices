@@ -71,7 +71,6 @@ public class RunPermissionActivity extends BasePermissionActivity implements Vie
                                 })
                                 .create()
                                 .show();
-                        ;
                         return;
                     }
                     D("Forbid");

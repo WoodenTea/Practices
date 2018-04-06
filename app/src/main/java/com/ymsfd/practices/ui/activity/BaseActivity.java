@@ -14,7 +14,7 @@ import com.ymsfd.practices.infrastructure.util.WTLogger;
 import java.io.PrintWriter;
 import java.io.StringWriter;
 
-public class BaseActivity extends AppCompatActivity {
+public abstract class BaseActivity extends AppCompatActivity {
     private final String TAG = getClass().getSimpleName();
 
     @Override

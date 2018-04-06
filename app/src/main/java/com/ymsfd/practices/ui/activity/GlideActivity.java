@@ -41,7 +41,7 @@ public class GlideActivity extends BaseActivity {
 
         setContentView(R.layout.glide_activity);
         enableToolbarUp(true);
-        imageView = (ImageView) findViewById(R.id.imageView);
+        imageView = findViewById(R.id.imageView);
         createObservable("http://testecshop2.magicwe.com/" +
                 "images/201509/source_img/793_G_1441785900196.jpg")
                 .subscribeOn(Schedulers.newThread())
@@ -111,11 +111,11 @@ public class GlideActivity extends BaseActivity {
                     }
                 });
 
-        ImageView imageView2 = (ImageView) findViewById(R.id.imageView2);
+        ImageView imageView2 = findViewById(R.id.imageView2);
         GlideDrawableImageViewTarget target = new GlideDrawableImageViewTarget(imageView2);
         Glide.with(this).load("http://pic.joke01.com/uppic/13-05/30/30215236.gif").placeholder(R
                 .drawable.cartoon).error(R.drawable.border_circle).into(target);
-        ImageView imageView3 = (ImageView) findViewById(R.id.image_view3);
+        ImageView imageView3 = findViewById(R.id.image_view3);
         Glide.with(this).load("http://211.149.201.16/ecmall/data/files/mall/ad/5.png")
                 .asBitmap()
                 .into(imageView3);

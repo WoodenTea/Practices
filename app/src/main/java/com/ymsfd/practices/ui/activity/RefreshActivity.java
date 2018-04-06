@@ -22,12 +22,12 @@ public class RefreshActivity extends BaseActivity {
 
         setContentView(R.layout.refresh_activity);
         enableToolbarUp(true);
-        final RefreshLayout refreshLayout = (RefreshLayout) findViewById(R.id.refresh);
+        final RefreshLayout refreshLayout = findViewById(R.id.refresh);
         final View header = LayoutInflater.from(this)
                 .inflate(R.layout.refresh_header, refreshLayout, false);
         refreshLayout.setHeader(header);
 
-        final SwipeRefreshLayout swipe = (SwipeRefreshLayout) findViewById(R.id.swipe);
+        final SwipeRefreshLayout swipe = findViewById(R.id.swipe);
         swipe.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {

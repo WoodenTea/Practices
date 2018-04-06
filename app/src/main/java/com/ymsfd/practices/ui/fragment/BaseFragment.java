@@ -22,13 +22,19 @@ import com.ymsfd.practices.ui.activity.TestActivity;
 public class BaseFragment extends Fragment {
     protected TextView tv_name;
 
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+        D("setUserVisibleHint " + isVisibleToUser);
+    }
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable
             Bundle savedInstanceState) {
         D("onCreateView");
         View view = inflater.inflate(R.layout.fragment_base, container, false);
-        tv_name = (TextView) view.findViewById(R.id.tv_name);
+        tv_name = view.findViewById(R.id.tv_name);
         tv_name.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -45,12 +51,6 @@ public class BaseFragment extends Fragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         D("onViewCreated");
-    }
-
-    @Override
-    public void setUserVisibleHint(boolean isVisibleToUser) {
-        super.setUserVisibleHint(isVisibleToUser);
-        D("setUserVisibleHint " + isVisibleToUser);
     }
 
     @Override

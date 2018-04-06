@@ -36,7 +36,7 @@ public class AnimatorActivity extends BaseActivity implements View.OnClickListen
         enableToolbarUp(true);
 
         metricsPoint = Utils.displaySize(this);
-        final Button bezier = (Button) findViewById(R.id.bezier);
+        final Button bezier = findViewById(R.id.bezier);
         bezier.setOnClickListener(this);
 
         bezierValueAnimator = ValueAnimator.ofObject(new BezierEvaluator(), new PointF(0, 0),
@@ -54,7 +54,7 @@ public class AnimatorActivity extends BaseActivity implements View.OnClickListen
         bezierValueAnimator.setRepeatCount(1);
         bezierValueAnimator.setRepeatMode(ValueAnimator.REVERSE);
 
-        ImageView cartoonImage = (ImageView) findViewById(R.id.cartoon_image);
+        ImageView cartoonImage = findViewById(R.id.cartoon_image);
 
         View container = findViewById(R.id.container);
         ObjectAnimator animator = ObjectAnimator.ofInt(container, "backgroundColor", 0xFFFF0000,
@@ -107,7 +107,7 @@ public class AnimatorActivity extends BaseActivity implements View.OnClickListen
                 v.animate().translationX(100f).alpha(0).setListener(new AnimatorListenerAdapter() {
                     @Override
                     public void onAnimationEnd(Animator animator) {
-                        final Button button = (Button) findViewById(R.id.propertyAnimator);
+                        final Button button = findViewById(R.id.propertyAnimator);
                         button.animate().alpha(1).translationX(0f).start();
                     }
                 }).start();
@@ -122,29 +122,29 @@ public class AnimatorActivity extends BaseActivity implements View.OnClickListen
     }
 
     private void setupAnimator() {
-        Button button = (Button) findViewById(R.id.scaleX);
+        Button button = findViewById(R.id.scaleX);
         button.setOnClickListener(this);
         scaleXAnimator = (ObjectAnimator) AnimatorInflater.loadAnimator(this, R.animator.scalex);
         scaleXAnimator.setTarget(button);
 
-        button = (Button) findViewById(R.id.scale);
+        button = findViewById(R.id.scale);
         button.setOnClickListener(this);
         animatorScaleSet = (AnimatorSet) AnimatorInflater.loadAnimator(this, R.animator.scale);
         animatorScaleSet.setTarget(button);
 
-        button = (Button) findViewById(R.id.translateX);
+        button = findViewById(R.id.translateX);
         button.setOnClickListener(this);
         translateXAnimator = (ObjectAnimator) AnimatorInflater.loadAnimator(this,
                 R.animator.translatex);
         translateXAnimator.setTarget(button);
 
-        button = (Button) findViewById(R.id.alpha);
+        button = findViewById(R.id.alpha);
         button.setOnClickListener(this);
         alphaAnimator = (ObjectAnimator) AnimatorInflater.loadAnimator(this, R.animator.alpha);
         alphaAnimator.setTarget(button);
 
         Button buttonProValHolder;
-        buttonProValHolder = (Button) findViewById(R.id.propertyValHolder);
+        buttonProValHolder = findViewById(R.id.propertyValHolder);
         buttonProValHolder.setOnClickListener(this);
         PropertyValuesHolder pvhX = PropertyValuesHolder.ofFloat("translationX", 0f, 300f);
         PropertyValuesHolder pvhY = PropertyValuesHolder.ofFloat("translationY", 0f, 300f);
@@ -153,10 +153,10 @@ public class AnimatorActivity extends BaseActivity implements View.OnClickListen
         translateAnimator.setRepeatCount(1);
         translateAnimator.setDuration(2000);
 
-        button = (Button) findViewById(R.id.propertyAnimator);
+        button = findViewById(R.id.propertyAnimator);
         button.setOnClickListener(this);
 
-        button = (Button) findViewById(R.id.set);
+        button = findViewById(R.id.set);
         button.setOnClickListener(this);
         animationSet = new AnimatorSet();
         animationSet.playTogether(ObjectAnimator.ofFloat(button, "alpha", 1, 0, 1),
@@ -186,7 +186,7 @@ public class AnimatorActivity extends BaseActivity implements View.OnClickListen
             }
         });
 
-        final Button buttonValueAnimator = (Button) findViewById(R.id.animator);
+        final Button buttonValueAnimator = findViewById(R.id.animator);
         buttonValueAnimator.setOnClickListener(this);
 
         mValueAnimator = ValueAnimator.ofInt(1, 100);

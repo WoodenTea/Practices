@@ -17,18 +17,62 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
+
 import com.ymsfd.practices.R;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 public class MainActivity extends BaseActivity implements
-    AdapterView.OnItemClickListener {
+        AdapterView.OnItemClickListener {
 
     private ActionBarDrawerToggle drawerToggle;
     private NavigationView navigationView;
     private DrawerLayout drawerLayout;
+
+    @Override
+    protected boolean _onCreate(Bundle savedInstanceState) {
+        if (!super._onCreate(savedInstanceState)) {
+            return false;
+        }
+
+        setContentView(R.layout.main_activity);
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        enableToolbarUp(true);
+
+        navigationView = findViewById(R.id.navigation_view);
+        drawerLayout = findViewById(R.id.drawer_layout);
+        drawerLayout.setDrawerShadow(R.drawable.drawer_shadow, GravityCompat.START);
+        drawerToggle = new ActionBarDrawerToggle(this, drawerLayout,
+                toolbar, R.string.drawer_open, R.string.drawer_close) {
+            @Override
+            public void onDrawerOpened(View drawerView) {
+                invalidateOptionsMenu();
+            }
+
+            @Override
+            public void onDrawerClosed(View drawerView) {
+                invalidateOptionsMenu();
+            }
+        };
+        drawerLayout.addDrawerListener(drawerToggle);
+
+        Intent intent = getIntent();
+        String path = intent.getStringExtra("com.ymsfd.android.practices.Path");
+        if (path == null) {
+            path = "";
+        }
+
+        ListView listView = findViewById(R.id.activities);
+        listView.setAdapter(new SimpleAdapter(this, getActivities(path),
+                android.R.layout.simple_list_item_1,
+                new String[]{"title"}, new int[]{android.R.id.text1}));
+        listView.setOnItemClickListener(this);
+
+        return true;
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -52,48 +96,6 @@ public class MainActivity extends BaseActivity implements
 
         Intent intent = (Intent) map.get("intent");
         startActivity(intent);
-    }
-
-    @Override
-    protected boolean _onCreate(Bundle savedInstanceState) {
-        if (!super._onCreate(savedInstanceState)) {
-            return false;
-        }
-
-        setContentView(R.layout.main_activity);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        enableToolbarUp(true);
-
-        navigationView = (NavigationView) findViewById(R.id.navigation_view);
-        drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
-        drawerLayout.setDrawerShadow(R.drawable.drawer_shadow, GravityCompat.START);
-        drawerToggle = new ActionBarDrawerToggle(this, drawerLayout,
-            toolbar, R.string.drawer_open, R.string.drawer_close) {
-            @Override
-            public void onDrawerOpened(View drawerView) {
-                invalidateOptionsMenu();
-            }
-
-            @Override
-            public void onDrawerClosed(View drawerView) {
-                invalidateOptionsMenu();
-            }
-        };
-        drawerLayout.addDrawerListener(drawerToggle);
-
-        Intent intent = getIntent();
-        String path = intent.getStringExtra("com.ymsfd.android.practices.Path");
-        if (path == null) {
-            path = "";
-        }
-
-        ListView listView = (ListView) findViewById(R.id.activities);
-        listView.setAdapter(new SimpleAdapter(this, getActivities(path),
-            android.R.layout.simple_list_item_1,
-            new String[]{"title"}, new int[]{android.R.id.text1}));
-        listView.setOnItemClickListener(this);
-
-        return true;
     }
 
     @Override
@@ -176,12 +178,12 @@ public class MainActivity extends BaseActivity implements
 
                 if ((prefixPath != null ? prefixPath.length : 0) == labelPath.length - 1) {
                     addItem(mapActivity, nextLabel, activityIntent(
-                        info.activityInfo.applicationInfo.packageName,
-                        info.activityInfo.name));
+                            info.activityInfo.applicationInfo.packageName,
+                            info.activityInfo.name));
                 } else {
                     if (entries.get(nextLabel) == null) {
                         addItem(mapActivity, nextLabel, browseIntent(prefix.equals("") ?
-                            nextLabel : prefix + "/" + nextLabel));
+                                nextLabel : prefix + "/" + nextLabel));
                         entries.put(nextLabel, true);
                     }
                 }

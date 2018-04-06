@@ -26,17 +26,17 @@ public class JSActivity extends BaseActivity {
         setContentView(R.layout.javascript_activity);
         enableToolbarUp(true);
 
-        final WebView webview = (WebView) findViewById(R.id.webview);
+        final WebView webview = findViewById(R.id.webview);
         webview.getSettings().setJavaScriptEnabled(true);
         webview.loadUrl("file:///android_asset/index.html");
-        Button button = (Button) findViewById(R.id.submit);
+        Button button = findViewById(R.id.submit);
         button.setOnClickListener(new Button.OnClickListener() {
             public void onClick(View v) {
                 webview.loadUrl("javascript:updateHtml()");
             }
         });
 
-        button = (Button) findViewById(R.id.button1);
+        button = findViewById(R.id.button1);
         button.setOnClickListener(new Button.OnClickListener() {
             public void onClick(View v) {
                 webview.loadUrl("file:///android_asset/index.html");

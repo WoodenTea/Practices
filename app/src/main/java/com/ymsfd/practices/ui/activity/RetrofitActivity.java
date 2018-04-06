@@ -52,9 +52,9 @@ public class RetrofitActivity extends RxBaseActivity {
 
         setContentView(R.layout.retrofit_activity);
         enableToolbarUp(true);
-        txtResult = (TextView) findViewById(R.id.tv_result);
+        txtResult =  findViewById(R.id.tv_result);
 
-        EditText et_keyword = (EditText) findViewById(R.id.et_keyword);
+        EditText et_keyword =  findViewById(R.id.et_keyword);
         RxTextView.textChanges(et_keyword).debounce(600, TimeUnit.MICROSECONDS).observeOn
                 (AndroidSchedulers.mainThread()).filter(new Predicate<CharSequence>() {
             @Override

@@ -46,8 +46,8 @@ public class RecyclerViewActivity extends BaseActivity implements View.OnClickLi
         setContentView(R.layout.recycler_view_activity);
         enableToolbarUp(true);
 
-        swipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swipe_refresh_layout);
-        recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
+        swipeRefreshLayout = findViewById(R.id.swipe_refresh_layout);
+        recyclerView = findViewById(R.id.recycler_view);
 
         list = new ArrayList<>();
         for (int index = 0; index < 10; index++) {

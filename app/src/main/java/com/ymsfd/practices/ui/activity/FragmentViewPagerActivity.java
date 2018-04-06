@@ -32,11 +32,25 @@ public class FragmentViewPagerActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.fragment_activity);
 
-        enableToolbarHomeButton(true);
+        enableToolbarUp(true);
 
-        tabLayout = (TabLayout) findViewById(R.id.tab_layout);
-        viewPager = (ViewPager) findViewById(R.id.parent);
+        tabLayout = findViewById(R.id.tab_layout);
+        viewPager = findViewById(R.id.parent);
         setupViewPager();
+    }
+
+    private void setupViewPager() {
+        FragmentAdapter adapter = new FragmentAdapter(getSupportFragmentManager());
+        adapter.addFragment(new AFragment(), "A");
+        adapter.addFragment(new BFragment(), "B");
+        adapter.addFragment(new CFragment(), "C");
+        viewPager.setAdapter(adapter);
+
+        final int pageMargin = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 4,
+                getResources().getDisplayMetrics());
+        viewPager.setPageMargin(pageMargin);
+
+        tabLayout.setupWithViewPager(viewPager);
     }
 
     private class FragmentAdapter extends FragmentPagerAdapter {
@@ -66,19 +80,5 @@ public class FragmentViewPagerActivity extends BaseActivity {
             fragments.add(fragment);
             titles.add(title);
         }
-    }
-
-    private void setupViewPager() {
-        FragmentAdapter adapter = new FragmentAdapter(getSupportFragmentManager());
-        adapter.addFragment(new AFragment(), "A");
-        adapter.addFragment(new BFragment(), "B");
-        adapter.addFragment(new CFragment(), "C");
-        viewPager.setAdapter(adapter);
-
-        final int pageMargin = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 4,
-                getResources().getDisplayMetrics());
-        viewPager.setPageMargin(pageMargin);
-
-        tabLayout.setupWithViewPager(viewPager);
     }
 }

@@ -31,7 +31,7 @@ public class PorterDuffActivity extends BaseActivity {
         }
 
         setContentView(R.layout.porterduff_activity);
-        ImageView image = (ImageView) findViewById(R.id.image);
+        ImageView image = findViewById(R.id.image);
         Bitmap bitmapBorder;
         Bitmap bitmapMask;
         Paint paint;
@@ -57,7 +57,7 @@ public class PorterDuffActivity extends BaseActivity {
         canvas.restore();
         image.setImageBitmap(bitmap);
 
-        image = (ImageView) findViewById(R.id.image2);
+        image = findViewById(R.id.image2);
         int color = 0xFF45C01A;
         Rect rect = new Rect(b.getWidth() / 4, b.getHeight() / 4, b.getWidth() * 3 / 4, b
                 .getHeight() * 3 / 4);
@@ -77,7 +77,7 @@ public class PorterDuffActivity extends BaseActivity {
         canvas.restore();
         image.setImageBitmap(bitmap);
 
-        image = (ImageView) findViewById(R.id.image3);
+        image = findViewById(R.id.image3);
         bitmap = Bitmap.createBitmap(b.getWidth(), b.getHeight(), Bitmap.Config.ARGB_8888);
         canvas = new Canvas(bitmap);
         paint = new Paint(Paint.ANTI_ALIAS_FLAG);
@@ -95,7 +95,7 @@ public class PorterDuffActivity extends BaseActivity {
         canvas.restore();
         image.setImageBitmap(bitmap);
 
-        image = (ImageView) findViewById(R.id.image4);
+        image = findViewById(R.id.image4);
         int size = (int) DensityUtil.dp2px(200);
         bitmap = Bitmap.createBitmap(size, size, Bitmap.Config.ARGB_8888);
         canvas = new Canvas(bitmap);

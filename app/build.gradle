@@ -43,7 +43,7 @@ android {
         externalNativeBuild {
             cmake {
                 cppFlags ""
-                abiFilters 'armeabi', 'armeabi-v7a'
+                abiFilters 'armeabi', 'armeabi-v7a', 'x86'
             }
         }
     }

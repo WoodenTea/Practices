@@ -13,8 +13,8 @@ import com.ymsfd.practices.R;
 public class CustomViewActivity extends BaseActivity {
 
     @Override
-    protected boolean _onCreate(Bundle savedInstanceState) {
-        if (!super._onCreate(savedInstanceState)) {
+    protected boolean startup(Bundle savedInstanceState) {
+        if (!super.startup(savedInstanceState)) {
             return false;
         }
 

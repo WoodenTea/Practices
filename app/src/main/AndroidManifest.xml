@@ -308,7 +308,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".KotlinActivity"
+            android:name=".ui.activity.KotlinActivity"
             android:label="Kotlin">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -326,7 +326,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".spring.SpringActivity"
+            android:name="com.ymsfd.practices.ui.activity.spring.SpringActivity"
             android:label="Spring">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -335,13 +335,13 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".spring.PositionActivity"
+            android:name="com.ymsfd.practices.ui.activity.spring.PositionActivity"
             android:label="Position" />
         <activity
-            android:name=".spring.RotationActivity"
+            android:name="com.ymsfd.practices.ui.activity.spring.RotationActivity"
             android:label="Rotation" />
         <activity
-            android:name=".spring.ScaleActivity"
+            android:name="com.ymsfd.practices.ui.activity.spring.ScaleActivity"
             android:label="Scale" />
     </application>
 

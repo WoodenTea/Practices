@@ -1,4 +1,4 @@
-package com.ymsfd.practices.spring
+package com.ymsfd.practices.ui.activity.spring
 
 import android.os.Bundle
 import android.support.animation.SpringAnimation
@@ -23,8 +23,8 @@ class PositionActivity : BaseActivity() {
     lateinit var xAnimation: SpringAnimation
     lateinit var yAnimation: SpringAnimation
 
-    override fun _onCreate(savedInstanceState: Bundle?): Boolean {
-        if (!super._onCreate(savedInstanceState)) {
+    override fun startup(savedInstanceState: Bundle?): Boolean {
+        if (!super.startup(savedInstanceState)) {
             return false
         }
 

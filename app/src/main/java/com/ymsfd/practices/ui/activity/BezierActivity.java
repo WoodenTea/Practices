@@ -29,15 +29,15 @@ public class BezierActivity extends BaseActivity implements View.OnClickListener
     private ImageView imageView;
 
     @Override
-    protected boolean _onCreate(Bundle savedInstanceState) {
-        if (!super._onCreate(savedInstanceState)) {
+    protected boolean startup(Bundle savedInstanceState) {
+        if (!super.startup(savedInstanceState)) {
             return false;
         }
 
         setContentView(R.layout.ripple_view_activity);
         enableToolbarUp(true);
 
-        imageView = (ImageView) findViewById(R.id.image_view);
+        imageView = findViewById(R.id.image_view);
 
         View view = findViewById(R.id.button);
         view.setOnClickListener(this);

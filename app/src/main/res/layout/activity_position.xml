@@ -10,7 +10,7 @@
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".spring.PositionActivity">
+        tools:context=".ui.activity.spring.PositionActivity">
 
         <ImageView
             android:id="@+id/movingView"

@@ -15,8 +15,8 @@ public class LuckViewActivity extends BaseActivity {
     private boolean flag = false;
 
     @Override
-    protected boolean _onCreate(Bundle savedInstanceState) {
-        if (!super._onCreate(savedInstanceState)) {
+    protected boolean startup(Bundle savedInstanceState) {
+        if (!super.startup(savedInstanceState)) {
             return false;
         }
 

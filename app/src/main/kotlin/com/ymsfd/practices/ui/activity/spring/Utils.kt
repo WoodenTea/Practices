@@ -1,4 +1,4 @@
-package com.ymsfd.practices.spring
+package com.ymsfd.practices.ui.activity.spring
 
 import android.support.animation.DynamicAnimation
 import android.support.animation.SpringAnimation

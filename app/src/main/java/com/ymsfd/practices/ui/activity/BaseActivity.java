@@ -20,7 +20,7 @@ public abstract class BaseActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        _onCreate(savedInstanceState);
+        startup(savedInstanceState);
     }
 
     @Override
@@ -33,12 +33,12 @@ public abstract class BaseActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    protected boolean _onCreate(Bundle savedInstanceState) {
+    protected boolean startup(Bundle savedInstanceState) {
         return true;
     }
 
     protected ActionBar enableToolbarUp(boolean enable) {
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
         Preconditions.checkNotNull(toolbar);
         setSupportActionBar(toolbar);
         ActionBar actionBar = getSupportActionBar();

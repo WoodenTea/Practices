@@ -8,30 +8,13 @@
 
     <Button
         android:id="@+id/submit"
-        style="@style/WTSubmitButton" />
+        style="@style/WTSubmitButton"
+        android:text="@string/transparent" />
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="100dp">
+    <Button
+        android:id="@+id/btn_tips"
+        style="@style/WTSubmitButton"
+        android:text="@string/tips" />
 
-        <View
-            android:id="@+id/view"
-            android:layout_width="40dp"
-            android:layout_height="30dp"
-            android:layout_alignParentBottom="true"
-            android:layout_centerHorizontal="true"
-            android:background="@android:color/holo_green_dark" />
 
-        <View
-            android:layout_width="40dp"
-            android:layout_height="30dp"
-            android:layout_above="@+id/view"
-            android:background="@android:color/holo_orange_dark" />
-
-        <View
-            android:layout_width="40dp"
-            android:layout_height="30dp"
-            android:layout_above="@+id/view"
-            android:background="@android:color/holo_blue_dark" />
-    </RelativeLayout>
 </LinearLayout>

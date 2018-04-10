@@ -1,4 +1,4 @@
-package com.ymsfd.practices.spring
+package com.ymsfd.practices.ui.activity.spring
 
 import android.os.Bundle
 import android.support.animation.SpringAnimation
@@ -25,8 +25,8 @@ class ScaleActivity : BaseActivity() {
     lateinit var scaleYAnimation: SpringAnimation
     lateinit var scaleGestureDetector: ScaleGestureDetector
 
-    override fun _onCreate(savedInstanceState: Bundle?): Boolean {
-        if (!super._onCreate(savedInstanceState)) {
+    override fun startup(savedInstanceState: Bundle?): Boolean {
+        if (!super.startup(savedInstanceState)) {
             return false
         }
 

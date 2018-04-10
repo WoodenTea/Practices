@@ -1,8 +1,8 @@
-package com.ymsfd.practices
+package com.ymsfd.practices.ui.activity
 
 import android.os.Bundle
 import android.widget.TextView
-import com.ymsfd.practices.ui.activity.BaseActivity
+import com.ymsfd.practices.R
 
 /**
  * Created by WoodenTea.

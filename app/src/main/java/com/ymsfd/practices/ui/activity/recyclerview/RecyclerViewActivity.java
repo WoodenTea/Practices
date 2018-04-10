@@ -38,8 +38,8 @@ public class RecyclerViewActivity extends BaseActivity implements View.OnClickLi
     private List<BaseViewModel> list;
 
     @Override
-    protected boolean _onCreate(Bundle savedInstanceState) {
-        if (!super._onCreate(savedInstanceState)) {
+    protected boolean startup(Bundle savedInstanceState) {
+        if (!super.startup(savedInstanceState)) {
             return false;
         }
 

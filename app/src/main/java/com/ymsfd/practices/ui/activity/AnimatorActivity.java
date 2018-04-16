@@ -208,7 +208,13 @@ public class AnimatorActivity extends BaseActivity implements View.OnClickListen
 
     /**
      * 三阶贝塞尔曲线
-     * B(t) = P0(1-t)^3 + 3P1t(1-t)^2 + 3P2t^2(1-t) + P3t^3, t∈[0,1]
+     * B(t) = P0 * (1-t)^3 + 3 * P1 * t * (1-t)^2 + 3 * P2 * t^2 * (1-t) + P3 * t^3, t∈[0,1]
+     * t 曲线长度
+     * P0 起始点
+     * P1 控制点1
+     * P2 控制点2
+     * P3 终止点
+     * B(t) t 对应的点
      */
     class BezierEvaluator implements TypeEvaluator<PointF> {
 
@@ -227,11 +233,38 @@ public class AnimatorActivity extends BaseActivity implements View.OnClickListen
                     endValue.x * (float) Math.pow(fraction, 3.f);
 
             point.y = startValue.y * (float) Math.pow(oneMinusT, 3.f) +
-                    3 * fraction * point1.y * (float) Math.pow(oneMinusT, 2.f) +
+                    3 * point1.y * fraction * (float) Math.pow(oneMinusT, 2.f) +
                     3 * point2.y * (float) Math.pow(fraction, 2.f) * oneMinusT +
                     endValue.y * (float) Math.pow(fraction, 3.f);
 
             return point;
+        }
+    }
+
+    /**
+     * B(t) = (1 - t)^2 * P0 + 2t * (1 - t) * P1 + t^2 * P2, t ∈ [0,1]
+     * t  曲线长度比例
+     * p0 起始点
+     * p1 控制点
+     * p2 终止点
+     * B(t) t对应的点
+     */
+    class QuadraticBezierEvaluator implements TypeEvaluator<PointF> {
+        private PointF mResultPointF = new PointF();
+        private PointF mControlPointF;
+
+        public QuadraticBezierEvaluator(PointF pointF) {
+            this.mControlPointF = pointF;
+        }
+
+        @Override
+        public PointF evaluate(float fraction, PointF startValue, PointF endValue) {
+            float oneMinusT = 1 - fraction;
+            mResultPointF.x = oneMinusT * oneMinusT * startValue.x + 2 * fraction * oneMinusT *
+                    mControlPointF.x + fraction * fraction * endValue.x;
+            mResultPointF.y = oneMinusT * oneMinusT * startValue.y + 2 * fraction * oneMinusT *
+                    mControlPointF.y + fraction * fraction * endValue.y;
+            return mResultPointF;
         }
     }
 }

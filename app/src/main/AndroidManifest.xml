@@ -326,7 +326,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.ymsfd.practices.ui.activity.spring.SpringActivity"
+            android:name=".ui.activity.spring.SpringActivity"
             android:label="Spring">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -335,14 +335,23 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.ymsfd.practices.ui.activity.spring.PositionActivity"
+            android:name=".ui.activity.spring.PositionActivity"
             android:label="Position" />
         <activity
-            android:name="com.ymsfd.practices.ui.activity.spring.RotationActivity"
+            android:name=".ui.activity.spring.RotationActivity"
             android:label="Rotation" />
         <activity
-            android:name="com.ymsfd.practices.ui.activity.spring.ScaleActivity"
+            android:name=".ui.activity.spring.ScaleActivity"
             android:label="Scale" />
+        <activity
+            android:name=".ui.activity.WaitingActivity"
+            android:label="Waiting">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="com.ymsfd.android.practices.SAMPLE" />
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>

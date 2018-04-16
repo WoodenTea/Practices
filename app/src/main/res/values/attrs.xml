@@ -1,17 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <attr name="radius" format="dimension" />
+
     <declare-styleable name="CircleIndicatorView">
         <attr name="roundColor" format="color" />
         <attr name="floatColor" format="color" />
         <attr name="orientation">
-            <flag name="horizontal" value="0"/>
-            <flag name="vertical" value="1"/>
+            <flag name="horizontal" value="0" />
+            <flag name="vertical" value="1" />
         </attr>
         <attr name="strokeColor" format="color" />
         <attr name="strokeWidth" format="dimension" />
-        <attr name="radius" format="dimension" />
+        <attr name="radius" />
         <attr name="snap" format="boolean" />
         <attr name="centered" format="boolean" />
+    </declare-styleable>
+
+    <declare-styleable name="WaitingView">
+        <attr name="radius" />
+        <attr name="color" format="color" />
     </declare-styleable>
 
 </resources>

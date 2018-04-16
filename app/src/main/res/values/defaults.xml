@@ -9,4 +9,7 @@
     <dimen name="default_circle_indicator_radius">5dip</dimen>
     <bool name="default_circle_indicator_snap">false</bool>
 
+    <color name="default_waiting_color">#ccffaa00</color>
+    <dimen name="default_waiting_radius">10dp</dimen>
+
 </resources>

@@ -13,7 +13,6 @@ import android.view.animation.AccelerateDecelerateInterpolator
 import com.ymsfd.practices.R
 import com.ymsfd.practices.infrastructure.util.QuadraticBezierEvaluator
 import com.ymsfd.practices.ui.widget.util.ShapeHolder
-import kotlin.math.abs
 
 /**
  * Description:
@@ -137,9 +136,9 @@ class WaitingView : View, View.OnClickListener {
         setOnClickListener(this)
         paint.isAntiAlias = true
         this.paint.style = Paint.Style.STROKE
-        addCircle(center.x, 0f)
-        addCircle(5f, center.y - 10)
-        addCircle(195f, center.y - 10)
+        addCircle(center.x - radius / 2, 0f)
+        addCircle(0f, center.y - radius / 2)
+        addCircle(center.x * 2 - radius, center.y - radius / 2)
     }
 
     private fun addCircle(x: Float, y: Float): ShapeHolder {
